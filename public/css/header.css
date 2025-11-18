@@ -1,0 +1,176 @@
+/* ============================================
+   HEADER ESPECIAL (Propiedades)
+============================================ */
+
+.header-propiedades {
+    width: 100%;
+    background: var(--color-primary);
+    padding: 25px 0;
+}
+
+.contenedor-header-propiedades {
+    width: 90%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Logo */
+.logo-prop img {
+    width: 140px;
+}
+
+/* NAV DESKTOP */
+.nav-prop {
+    display: flex;
+    gap: 40px;
+}
+
+.nav-prop a {
+    color: var(--color-white);
+    font-family: 'ArialCustom';
+    text-decoration: none;
+    font-weight: 600;
+    letter-spacing: .5px;
+    transition: .3s ease;
+}
+
+.nav-prop a:hover {
+    opacity: .7;
+}
+
+/* ============================================
+   BOTÓN MENÚ (solo móvil)
+============================================ */
+
+.btn-menu-prop {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-menu-prop span {
+    width: 28px;
+    height: 3px;
+    background: white;
+    border-radius: 3px;
+}
+
+/* Botón cerrar (X) - visible solo en móvil */
+.btn-cerrar-menu {
+    display: none;
+    position: absolute;
+    top: 25px;
+    right: 25px;
+    font-size: 32px;
+    color: #fff;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    z-index: 10001;
+}
+
+/* ============================================
+   FILTRO ESPECIAL (DESKTOP)
+============================================ */
+
+.filtro-propiedades {
+    width: 90%;
+    margin: 25px auto 0;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+}
+
+.filtro-propiedades select {
+    width: 100%;
+    padding: 13px 15px;
+    border-radius: 8px;
+    border: none;
+    font-size: 15px;
+    font-family: 'ArialCustom';
+    background: var(--color-white);
+}
+
+/* BOTÓN BUSCAR */
+.btn-buscar-prop {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-accent);
+    padding: 12px 20px;
+    border-radius: 8px;
+    border: none;
+    font-size: 16px;
+    font-family: 'ArialCustom';
+    color: var(--color-primary-light);
+    cursor: pointer;
+    transition: background .2s ease, transform .2s ease;
+}
+
+.btn-buscar-prop:hover {
+    background: #f0f0f0;
+    transform: translateY(-1px);
+}
+
+/* ============================================
+   RESPONSIVE
+============================================ */
+
+@media (max-width: 900px) {
+
+    /* Mostrar botón menú */
+    .btn-menu-prop {
+        display: flex;
+    }
+
+    /* Ocultar nav de escritorio */
+    .nav-prop {
+        position: fixed;
+        top: 0;
+        left: -120%;
+        width: 95%;
+        height: 100vh;
+        background: rgba(0,0,0,0.95);
+        backdrop-filter: blur(6px);
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 30px;
+        padding-left: 30px;
+
+        transition: left .3s ease;
+        z-index: 9999;
+    }
+.nav-prop a{
+    font-size: 24px;
+}
+    /* NAV ABIERTO */
+    .nav-prop.activo {
+        left: 0;
+    }
+
+    /* Botón cerrar dentro del menú */
+    .btn-cerrar-menu {
+        display: block;
+    }
+
+    /* Bloquear scroll cuando el menú está abierto */
+    .no-scroll {
+        overflow: hidden;
+    }
+
+    /* Filtro en columna */
+    .filtro-propiedades {
+        grid-template-columns: 1fr;
+    }
+
+    .btn-buscar-prop {
+        width: 100%;
+    }
+}

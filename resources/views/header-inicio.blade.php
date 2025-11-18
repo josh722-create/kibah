@@ -3,17 +3,17 @@
 <header class="header-kibah">
     <div class="header-contenido">
 
-        <a href="#" class="logo-kibah">
+        <a href="/" class="logo-kibah">
             <img src="{{ asset('imagenes/logo.png') }}" alt="">
         </a>
 
         <nav class="nav-kibah" id="menuNavegacion">
             <button class="cerrar-menu" id="cerrarMenu">✕</button>
 
-            <a href="#">INICIO</a>
+            <a href="/">INICIO</a>
             <a href="#">NOSOTROS</a>
-            <a href="#">PROPIEDADES</a>
-            <a href="#">CONTACTANOS</a>
+            <a href="/propiedades">PROPIEDADES</a>
+            <a href="/#contacto">CONTACTANOS</a>
         </nav>
 
         <button class="menu-btn" id="btnMenu">

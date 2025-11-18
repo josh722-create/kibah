@@ -309,7 +309,7 @@
     </div>
 </section>
 {{-- formulario de contarcto --}}
-<section class="seccion-contacto">
+<section id="#contacto" class="seccion-contacto">
     <div class="contenedor-contacto">
 
         <!-- Columna izquierda: imagen -->

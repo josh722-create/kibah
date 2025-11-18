@@ -64,7 +64,7 @@ h6 {
     width: 100%;
     padding-top: 1px;
     height: 750px;
-    background: url('../imagenes/banner2.jpg') center/cover no-repeat;
+    background: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)), url('../imagenes/banner3.jpg') center/cover no-repeat;
     display: flex;
     align-items: center;
 }
