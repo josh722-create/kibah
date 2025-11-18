@@ -1,0 +1,808 @@
+@font-face {
+    font-family: 'Adam';
+    src: url('../fonts/ADAM.CG-PRO.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'ArialCustom';
+    src: url('../fonts/ARIAL.TTF') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+:root {
+    --color-primary: #0A2342;
+    /* Azul principal */
+    --color-primary-light: #1B2C59;
+    --color-primary-soft: #E8EEF5;
+    --color-accent: #F28C28;
+    /* Naranja principal */
+    --color-accent-dark: #D77A22;
+
+    /* Neutral palette */
+    --color-white: #FFFFFF;
+    --color-black: #111111;
+    --color-gray: #6E6E6E;
+    --color-gray-light: #F8F9FC;
+
+    /* Shadows */
+    --shadow-soft: 0px 4px 12px rgba(0, 0, 0, 0.06);
+    --shadow-medium: 0px 6px 20px rgba(0, 0, 0, 0.1);
+
+    /* Border radius */
+    --radius-sm: 6px;
+    --radius-md: 10px;
+    --radius-lg: 16px;
+}
+
+
+body {
+    font-family: 'ArialCustom', Arial, sans-serif;
+    background: var(--color-white);
+    line-height: 1.6;
+    margin: 0px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: 'Adam', sans-serif;
+    letter-spacing: 0.5px;
+}
+
+/* ==========================================
+   HERO BANNER
+========================================== */
+
+.banner {
+    position: relative;
+    width: 100%;
+    padding-top: 1px;
+    height: 750px;
+    background: url('../imagenes/banner2.jpg') center/cover no-repeat;
+    display: flex;
+    align-items: center;
+}
+
+/* Texto del hero */
+.banner-content {
+    width: 50%;
+    padding: 0px 30px;
+    color: var(--color-white);
+}
+
+.banner-content h1 {
+    font-size: 50px;
+    font-family: 'Adam';
+    margin-bottom: 20px;
+}
+
+.banner-content p {
+    font-size: 18px;
+    font-family: 'ArialCustom';
+    line-height: 1.6;
+}
+
+
+/* ==========================================
+   FORMULARIO (Filtro de propiedades)
+========================================== */
+
+.banner-filtro {
+    position: absolute;
+    right: 8%;
+    width: 380px;
+}
+
+.filtro-box {
+    background: var(--color-white);
+    border-radius: var(--radius-lg);
+    padding: 25px;
+    box-shadow: var(--shadow-medium);
+}
+
+/* Tabs */
+.filtro-tabs {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.tab {
+    background: transparent;
+    border: none;
+    font-family: 'ArialCustom';
+    font-size: 14px;
+    cursor: pointer;
+    padding: 5px 0;
+    color: var(--color-gray);
+}
+
+.tab.active {
+    color: var(--color-black);
+    font-weight: 600;
+}
+
+/* Cuerpo del formulario */
+.filtro-body label {
+    font-size: 14px;
+    font-weight: 600;
+    font-family: 'ArialCustom';
+    display: block;
+    margin-top: 10px;
+}
+
+.filtro-body select {
+    width: 100%;
+    padding: 12px;
+    border-radius: var(--radius-sm);
+    border: 1px solid #ddd;
+    margin-top: 5px;
+    font-family: 'ArialCustom';
+}
+
+/* Botón */
+.btn-search {
+    width: 100%;
+    margin-top: 20px;
+    padding: 14px;
+    background: var(--color-primary);
+    color: white;
+    border: none;
+    border-radius: var(--radius-md);
+    font-family: 'ArialCustom';
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.btn-search:hover {
+    background: var(--color-accent);
+}
+/* ==============================
+   SECCIÓN EXPERTOS
+============================== */
+
+.seccion-expertos {
+    background: var(--color-primary);
+    padding: 80px 8%;
+    color: var(--color-white);
+}
+
+.contenedor-expertos {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+}
+
+/* Columna izquierda (texto) */
+.texto-expertos {
+    flex: 1 1 55%;
+}
+
+.texto-expertos h2 {
+    font-family: 'Adam';
+    font-size: 38px;
+    line-height: 1.2;
+    margin-bottom: 20px;
+}
+
+.subtitulo-expertos {
+    font-family: 'ArialCustom';
+    font-size: 18px;
+    margin-bottom: 25px;
+}
+
+.lista-beneficios {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.beneficio {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.icono-beneficio {
+    width: 40px;
+    flex-shrink: 0;
+    margin-top: 4px; /* para alinearlo un poco con el título */
+}
+
+.icono-beneficio img {
+    width: 100%;
+    display: block;
+}
+
+.contenido-beneficio h3 {
+    font-family: 'ArialCustom';
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+.contenido-beneficio p {
+    font-family: 'ArialCustom';
+    font-size: 15px;
+    color: var(--color-gray-light);
+    max-width: 620px;
+}
+
+/* Columna derecha (mockup app) */
+.imagen-expertos {
+    flex: 1 1 45%;
+    display: flex;
+    justify-content: center;
+}
+
+.contenedor-movil {
+    max-width: 320px;
+}
+
+.imagen-movil {
+    width: 100%;
+    display: block;
+}
+/* liston */
+.liston{
+    background-color: var(--color-accent);
+    color: var(--color-white);
+    text-align: center;
+    margin: 0px;
+    padding: 15px 5px;
+}
+.liston p{
+    margin: 0px;
+    padding: 5px 0px;
+    font-family: 'Adam', sans-serif;
+}
+/* ==============================
+   SECCIÓN CONTADORES
+============================== */
+
+.seccion-contadores {
+    background: var(--color-white);
+    padding: 10px 50px;
+}
+
+.contenedor-contadores {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 80px;
+    text-align: center;
+}
+
+.contador-numero {
+    font-family: 'Adam';
+    font-size: 62px;
+    color: var(--color-accent); /* naranja */
+    margin-bottom: 8px;
+}
+
+.contador-texto {
+    font-family: 'ArialCustom';
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--color-primary); /* azul oscuro */
+}
+/* ==============================
+   SECCIÓN PROPIEDADES DESTACADAS
+============================== */
+
+.seccion-propiedades {
+    background: var(--color-gray-light);
+    padding: 70px 8%;
+}
+
+.contenedor-propiedades {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Encabezado y filtros */
+.encabezado-propiedades h2 {
+    font-family: 'Adam';
+    font-size: 32px;
+    margin-bottom: 20px;
+    color: var(--color-primary);
+}
+
+.filtros-propiedades {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 18px;
+    border-bottom: 1px solid #dde1ea;
+    padding-bottom: 10px;
+}
+
+.filtro-propiedad {
+    background: transparent;
+    border: none;
+    font-family: 'ArialCustom';
+    font-size: 14px;
+    cursor: pointer;
+    padding: 0;
+    color: var(--color-accent);
+    position: relative;
+}
+
+.filtro-propiedad.activo {
+    color: var(--color-primary);
+    font-weight: 600;
+}
+
+.filtro-propiedad.activo::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -11px;
+    width: 100%;
+    height: 2px;
+    background: var(--color-primary);
+}
+
+/* Grid de tarjetas */
+.grid-propiedades {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    margin-top: 30px;
+}
+
+.tarjeta-propiedad {
+    background: var(--color-white);
+    border-radius: 18px;
+    box-shadow: var(--shadow-soft);
+    overflow: hidden;
+    flex: 1 1 calc(33.333% - 16px);
+    display: flex;
+    flex-direction: column;
+    min-width: 260px;
+}
+
+.imagen-propiedad {
+    height: 230px;        /* ajusta este valor a lo que mejor se vea */
+    overflow: hidden;
+    border-top-left-radius: 18px;
+    border-top-right-radius: 18px;
+}
+
+.imagen-propiedad img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;    /* aquí está la magia */
+    display: block;
+}
+
+
+.contenido-propiedad {
+    padding: 18px 20px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.contenido-propiedad h3 {
+    font-family: 'ArialCustom';
+    font-size: 18px;
+    margin-bottom: 4px;
+    color: var(--color-primary);
+}
+
+.direccion-propiedad {
+    font-family: 'ArialCustom';
+    font-size: 14px;
+    color: var(--color-black);
+    white-space: nowrap;         /* evita que baje a otra línea */
+    overflow: hidden;            /* oculta el texto sobrante */
+    text-overflow: ellipsis;     /* agrega los ... */
+    display: block;
+}
+
+/* Detalles (iconos camas/baños) */
+.detalles-propiedad {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 6px;
+    font-size: 18px;
+    color: var(--color-primary);
+}
+
+.item-detalle {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.separador-detalle {
+    color: #b0b8c6;
+}
+
+/* Precio y botón */
+.precio-boton {
+    margin-top: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.precio-propiedad {
+    font-family: 'ArialCustom';
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--color-primary);
+}
+
+.btn-detalles {
+    padding: 8px 18px;
+    border-radius: 999px;
+    border: 1px solid #cfd4e6;
+    background: var(--color-white);
+    font-family: 'ArialCustom';
+    font-size: 14px;
+    color: var(--color-primary);
+    text-decoration: none;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.btn-detalles:hover {
+    background: var(--color-accent);
+}
+/* ==============================
+   SECCIÓN SERVICIOS
+============================== */
+
+.seccion-servicios {
+    padding: 70px 8%;
+    background: var(--color-white);
+}
+
+.titulo-servicios {
+    font-family: 'Adam';
+    font-size: 32px;
+    color: var(--color-primary);
+    margin-bottom: 30px;
+    text-align: left;
+}
+
+/* Grid */
+.grid-servicios {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+}
+
+/* Tarjeta */
+.tarjeta-servicio {
+    background: var(--color-white);
+    border: 1px solid #e5e8ef;
+    border-radius: 18px;
+    padding: 28px 24px;
+    text-align: left;
+    box-shadow: var(--shadow-soft);
+    transition: all 0.3s ease;
+}
+
+.tarjeta-servicio:hover {
+    background: var(--color-primary); /* Azul */
+    color: var(--color-white);
+    transform: translateY(-6px);
+}
+
+/* Icono */
+.icono-servicio img {
+    width: 48px;
+    height: 48px;
+    margin-bottom: 16px;
+}
+
+/* Título */
+.tarjeta-servicio h3 {
+    font-family: 'ArialCustom';
+    font-size: 18px;
+    color: var(--color-primary);
+    margin-bottom: 10px;
+    transition: color 0.3s ease;
+}
+
+.tarjeta-servicio:hover h3 {
+    color: var(--color-white);
+}
+
+/* Texto */
+.tarjeta-servicio p {
+    font-family: 'ArialCustom';
+    font-size: 14px;
+    color: var(--color-gray);
+    line-height: 1.5;
+    margin-bottom: 20px;
+    transition: color 0.3s ease;
+}
+
+.tarjeta-servicio:hover p {
+    color: var(--color-white);
+}
+
+/* Botón */
+.btn-servicio {
+    display: inline-block;
+    padding: 10px 22px;
+    background: var(--color-accent);
+    color: var(--color-white);
+    border-radius: 10px;
+    text-decoration: none;
+    font-family: 'ArialCustom';
+    font-size: 14px;
+    font-weight: 600;
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+.tarjeta-servicio:hover .btn-servicio {
+    background: var(--color-accent-dark);
+}
+/* ==============================
+   SECCIÓN CONTACTO (FORMULARIO FINAL)
+============================== */
+
+.seccion-contacto {
+    background: var(--color-primary);
+    padding: 70px 0;
+}
+
+.contenedor-contacto {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 90%;
+    margin: auto;
+    gap: 40px;
+}
+
+/* Columna izquierda (imagen) */
+.columna-imagen {
+    flex: 1 1 45%;
+    display: flex;
+    justify-content: center;
+}
+
+.columna-imagen img {
+    width: 100%;
+    max-width: 500px;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+/* Columna derecha (texto + iframe) */
+.columna-formulario {
+    flex: 1 1 55%;
+    background: var(--color-white);
+    padding: 40px 45px;
+    border-radius: 8px;
+}
+
+.columna-formulario h2 {
+    font-family: 'Adam';
+    font-size: 32px;
+    color: var(--color-primary);
+    margin-bottom: 10px;
+}
+
+.subtexto-form {
+    font-family: 'ArialCustom';
+    font-size: 16px;
+    color: var(--color-gray);
+    margin-bottom: 25px;
+}
+
+/* Iframe */
+.contenedor-iframe {
+    width: 100%;
+}
+
+.iframe-formulario {
+    width: 100%;
+    min-height: 650px; /* Ajusta según el alto real del form */
+    border: none;
+}
+/* resposive tablet*/
+@media (max-width: 1023px) {
+
+    .banner {
+        height: auto;
+        flex-direction: column;
+        padding-bottom: 40px;
+        padding-top: 60px;
+        text-align: center;
+    }
+
+    .banner-content {
+        width: 100%;
+        padding: 0 40px;
+    }
+
+    .banner-filtro {
+        position: relative;
+        right: 0;
+        margin-top: 30px;
+        width: 420px;
+    }
+    .seccion-expertos {
+        padding: 60px 6%;
+    }
+
+    .contenedor-expertos {
+        flex-direction: column;
+        text-align: left;
+    }
+
+    .imagen-expertos {
+        margin-top: 30px;
+    }
+    .contenedor-contadores {
+        gap: 40px;
+    }
+    .grid-propiedades {
+        justify-content: center;
+    }
+
+    .tarjeta-propiedad {
+        flex: 1 1 calc(50% - 16px);
+    }
+    .grid-servicios {
+        grid-template-columns: repeat(2, 1fr);
+    }
+     .contenedor-contacto {
+        flex-direction: column-reverse;
+        gap: 30px;
+    }
+
+    .columna-imagen img {
+        max-width: 600px;
+    }
+
+    .columna-formulario {
+        width: 90%;
+        padding: 30px;
+    }
+}
+/* respovive movil */
+@media (max-width: 767px) {
+
+    .banner {
+        height: auto;
+        padding-top: 100px;
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .banner-content {
+        width: 100%;
+        padding: 0;
+    }
+
+    .banner-content h1 {
+        font-size: 32px;
+        line-height: 1.2;
+    }
+
+    .banner-content p {
+        font-size: 16px;
+        margin-bottom: 20px;
+        padding: 0 10px;
+    }
+
+    /* Formulario */
+    .banner-filtro {
+        width: 100%;
+        position: relative;
+        right: 0;
+        margin-top: 20px;
+    }
+
+    .filtro-box {
+        padding: 20px;/*
+        width: 100%; */
+        border-radius: var(--radius-md);
+    }
+
+    /* Tabs */
+    .filtro-tabs {
+        flex-wrap: wrap;
+        gap: 10px;
+        justify-content: center;
+        text-align: center;
+    }
+
+    .tab {
+        font-size: 13px;
+    }
+
+    /* Inputs */
+    .filtro-body select {
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    /* Botón */
+    .btn-search {
+        padding: 12px;
+        font-size: 15px;
+    }
+    .seccion-expertos {
+        padding: 50px 20px;
+    }
+
+    .texto-expertos h2 {
+        font-size: 28px;
+        text-align: left;
+    }
+
+    .subtitulo-expertos {
+        font-size: 16px;
+    }
+
+    .beneficio {
+        align-items: flex-start;
+    }
+
+    .contenedor-movil {
+        max-width: 260px;
+    }
+    .seccion-contadores {
+        padding: 0px;
+    }
+
+    .contenedor-contadores {
+        flex-direction: column;
+        gap: 25px;
+    }
+
+    .contador-numero {
+        font-size: 74px;
+        margin-top: 0;
+    }
+
+    .contador-texto {
+        font-size: 23px;
+    }
+    .imagen-propiedad {
+        height: 200px;
+    }
+    .seccion-servicios {
+        padding: 50px 20px;
+    }
+
+    .grid-servicios {
+        grid-template-columns: 1fr;
+    }
+
+    .titulo-servicios {
+        font-size: 26px;
+    }
+    .seccion-contacto {
+        padding: 40px 0;
+    }
+
+    .columna-formulario h2 {
+        font-size: 26px;
+    }
+
+    .iframe-formulario {
+        min-height: 750px;
+    }
+
+}
