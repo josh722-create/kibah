@@ -8,3 +8,6 @@ Route::get('/', function () {
 Route::get('/propiedades', function () {
     return view('propiedades');
 });
+Route::get('/propiedad', function () {
+    return view('propiedad');
+});

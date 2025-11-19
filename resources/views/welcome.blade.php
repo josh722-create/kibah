@@ -163,6 +163,11 @@
             <!-- Tarjeta 1 -->
             <article class="tarjeta-propiedad">
                 <div class="imagen-propiedad">
+                    <div class="tags-propiedad">
+                        {{-- insignias --}}
+                        <span class="tag">Desarrollo</span>
+                        <span class="tag">PreVenta</span>
+                    </div>
                     <img src="{{ asset('imagenes/propiedades/propiedad1.jpg') }}" alt="Nuevo León II" loading="lazy">
                 </div>
                 <div class="contenido-propiedad">
@@ -192,6 +197,11 @@
             <!-- Tarjeta 2 -->
             <article class="tarjeta-propiedad">
                 <div class="imagen-propiedad">
+                    <div class="tags-propiedad">
+                        {{-- insignias --}}
+                        <span class="tag">Desarrollo</span>
+                        <span class="tag">PreVenta</span>
+                    </div>
                     <img src="{{ asset('imagenes/propiedades/propiedad2.webp') }}" alt="Juárez I" loading="lazy">
                 </div>
                 <div class="contenido-propiedad">
@@ -216,6 +226,11 @@
             <!-- Tarjeta 3 -->
             <article class="tarjeta-propiedad">
                 <div class="imagen-propiedad">
+                    <div class="tags-propiedad">
+                        {{-- insignias --}}
+                        <span class="tag">Desarrollo</span>
+                        <span class="tag">PreVenta</span>
+                    </div>
                     <img src="{{ asset('imagenes/propiedades/propiedad1.webp') }}" alt="Tabacalera I" loading="lazy">
                 </div>
                 <div class="contenido-propiedad">

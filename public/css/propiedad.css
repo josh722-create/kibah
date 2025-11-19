@@ -1,0 +1,325 @@
+/* ============================
+   HERO DE PROPIEDAD – KIBAH
+============================ */
+
+.prop-hero {
+    position: relative;
+    width: auto;
+    height: 70vh;
+    overflow: hidden;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: flex-end;
+    padding: 40px 60px;
+    color: var(--color-white);
+}
+
+.prop-hero-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Overlay */
+.prop-hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(2, 3, 5, 0.55); /* Azul oscuro con opacidad */
+}
+
+/* Contenido del hero */
+.prop-hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 900px;
+}
+
+/* Etiquetas */
+.prop-etiquetas {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+}
+
+.prop-etiquetas span {
+    background: var(--color-white);
+    color: var(--color-primary);
+    padding: 6px 14px;
+    font-size: 13px;
+    border-radius: 20px;
+    font-weight: 600;
+}
+
+/* Título */
+.prop-titulo {
+    font-size: 40px;
+    font-weight: 700;
+    margin: 5px 0 10px;
+    text-shadow: 0px 3px 10px rgba(0,0,0,0.35);
+}
+
+/* Precio */
+.prop-precio {
+    font-size: 30px;
+    font-weight: 700;
+    color: var(--color-accent);
+    margin: 0 0 10px;
+}
+
+/* Dirección */
+.prop-direccion {
+    font-size: 16px;
+    opacity: 0.95;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+
+/* ================================
+   LAYOUT GENERAL
+================================ */
+
+.propiedad-layout {
+    width: 90%;
+    max-width: 1400px;
+    margin: 60px auto;
+    display: grid;
+    grid-template-columns: 2fr 1fr; /* 2 columnas en desktop */
+    gap: 50px;
+    align-items: flex-start;
+}
+
+.propiedad-descripcion {
+    order: 1;
+}
+
+.propiedad-sidebar {
+    order: 2;
+}
+
+
+/* ================================
+   CONTENIDO DE DESCRIPCIÓN
+================================ */
+
+.propiedad-info {
+    width: 100%;
+}
+
+/* TITULOS */
+.titulo-seccion {
+    font-family: 'ArialCustom';
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--color-primary);
+    margin-bottom: 25px;
+}
+
+/* ------------------------------
+        RESUMEN
+------------------------------ */
+
+.bloque-resumen {
+    border-bottom: 2px solid #ECECEC;
+    padding-bottom: 25px;
+    margin-bottom: 45px;
+}
+
+.grupo-resumen {
+    display: flex;
+    flex-direction: row;      /* 🟦 Ponerlos en fila */
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 60px;                /* Espaciado entre ítems */
+    flex-wrap: wrap;          /* Evita problemas en pantallas medianas */
+}
+.item-resumen {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 160px; /* asegura buena estructura */
+}
+.item-resumen .label-resumen {
+    font-size: 14px;
+    color: #6e6e6e;
+    margin-bottom: 8px;
+}
+
+.valor-resumen {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.valor-resumen img {
+    width: 28px;
+    height: 28px;
+}
+
+.valor-resumen span {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--color-primary);
+}
+
+/* ------------------------------
+        DESCRIPCIÓN
+------------------------------ */
+
+.bloque-descripcion p {
+    font-size: 16px;
+    line-height: 1.7;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.subtitulo-descripcion {
+    font-weight: 700;
+    font-size: 18px;
+    margin-top: 25px;
+}
+
+.lista-amenidades {
+    margin-top: 12px;
+    padding-left: 18px;
+}
+
+.lista-amenidades li {
+    margin-bottom: 8px;
+    font-size: 16px;
+}
+
+
+/* ============================================
+   SIDEBAR (Formulario, info adicional, etc.)
+============================================ */
+
+.propiedad-sidebar {/*
+    position: sticky; */
+    top: 40px;
+}
+
+.propiedad-sidebar iframe {
+    width: 100%;
+    border: none;
+    min-height: 450px;
+}
+
+.similares-propiedades{
+    width: auto;
+    padding: 20px;
+    display: flex;
+flex-direction: column;
+}
+
+/* CONTENEDOR GENERAL */
+.prop-tipos {
+    margin-top: 40px;
+}
+
+.prop-tipos .titulo-seccion {
+    margin-bottom: 20px;
+}
+
+/* LISTADO */
+.lista-tipos {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px 40px;
+}
+
+/* CADA ELEMENTO */
+.lista-tipos li {
+    position: relative;
+    padding-left: 18px;
+}
+
+/* ENLACES */
+.lista-tipos li a {
+    color: var( --color-black);
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 500;
+    transition: .2s ease;
+}
+
+.lista-tipos li a:hover {
+    opacity: 0.6;
+}
+
+/* GUION AZUL */
+.lista-tipos li::before {
+    content: "–"; /* guion largo */
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: var(--color-accent);
+    font-size: 18px;
+    font-weight: 700;
+}
+
+
+
+/* ============================
+   RESPONSIVE
+============================ */
+
+@media (max-width: 900px) {
+
+    /* HERO */
+    .prop-hero {
+        height: 55vh;
+        padding: 30px 20px;
+    }
+
+    .prop-titulo {
+        font-size: 30px;
+    }
+
+    .prop-precio {
+        font-size: 22px;
+    }
+
+    /* LAYOUT CAMBIA A 1 COLUMNA */
+    .propiedad-layout {
+        grid-template-columns: 1fr;
+        gap: 50px;
+    }
+
+    .propiedad-descripcion {
+        order: 1;
+    }
+
+    .propiedad-sidebar {
+        order: 2;
+        position: relative;
+        top: unset;
+    }
+
+    /* Resumen */
+    .bloque-resumen {
+        border-right: none;
+        padding-right: 0;
+    }
+      .grupo-resumen {
+        flex-direction: row;
+        gap: 25px;
+    }
+
+    .item-resumen {
+        min-width: auto;
+    }
+
+     .lista-tipos {
+        grid-template-columns: 1fr;
+    }
+}
