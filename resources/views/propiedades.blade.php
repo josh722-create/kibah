@@ -36,7 +36,7 @@
             {{-- <img src="{{ asset('imagenes/propiedades/propiedad1.webp') }}" alt="{{ $propiedad->{'Nombre de la Propiedad'} }}" class="prop-hero-img"> --}}
         @endif            </div>
             <div class="contenido-propiedad">
-                <h3>{{ $propiedad->{'Nombre de la Propiedad'} }}</h3>
+                <h3>{{ $propiedad->{'Nombre Kibah'} }}</h3>
                 <p class="direccion-propiedad">
                     {{ $propiedad->Colonia }}, {{ $propiedad->Alcaldía }}
                 </p>
