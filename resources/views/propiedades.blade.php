@@ -43,11 +43,11 @@
 
                 <div class="detalles-propiedad">
                     <span class="item-detalle">
-                        🛏 {{ $propiedad->{'Número de Recámaras'} ?? 'N/A' }}
+                        <img src="{{ asset('imagenes/cama.png') }}" alt=""> {{ $propiedad->{'Número de Recámaras'} ?? 'N/A' }}
                     </span>
                     <span class="separador-detalle">|</span>
                     <span class="item-detalle">
-                        🛁 {{ $propiedad->{'Número de Baños'} ?? 'N/A' }}
+                        <img src="{{ asset('imagenes/ducha.png') }}" alt=""> {{ $propiedad->{'Número de Baños'} ?? 'N/A' }}
                     </span>
                     @if($propiedad->{'M2 Totales'})
                     <span class="separador-detalle">|</span>

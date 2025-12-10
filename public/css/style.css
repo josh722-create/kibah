@@ -37,7 +37,13 @@
     --radius-lg: 16px;
 }
 
+html {
+  box-sizing: border-box;
+}
 
+*, *::before, *::after {
+  box-sizing: inherit;
+}
 body {
     font-family: 'ArialCustom', Arial, sans-serif;
     background: var(--color-white);
@@ -446,7 +452,10 @@ h6 {
     align-items: center;
     gap: 4px;
 }
-
+.item-detalle img{
+    width: 20px;
+    height: auto;
+}
 .separador-detalle {
     color: #b0b8c6;
 }

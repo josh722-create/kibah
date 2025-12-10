@@ -191,11 +191,11 @@
                     <div class="detalles-propiedad">
                         <span class="item-detalle">
                             <!-- Iconos de ejemplo, puedes cambiarlos por imágenes -->
-                            🛏 2
+                            <img src="{{ asset('imagenes/cama.png') }}" alt=""> 2
                         </span>
                         <span class="separador-detalle">|</span>
                         <span class="item-detalle">
-                            🛁 2
+                            <img src="{{ asset('imagenes/ducha.png') }}" alt=""> 2
                         </span>
                     </div>
 
@@ -223,9 +223,9 @@
                     </p>
 
                     <div class="detalles-propiedad">
-                        <span class="item-detalle">🛏 1</span>
+                        <span class="item-detalle"><img src="{{ asset('imagenes/cama.png') }}" alt=""> 1</span>
                         <span class="separador-detalle">|</span>
-                        <span class="item-detalle">🛁 1</span>
+                        <span class="item-detalle"><img src="{{ asset('imagenes/ducha.png') }}" alt=""> 1</span>
                     </div>
 
                     <div class="precio-boton">
@@ -252,9 +252,9 @@
                     </p>
 
                     <div class="detalles-propiedad">
-                        <span class="item-detalle">🛏 1–2</span>
+                        <span class="item-detalle"><img src="{{ asset('imagenes/cama.png') }}" alt=""> 1–2</span>
                         <span class="separador-detalle">|</span>
-                        <span class="item-detalle">🛁 1</span>
+                        <span class="item-detalle"><img src="{{ asset('imagenes/ducha.png') }}" alt=""> 1</span>
                     </div>
 
                     <div class="precio-boton">

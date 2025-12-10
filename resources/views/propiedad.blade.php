@@ -33,7 +33,7 @@
                 @endif
             </div>
 
-            <h1 class="prop-titulo">{{ $propiedad->{'Nombre de la Propiedad'} }}</h1>
+            <h1 class="prop-titulo">{{ $propiedad->{'Nombre Kibah'} }}</h1>
 
             <p class="prop-precio">
                 @if($propiedad->{'Precio por unidad'})
@@ -44,7 +44,7 @@
             </p>
 
             <p class="prop-direccion">
-                📍 {{ $propiedad->{'Dirección'} ?? '' }} {{ $propiedad->{'Colonia'} ?? '' }}, {{ $propiedad->{'Alcaldia'} ?? '' }}
+                <img src="{{ asset('imagenes/ubicaciones.png') }}" alt=""> {{ $propiedad->{'Dirección'} ?? '' }} {{ $propiedad->{'Colonia'} ?? '' }}, {{ $propiedad->{'Alcaldia'} ?? '' }}
             </p>
 
         </div>
@@ -222,11 +222,11 @@
                     <div class="detalles-propiedad">
                         <span class="item-detalle">
                             <!-- Iconos de ejemplo, puedes cambiarlos por imágenes -->
-                            🛏 2
+                            <img src="{{ asset('imagenes/cama.png') }}" alt=""> 2
                         </span>
                         <span class="separador-detalle">|</span>
                         <span class="item-detalle">
-                            🛁 2
+                            <img src="{{ asset('imagenes/ducha.png') }}" alt=""> 2
                         </span>
                     </div>
 
@@ -254,9 +254,9 @@
                     </p>
 
                     <div class="detalles-propiedad">
-                        <span class="item-detalle">🛏 1</span>
+                        <span class="item-detalle"><img src="{{ asset('imagenes/cama.png') }}" alt=""> 1</span>
                         <span class="separador-detalle">|</span>
-                        <span class="item-detalle">🛁 1</span>
+                        <span class="item-detalle"><img src="{{ asset('imagenes/ducha.png') }}" alt=""> 1</span>
                     </div>
 
                     <div class="precio-boton">
@@ -283,9 +283,9 @@
                     </p>
 
                     <div class="detalles-propiedad">
-                        <span class="item-detalle">🛏 1–2</span>
+                        <span class="item-detalle"><img src="{{ asset('imagenes/cama.png') }}" alt=""> 1–2</span>
                         <span class="separador-detalle">|</span>
-                        <span class="item-detalle">🛁 1</span>
+                        <span class="item-detalle"><img src="{{ asset('imagenes/ducha.png') }}" alt=""> 1</span>
                     </div>
 
                     <div class="precio-boton">
