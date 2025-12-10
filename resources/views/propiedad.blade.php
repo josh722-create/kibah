@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ asset('css/propiedad.css') }}">
 
-    <title>Propiedad</title>
+    <title>{{ $propiedad->{'Nombre de la Propiedad'} }}</title>
 </head>
 
 <body>
@@ -14,24 +14,37 @@
     @include('header')
     {{-- imagen principal --}}
     <section class="prop-hero">
-        <img src="{{ asset('imagenes/propiedades/propiedad1.webp') }}" alt="Imagen propiedad" class="prop-hero-img">
+        @if($propiedad->{'Link Imagen'})
+            <img src="{{ $propiedad->{'Link Imagen'} }}" alt="{{ $propiedad->{'Nombre de la Propiedad'} }}" class="prop-hero-img">
+        @else
+            {{-- <img src="{{ asset('imagenes/propiedades/propiedad1.webp') }}" alt="{{ $propiedad->{'Nombre de la Propiedad'} }}" class="prop-hero-img"> --}}
+        @endif
 
         <div class="prop-hero-overlay"></div>
 
         <div class="prop-hero-content">
 
             <div class="prop-etiquetas">
-                <span>Desarrollo</span>
-                <span>PreVenta</span>
-                <span>Edificio de apartamentos</span>
+                @if($propiedad->{'Entrega Inmediata/Preventa'})
+                    <span>{{ $propiedad->{'Entrega Inmediata/Preventa'} }}</span>
+                @endif
+                @if($propiedad->{'Tipo de Entrega'})
+                    <span>{{ $propiedad->{'Tipo de Entrega'} }}</span>
+                @endif
             </div>
 
-            <h1 class="prop-titulo">Havre I</h1>
+            <h1 class="prop-titulo">{{ $propiedad->{'Nombre de la Propiedad'} }}</h1>
 
-            <p class="prop-precio">$9,520,000</p>
+            <p class="prop-precio">
+                @if($propiedad->{'Precio por unidad'})
+                    ${{ number_format($propiedad->{'Precio por unidad'}, 0, '.', ',') }}
+                @else
+                    Precio no disponible
+                @endif
+            </p>
 
             <p class="prop-direccion">
-                📍 Havre 41, Juárez, Cuauhtémoc, Ciudad de México, CDMX
+                📍 {{ $propiedad->{'Dirección'} ?? '' }} {{ $propiedad->{'Colonia'} ?? '' }}, {{ $propiedad->{'Alcaldia'} ?? '' }}
             </p>
 
         </div>
@@ -53,7 +66,7 @@
                 <p class="label-resumen">Habitaciones</p>
                 <div class="valor-resumen">
                     <img src="{{ asset('imagenes/cama.png') }}" alt="">
-                    <span>2–3</span>
+                    <span>{{ $propiedad->{'Número de Recámaras'} ?? 'N/A' }}</span>
                 </div>
             </div>
 
@@ -61,7 +74,7 @@
                 <p class="label-resumen">Baños</p>
                 <div class="valor-resumen">
                     <img src="{{ asset('imagenes/ducha.png') }}" alt="">
-                    <span>2</span>
+                    <span>{{ $propiedad->{'Número de Baños'} ?? 'N/A' }}</span>
                 </div>
             </div>
 
@@ -69,7 +82,11 @@
                 <p class="label-resumen">Cocheras</p>
                 <div class="valor-resumen">
                     <img src="{{ asset('imagenes/cochera.png') }}" alt="">
-                    <span>2</span>
+                    @if($propiedad->{'Lugares de Estacionamiento'} < 1)
+                        <span>N/A</span>
+                    @else
+                    <span>{{ $propiedad->{'Lugares de Estacionamiento'} }}</span>
+                    @endif
                 </div>
             </div>
 
@@ -77,7 +94,7 @@
                 <p class="label-resumen">Area</p>
                 <div class="valor-resumen">
                     <img src="{{ asset('imagenes/seleccione.png') }}" alt="">
-                    <span>2</span>
+                    <span>{{ $propiedad->{'M2 Totales'} ?? 'N/A' }} m²</span>
                 </div>
             </div>
 
@@ -85,7 +102,7 @@
                 <p class="label-resumen">Fecha de construcción</p>
                 <div class="valor-resumen">
                     <img src="{{ asset('imagenes/calendario.png') }}" alt="">
-                    <span>2027</span>
+                    <span>{{ $propiedad->{'Fecha de Construcción/Entrega'} ?? 'N/A' }}</span>
                 </div>
             </div>
 
@@ -96,17 +113,22 @@
     <div class="bloque-descripcion">
         <h2 class="titulo-seccion">Descripción</h2>
 
-        <p>
-            Un estilo de vida diferente en cada detalle.
-            Este desarrollo ofrece mucho más que solo un lugar para vivir...
-        </p>
+<p>
+    {{ $propiedad->{'Descripción Desarrollo'} }}
+    @if($propiedad->{'Disponibilidad'})
+        <br>
+        Disponibilidad: {{ $propiedad->{'Disponibilidad'} }}.
+    @endif
+</p>
 
-        <h3 class="subtitulo-descripcion">Amenidades exclusivas:</h3>
+        @if($propiedad->Amenidades)
+        <h3 class="subtitulo-descripcion">Amenidades:</h3>
         <ul class="lista-amenidades">
-            <li>Community grill para compartir grandes momentos</li>
-            <li>Open terrace para relajarte al aire libre</li>
-            <li>Safe zone para mayor tranquilidad y seguridad</li>
+            @foreach(explode(',', $propiedad->Amenidades) as $amenidad)
+                <li>{{ trim($amenidad) }}</li>
+            @endforeach
         </ul>
+        @endif
     </div>
 
     <br>

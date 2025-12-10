@@ -23,6 +23,9 @@
             <div class="filtro-box">
 
                 <div class="filtro-tabs">
+                    {{-- @foreach($tiposEntrega as $tipo)
+                        <button class="tab">{{ $tipo }}</button>
+                    @endforeach --}}
                     <button class="tab active">Desarrollo</button>
                     <button class="tab">Entrega Inmediata</button>
                     <button class="tab">PreVenta</button>
@@ -30,28 +33,37 @@
                 </div>
 
                 <div class="filtro-body">
-
                     <label>Ubicación principal</label>
-                    <select>
-                        <option>Todas las ubicaciones principales</option>
+                    <select name="colonia">
+                        @foreach($colonias as $colonia)
+                            <option value="{{ $colonia }}">{{ $colonia }}</option>
+                        @endforeach
                     </select>
 
                     <label>Recamaras</label>
-                    <select>
-                        <option>Todas las habitaciones</option>
+                    <select name="recamaras">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5+</option>
                     </select>
 
                     <label>Baños</label>
-                    <select>
-                        <option>Todos los baños</option>
+                    <select name="banos">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5+</option>
                     </select>
 
                     <label>Tipos de propiedad</label>
-                    <select>
+                    <select name="tipo_propiedad">
                         <option>Todos los tipos de propiedad</option>
                     </select>
 
-                    <button class="btn-search">
+                    <button class="btn-search" type="button" onclick="realizarBusqueda()">
                         Buscar
                     </button>
                 </div>
@@ -372,3 +384,32 @@
 </body>
 
 </html>
+
+
+<script>function realizarBusqueda() {
+    const colonia = document.querySelector('[name="colonia"]').value;
+    const recamaras = document.querySelector('[name="recamaras"]').value;
+    const banos = document.querySelector('[name="banos"]').value;
+    const tipoPropiedad = document.querySelector('[name="tipo_propiedad"]').value;
+
+    console.log('Parámetros de búsqueda:', {
+        colonia: colonia,
+        recamaras: recamaras,
+        banos: banos,
+        tipoPropiedad: tipoPropiedad
+    });
+
+    let url = '/buscar?';
+    const params = [];
+
+    if (colonia) params.push(`colonia=${encodeURIComponent(colonia)}`);
+    if (recamaras) params.push(`recamaras=${encodeURIComponent(recamaras)}`);
+    if (banos) params.push(`banos=${encodeURIComponent(banos)}`);
+    if (tipoPropiedad) params.push(`tipo_propiedad=${encodeURIComponent(tipoPropiedad)}`);
+
+    const finalUrl = url + params.join('&');
+    console.log('URL final:', finalUrl);
+
+    window.location.href = finalUrl;
+}
+</script>

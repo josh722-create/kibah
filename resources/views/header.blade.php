@@ -29,9 +29,13 @@
     <!-- Filtro -->
     <form class="filtro-propiedades">
         <select><option>Todo el estado</option></select>
-        <select><option>Todas las ubicaciones principales</option></select>
+        <select name="colonia">
+            @foreach($colonias as $colonia)
+                <option value="{{ $colonia }}">{{ $colonia }}</option>
+            @endforeach
+        </select>
         <select><option>Todos los tipos</option></select>
-        <button class="btn-buscar-prop">Buscar</button>
+        <button type="button" class="btn-buscar-prop" onclick="realizarBusquedaHeader()">Buscar</button>
     </form>
 
 </header>
@@ -57,5 +61,25 @@ nav.querySelectorAll("a").forEach(link => {
         document.body.classList.remove("no-scroll");
     });
 });
+
+function realizarBusquedaHeader() {
+    const colonia = document.querySelector('form.filtro-propiedades select[name="colonia"]').value;
+
+    console.log('Parámetros de búsqueda (header):', {
+        colonia: colonia
+    });
+
+    let url = '/buscar?';
+    const params = [];
+
+    if (colonia && colonia !== '-- Selecciona --') {
+        params.push(`colonia=${encodeURIComponent(colonia)}`);
+    }
+
+    const finalUrl = url + params.join('&');
+    console.log('URL final (header):', finalUrl);
+
+    window.location.href = finalUrl;
+}
 </script>
 

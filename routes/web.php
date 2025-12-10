@@ -1,13 +1,19 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\SearchController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
-Route::get('/propiedades', function () {
-    return view('propiedades');
-});
-Route::get('/propiedad', function () {
-    return view('propiedad');
-});
+
+
+Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/buscar', [SearchController::class, 'buscar'])->name('buscar');
+Route::get('/propiedad/{id}/{nombre?}', [SearchController::class, 'showProperty'])->name('propiedad.show');
+// Route::get('/propiedades', function () {
+//     return view('propiedades');
+// });
+
+
+// Route::get('/propiedad', function () {
+//     return view('propiedad');
+// });

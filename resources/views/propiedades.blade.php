@@ -17,152 +17,66 @@
         <h1>Propiedades</h1>
         <div class="grid-propiedades">
             <!-- Tarjeta 1 -->
-            <article class="tarjeta-propiedad">
-                <div class="imagen-propiedad">
-                    <div class="tags-propiedad">
-                        {{-- insignias --}}
-                        <span class="tag">Desarrollo</span>
-                        <span class="tag">PreVenta</span>
-                    </div>
-                    <img src="{{ asset('imagenes/propiedades/propiedad1.jpg') }}" alt="Nuevo León II" loading="lazy">
+@foreach($propiedades as $propiedad)
+        <!-- Tarjeta {{ $loop->iteration }} -->
+        <article class="tarjeta-propiedad">
+            <div class="imagen-propiedad">
+                <div class="tags-propiedad">
+                    {{-- insignias --}}
+                    {{-- <span class="tag">Desarrollo</span> --}}
+                    @if($propiedad->{'Entrega Inmediata/Preventa'})
+                        <span class="tag">{{ $propiedad->{'Entrega Inmediata/Preventa'} }}</span>
+                    @endif
                 </div>
-                <div class="contenido-propiedad">
-                    <h3>Nuevo León II</h3>
-                    <p class="direccion-propiedad">
-                        Hipódromo Condesa, Ciudad de México, Cuauhtémoc
+                {{-- <img src="{{ $propiedad->{'Link Drive'} }}" alt="{{ $propiedad->{'Nombre de la Propiedad'} }}" loading="lazy"> --}}
+
+        @if($propiedad->{'Link Imagen'})
+            <img src="{{ $propiedad->{'Link Imagen'} }}" alt="{{ $propiedad->{'Nombre de la Propiedad'} }}" class="prop-hero-img">
+        @else
+            {{-- <img src="{{ asset('imagenes/propiedades/propiedad1.webp') }}" alt="{{ $propiedad->{'Nombre de la Propiedad'} }}" class="prop-hero-img"> --}}
+        @endif            </div>
+            <div class="contenido-propiedad">
+                <h3>{{ $propiedad->{'Nombre de la Propiedad'} }}</h3>
+                <p class="direccion-propiedad">
+                    {{ $propiedad->Colonia }}, {{ $propiedad->Alcaldía }}
+                </p>
+
+                <div class="detalles-propiedad">
+                    <span class="item-detalle">
+                        🛏 {{ $propiedad->{'Número de Recámaras'} ?? 'N/A' }}
+                    </span>
+                    <span class="separador-detalle">|</span>
+                    <span class="item-detalle">
+                        🛁 {{ $propiedad->{'Número de Baños'} ?? 'N/A' }}
+                    </span>
+                    @if($propiedad->{'M2 Totales'})
+                    <span class="separador-detalle">|</span>
+                    <span class="item-detalle">
+                        📐 {{ $propiedad->{'M2 Totales'} }} m²
+                    </span>
+                    @endif
+                </div>
+
+                <div class="precio-boton">
+                    <p class="precio-propiedad">
+                        @if($propiedad->{'Precio por unidad'})
+                            ${{ number_format($propiedad->{'Precio por unidad'}, 0, '.', ',') }}
+                        @else
+                            Precio no disponible
+                        @endif
                     </p>
-
-                    <div class="detalles-propiedad">
-                        <span class="item-detalle">
-                            <!-- Iconos de ejemplo, puedes cambiarlos por imágenes -->
-                            🛏 2
-                        </span>
-                        <span class="separador-detalle">|</span>
-                        <span class="item-detalle">
-                            🛁 2
-                        </span>
-                    </div>
-
-                    <div class="precio-boton">
-                        <p class="precio-propiedad">$7,789,328</p>
-                        <a href="#" class="btn-detalles">Ver detalles</a>
-                    </div>
+                    <a class="btn-detalles" onclick="verDetalle({{ $propiedad->id }}, '{{ Str::slug($propiedad->{'Nombre de la Propiedad'}) }}')">Ver detalles</a>
                 </div>
-            </article>
-
-            <!-- Tarjeta 2 -->
-            <article class="tarjeta-propiedad">
-                <div class="imagen-propiedad">
-                    <div class="tags-propiedad">
-                        {{-- insignias --}}
-                        <span class="tag">Desarrollo</span>
-                        <span class="tag">PreVenta</span>
-                    </div>
-                    <img src="{{ asset('imagenes/propiedades/propiedad2.webp') }}" alt="Juárez I" loading="lazy">
-                </div>
-                <div class="contenido-propiedad">
-                    <h3>Juárez I</h3>
-                    <p class="direccion-propiedad">
-                        Avenida Juárez, Barrio Chino, Centro, Ciudad de México
-                    </p>
-
-                    <div class="detalles-propiedad">
-                        <span class="item-detalle">🛏 1</span>
-                        <span class="separador-detalle">|</span>
-                        <span class="item-detalle">🛁 1</span>
-                    </div>
-
-                    <div class="precio-boton">
-                        <p class="precio-propiedad">$5,008,607</p>
-                        <a href="#" class="btn-detalles">Ver detalles</a>
-                    </div>
-                </div>
-            </article>
-
-            <!-- Tarjeta 3 -->
-            <article class="tarjeta-propiedad">
-                <div class="imagen-propiedad">
-                    <div class="tags-propiedad">
-                        {{-- insignias --}}
-                        <span class="tag">Desarrollo</span>
-                        <span class="tag">PreVenta</span>
-                    </div>
-                    <img src="{{ asset('imagenes/propiedades/propiedad1.webp') }}" alt="Tabacalera I" loading="lazy">
-                </div>
-                <div class="contenido-propiedad">
-                    <h3>Tabacalera I</h3>
-                    <p class="direccion-propiedad">
-                        Tabacalera, Ciudad de México, Cuauhtémoc
-                    </p>
-
-                    <div class="detalles-propiedad">
-                        <span class="item-detalle">🛏 1–2</span>
-                        <span class="separador-detalle">|</span>
-                        <span class="item-detalle">🛁 1</span>
-                    </div>
-
-                    <div class="precio-boton">
-                        <p class="precio-propiedad">$5,110,783</p>
-                        <a href="#" class="btn-detalles">Ver detalles</a>
-                    </div>
-                </div>
-            </article>
-            <!-- Tarjeta 3 -->
-            <article class="tarjeta-propiedad">
-                <div class="imagen-propiedad">
-                    <div class="tags-propiedad">
-                        {{-- insignias --}}
-                        <span class="tag">Desarrollo</span>
-                        <span class="tag">PreVenta</span>
-                    </div>
-                    <img src="{{ asset('imagenes/propiedades/propiedad1.webp') }}" alt="Tabacalera I" loading="lazy">
-                </div>
-                <div class="contenido-propiedad">
-                    <h3>Tabacalera I</h3>
-                    <p class="direccion-propiedad">
-                        Tabacalera, Ciudad de México, Cuauhtémoc
-                    </p>
-
-                    <div class="detalles-propiedad">
-                        <span class="item-detalle">🛏 1–2</span>
-                        <span class="separador-detalle">|</span>
-                        <span class="item-detalle">🛁 1</span>
-                    </div>
-
-                    <div class="precio-boton">
-                        <p class="precio-propiedad">$5,110,783</p>
-                        <a href="#" class="btn-detalles">Ver detalles</a>
-                    </div>
-                </div>
-            </article>
-            <!-- Tarjeta 3 -->
-            <article class="tarjeta-propiedad">
-                <div class="imagen-propiedad">
-                    <div class="tags-propiedad">
-                        {{-- insignias --}}
-                        <span class="tag">Desarrollo</span>
-                        <span class="tag">PreVenta</span>
-                    </div>
-                    <img src="{{ asset('imagenes/propiedades/propiedad1.webp') }}" alt="Tabacalera I" loading="lazy">
-                </div>
-                <div class="contenido-propiedad">
-                    <h3>Tabacalera I</h3>
-                    <p class="direccion-propiedad">
-                        Tabacalera, Ciudad de México, Cuauhtémoc
-                    </p>
-
-                    <div class="detalles-propiedad">
-                        <span class="item-detalle">🛏 1–2</span>
-                        <span class="separador-detalle">|</span>
-                        <span class="item-detalle">🛁 1</span>
-                    </div>
-
-                    <div class="precio-boton">
-                        <p class="precio-propiedad">$5,110,783</p>
-                        <a href="#" class="btn-detalles">Ver detalles</a>
-                    </div>
-                </div>
-            </article>
+            </div>
+        </article>
+        @endforeach
+                {{-- Mensaje cuando NO hay propiedades --}}
+        @if($propiedades->count() === 0)
+        <div class="no-propiedades">
+            <p>No se encontraron propiedades con los filtros seleccionados.</p>
+            <a href="{{ url('/') }}" class="btn-volver">Volver a buscar</a>
+        </div>
+        @endif
         </div>
     </section>
 
@@ -171,3 +85,14 @@
 </body>
 
 </html>
+
+<script>
+function verDetalle(id, nombreSlug) {
+    console.log('ID de la propiedad:', id);
+    console.log('Nombre slug:', nombreSlug);
+    console.log('URL amigable:', `/propiedad/${id}/${nombreSlug}`);
+
+    // Redirigir a la página de detalles
+    window.location.href = `/propiedad/${id}/${nombreSlug}`;
+}
+</script>
