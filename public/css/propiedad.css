@@ -5,7 +5,7 @@
 .prop-hero {
     position: relative;
     width: auto;
-    height: 70vh;
+    height: 100vh;
     overflow: hidden;
     background-size: cover;
     background-position: center;
