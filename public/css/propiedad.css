@@ -27,7 +27,7 @@
 .prop-hero-overlay {
     position: absolute;
     inset: 0;
-    background: rgba(2, 3, 5, 0.55); /* Azul oscuro con opacidad */
+    background: rgba(2, 3, 5, 0.274); /* Azul oscuro con opacidad */
 }
 
 /* Contenido del hero */
