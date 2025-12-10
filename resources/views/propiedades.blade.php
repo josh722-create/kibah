@@ -52,7 +52,7 @@
                     @if($propiedad->{'M2 Totales'})
                     <span class="separador-detalle">|</span>
                     <span class="item-detalle">
-                        📐 {{ $propiedad->{'M2 Totales'} }} m²
+                        <img src="{{ asset('imagenes/seleccione.png') }}" alt=""> {{ $propiedad->{'M2 Totales'} }} m²
                     </span>
                     @endif
                 </div>
