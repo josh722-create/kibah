@@ -32,6 +32,15 @@ class HomeController extends Controller
                 return !empty(trim($value));
             });
 
-        return view('welcome', compact('colonias', 'tiposEntrega'));
+        // Propiedades con Entrega Inmediata (máximo 5)
+        $entregaInmediata = Propiedad::where('Entrega Inmediata/Preventa', 'Entrega Inmediata')
+            ->limit(5)
+            ->get();
+
+        // Propiedades en Preventa (máximo 5)
+        $preventa = Propiedad::where('Entrega Inmediata/Preventa', 'Preventa')
+            ->limit(5)
+            ->get();
+        return view('welcome', compact('colonias', 'tiposEntrega', 'entregaInmediata', 'preventa'));
     }
 }

@@ -29,7 +29,7 @@
                     <button class="tab active">Desarrollo</button>
                     <button class="tab">Entrega Inmediata</button>
                     <button class="tab">PreVenta</button>
-                    <button class="tab">Ticket de inversión</button>
+                    {{-- <button class="tab">Ticket de inversión</button> --}}
                 </div>
 
                 <div class="filtro-body">
@@ -165,24 +165,81 @@
                 <h2>PROPIEDADES DESTACADAS</h2>
 
                 <div class="filtros-propiedades">
-                    <button class="filtro-propiedad activo">Todo</button>
-                    <button class="filtro-propiedad">Desarrollo</button>
-                    <button class="filtro-propiedad">En Renta</button>
-                    <button class="filtro-propiedad">En Venta</button>
-                    <button class="filtro-propiedad">Entrega Inmediata</button>
-                    <button class="filtro-propiedad">PreVenta</button>
-                    <button class="filtro-propiedad">Ticket de inversión</button>
-                    <button class="filtro-propiedad">Último departamento</button>
+                    {{-- <button class="filtro-propiedad activo">Todo</button> --}}
+                    {{-- <button class="filtro-propiedad">Desarrollo</button> --}}
+                    {{-- <button class="filtro-propiedad">En Renta</button> --}}
+                    {{-- <button class="filtro-propiedad">En Venta</button> --}}
+                    <button class="filtro-propiedad inmediata">Entrega Inmediata</button>
+                    <button class="filtro-propiedad preventa">PreVenta</button>
+                    {{-- <button class="filtro-propiedad">Ticket de inversión</button> --}}
+                    {{-- <button class="filtro-propiedad">Último departamento</button> --}}
                 </div>
             </div>
+            {{-- contenedor entrega inmediata --}}
 
-            <div class="grid-propiedades">
+            <div class="grid-propiedades inmediata-seccion">
+                <!-- Tarjeta 1 -->
+        @foreach($entregaInmediata as $propiedad)
+        <!-- Tarjeta {{ $loop->iteration }} -->
+        <article class="tarjeta-propiedad">
+            <div class="imagen-propiedad">
+                <div class="tags-propiedad">
+                    {{-- insignias --}}
+                    {{-- <span class="tag">Desarrollo</span> --}}
+                    @if($propiedad->{'Entrega Inmediata/Preventa'})
+                        <span class="tag">{{ $propiedad->{'Entrega Inmediata/Preventa'} }}</span>
+                    @endif
+                </div>
+                {{-- <img src="{{ $propiedad->{'Link Drive'} }}" alt="{{ $propiedad->{'Nombre de la Propiedad'} }}" loading="lazy"> --}}
+
+        @if($propiedad->{'Link Imagen'})
+            <img src="{{ $propiedad->{'Link Imagen'} }}" alt="{{ $propiedad->{'Nombre de la Propiedad'} }}" class="prop-hero-img">
+        @else
+            {{-- <img src="{{ asset('imagenes/propiedades/propiedad1.webp') }}" alt="{{ $propiedad->{'Nombre de la Propiedad'} }}" class="prop-hero-img"> --}}
+        @endif            </div>
+            <div class="contenido-propiedad">
+                <h3>{{ $propiedad->{'Nombre Kibah'} }}</h3>
+                <p class="direccion-propiedad">
+                    {{ $propiedad->Colonia }}, {{ $propiedad->Alcaldía }}
+                </p>
+
+                <div class="detalles-propiedad">
+                    <span class="item-detalle">
+                        <img src="{{ asset('imagenes/cama.png') }}" alt=""> {{ $propiedad->{'Número de Recámaras'} ?? 'N/A' }}
+                    </span>
+                    <span class="separador-detalle">|</span>
+                    <span class="item-detalle">
+                        <img src="{{ asset('imagenes/ducha.png') }}" alt=""> {{ $propiedad->{'Número de Baños'} ?? 'N/A' }}
+                    </span>
+                    @if($propiedad->{'M2 Totales'})
+                    <span class="separador-detalle">|</span>
+                    <span class="item-detalle">
+                        <img src="{{ asset('imagenes/seleccione.png') }}" alt=""> {{ $propiedad->{'M2 Totales'} }} m²
+                    </span>
+                    @endif
+                </div>
+
+                <div class="precio-boton">
+                    <p class="precio-propiedad">
+                        @if($propiedad->{'Precio por unidad'})
+                            ${{ number_format($propiedad->{'Precio por unidad'}, 0, '.', ',') }}
+                        @else
+                            Precio no disponible
+                        @endif
+                    </p>
+                    <a class="btn-detalles" onclick="verDetalle({{ $propiedad->id }}, '{{ Str::slug($propiedad->{'Nombre de la Propiedad'}) }}')">Ver detalles</a>
+                </div>
+            </div>
+        </article>
+        @endforeach
+            </div>
+            {{-- contenedor preventa --}}
+              <div class="grid-propiedades preventa-seccion">
                 <!-- Tarjeta 1 -->
                 <article class="tarjeta-propiedad">
                     <div class="imagen-propiedad">
                         <div class="tags-propiedad">
                             {{-- insignias --}}
-                            <span class="tag">Desarrollo</span>
                             <span class="tag">PreVenta</span>
                         </div>
                         <img src="{{ asset('imagenes/propiedades/propiedad1.jpg') }}" alt="Nuevo León II"
@@ -215,80 +272,7 @@
                         </div>
                     </div>
                 </article>
-
-                <!-- Tarjeta 2 -->
-                <article class="tarjeta-propiedad">
-                    <div class="imagen-propiedad">
-                        <div class="tags-propiedad">
-                            {{-- insignias --}}
-                            <span class="tag">Desarrollo</span>
-                            <span class="tag">PreVenta</span>
-                        </div>
-                        <img src="{{ asset('imagenes/propiedades/propiedad2.webp') }}" alt="Juárez I"
-                            loading="lazy">
-                    </div>
-                    <div class="contenido-propiedad">
-                        <h3>Juárez I</h3>
-                        <p class="direccion-propiedad">
-                            Avenida Juárez, Barrio Chino, Centro, Ciudad de México
-                        </p>
-
-                        <div class="detalles-propiedad">
-                            <span class="item-detalle"><img src="{{ asset('imagenes/cama.png') }}" alt="">
-                                1</span>
-                            <span class="separador-detalle">|</span>
-                            <span class="item-detalle"><img src="{{ asset('imagenes/ducha.png') }}" alt="">
-                                1</span>
-                            <span class="separador-detalle">|</span>
-                            <span class="item-detalle">
-                                <img src="{{ asset('imagenes/seleccione.png') }}" alt=""> 2 m²
-                            </span>
-                        </div>
-
-                        <div class="precio-boton">
-                            <p class="precio-propiedad">$5,008,607</p>
-                            <a href="#" class="btn-detalles">Ver detalles</a>
-                        </div>
-                    </div>
-                </article>
-
-                <!-- Tarjeta 3 -->
-                <article class="tarjeta-propiedad">
-                    <div class="imagen-propiedad">
-                        <div class="tags-propiedad">
-                            {{-- insignias --}}
-                            <span class="tag">Desarrollo</span>
-                            <span class="tag">PreVenta</span>
-                        </div>
-                        <img src="{{ asset('imagenes/propiedades/propiedad1.webp') }}" alt="Tabacalera I"
-                            loading="lazy">
-                    </div>
-                    <div class="contenido-propiedad">
-                        <h3>Tabacalera I</h3>
-                        <p class="direccion-propiedad">
-                            Tabacalera, Ciudad de México, Cuauhtémoc
-                        </p>
-
-                        <div class="detalles-propiedad">
-                            <span class="item-detalle"><img src="{{ asset('imagenes/cama.png') }}" alt="">
-                                1–2</span>
-                            <span class="separador-detalle">|</span>
-                            <span class="item-detalle"><img src="{{ asset('imagenes/ducha.png') }}" alt="">
-                                1</span>
-                            <span class="separador-detalle">|</span>
-                            <span class="item-detalle">
-                                <img src="{{ asset('imagenes/seleccione.png') }}" alt=""> 2 m²
-                            </span>
-                        </div>
-
-                        <div class="precio-boton">
-                            <p class="precio-propiedad">$5,110,783</p>
-                            <a href="#" class="btn-detalles">Ver detalles</a>
-                        </div>
-                    </div>
-                </article>
             </div>
-
         </div>
     </section>
     {{-- tarjetas --}}
@@ -408,6 +392,23 @@
 
 
 <script>
+    let preventaBtn = document.querySelector('.preventa');
+    let inmediataBtn = document.querySelector('.inmediata')
+    let preventaSeccion = document.querySelector('.preventa-seccion')
+    let inmediataSeccion = document.querySelector('.inmediata-seccion')
+    preventaSeccion.style.display = 'none'
+
+    preventaBtn.addEventListener('click', ()=>{
+        preventaSeccion.style.display = 'flex'
+        inmediataSeccion.style.display = 'none'
+    })
+
+    inmediataBtn.addEventListener('click', ()=>{
+        inmediataSeccion.style.display = 'flex'
+        preventaSeccion.style.display = 'none'
+    })
+
+
     function realizarBusqueda() {
         const colonia = document.querySelector('[name="colonia"]').value;
         const recamaras = document.querySelector('[name="recamaras"]').value;
