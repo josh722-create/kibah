@@ -176,19 +176,98 @@
             <script src="https://link.msgsndr.com/js/form_embed.js"></script>
 
             <br>
-            {{-- <div class="prop-tipos">
+                <h3 class="titulo-seccion">Propiedad destacada</h3>
+
+            {{-- propiedad individual --}}
+             <div class="grid-propiedades">
+        @foreach($propiedadIndividual as $propiedad)
+        <article class="tarjeta-propiedad">
+            <div class="imagen-propiedad">
+                <div class="tags-propiedad">
+                    {{-- insignias --}}
+                    @if($propiedad->{'Entrega Inmediata/Preventa'})
+                        <span class="tag">{{ $propiedad->{'Entrega Inmediata/Preventa'} }}</span>
+                    @endif
+                    @if($propiedad->{'Tipo de Entrega'})
+                        <span class="tag">{{ $propiedad->{'Tipo de Entrega'} }}</span>
+                    @endif
+                </div>
+                @if($propiedad->{'Link Imagen'})
+                    <img src="{{ $propiedad->{'Link Imagen'} }}" alt="{{ $propiedad->{'Nombre Kibah'} }}" loading="lazy">
+                @else
+                    <img src="{{ asset('imagenes/propiedades/propiedad1.jpg') }}" alt="{{ $propiedad->{'Nombre Kibah'} }}" loading="lazy">
+                @endif
+            </div>
+            <div class="contenido-propiedad">
+                <h3>{{ $propiedad->{'Nombre Kibah'} }}</h3>
+                <p class="direccion-propiedad">
+                    {{ $propiedad->{'Dirección'} ?? '' }} {{ $propiedad->{'Colonia'} ?? '' }}, {{ $propiedad->{'Alcaldia'} ?? '' }}
+                </p>
+
+                <div class="detalles-propiedad">
+                    <span class="item-detalle">
+                        <img src="{{ asset('imagenes/cama.png') }}" alt="">
+                        {{ $propiedad->{'Número de Recámaras'} ?? 'N/A' }}
+                    </span>
+                    <span class="separador-detalle">|</span>
+                    <span class="item-detalle">
+                        <img src="{{ asset('imagenes/ducha.png') }}" alt="">
+                        {{ $propiedad->{'Número de Baños'} ?? 'N/A' }}
+                    </span>
+                    <span class="separador-detalle">|</span>
+                    <span class="item-detalle">
+                        <img src="{{ asset('imagenes/seleccione.png') }}" alt="">
+                        {{ $propiedad->{'M2 Totales'} ?? 'N/A' }} m²
+                    </span>
+                </div>
+
+                <div class="precio-boton">
+                    <p class="precio-propiedad">
+                        @if($propiedad->precio_formateado ?? false)
+                            {{ $propiedad->precio_formateado }}
+                        @elseif($propiedad->{'Precio por unidad'} && is_numeric(floatval(str_replace(['$', '.', ','], '', $propiedad->{'Precio por unidad'}))))
+                            @php
+                                $precio = $propiedad->{'Precio por unidad'};
+                                $precio_limpio = preg_replace('/[^0-9.]/', '', $precio);
+                                if (substr_count($precio_limpio, '.') > 1) {
+                                    $precio_limpio = str_replace('.', '', $precio_limpio);
+                                }
+                            @endphp
+                            ${{ number_format(floatval($precio_limpio), 0, '.', ',') }}
+                        @else
+                            Precio no disponible
+                        @endif
+                    </p>
+                    <a class="btn-detalles" onclick="verDetalle({{ $propiedad->id }})">Ver detalles</a>
+
+                </div>
+            </div>
+        </article>
+        @endforeach
+
+        {{-- Mensaje si no hay propiedades --}}
+        @if($propiedadIndividual->count() === 0)
+        <div class="sin-resultados">
+            <p>No hay propiedades destacadas disponibles en este momento.</p>
+        </div>
+        @endif
+    </div>
+            <div class="prop-tipos">
                 <h3 class="titulo-seccion">Tipos de propiedad</h3>
 
                 <ul class="lista-tipos">
-                    <li><a href="/propiedades/casa-familiar">Casa Familiar</a></li>
-                    <li><a href="/propiedades/departamento">Departamento</a></li>
-                    <li><a href="/propiedades/oficina">Oficina</a></li>
-                    <li><a href="/propiedades/villa">Villa</a></li>
-                    <li><a href="/propiedades/casas">Casas</a></li>
-                    <li><a href="/propiedades/edificio-apartamentos">Edificio De Apartamentos</a></li>
-                    <li><a href="/propiedades/tienda">Tienda</a></li>
+                    {{-- <li><a href="/propiedades/casa-familiar">Casa Familiar</a></li> --}}
+                    {{-- <li><a href="/propiedades/departamento">Departamento</a></li> --}}
+                    {{-- <li><a href="/propiedades/oficina">Oficina</a></li> --}}
+                    {{-- <li><a href="/propiedades/villa">Villa</a></li> --}}
+                    {{-- <li><a href="/propiedades/casas">Casas</a></li> --}}
+                    {{-- <li><a href="/propiedades/edificio-apartamentos">Edificio De Apartamentos</a></li> --}}
+                    {{-- <li><a href="/propiedades/tienda">Tienda</a></li> --}}
+                    <li><a href="/propiedades/tienda">Entrega Inmediata</a></li>
+                    <li><a href="/propiedades/tienda">Preventa</a></li>
+
                 </ul>
-            </div> --}}
+            </div>
 
         </aside>
 
