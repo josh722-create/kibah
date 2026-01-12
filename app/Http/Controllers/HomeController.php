@@ -34,11 +34,13 @@ class HomeController extends Controller
 
         // Propiedades con Entrega Inmediata (máximo 5)
         $entregaInmediata = Propiedad::where('Entrega Inmediata/Preventa', 'Entrega Inmediata')
+            ->inRandomOrder()
             ->limit(5)
             ->get();
 
         // Propiedades en Preventa (máximo 5)
         $preventa = Propiedad::where('Entrega Inmediata/Preventa', 'Preventa')
+            ->inRandomOrder()
             ->limit(5)
             ->get();
         return view('welcome', compact('colonias', 'tiposEntrega', 'entregaInmediata', 'preventa'));

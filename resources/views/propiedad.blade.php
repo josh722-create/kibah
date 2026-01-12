@@ -37,11 +37,25 @@
             <h1 class="prop-titulo">{{ $propiedad->{'Nombre Kibah'} }}</h1>
 
             <p class="prop-precio">
-                @if ($propiedad->{'Precio por unidad'})
-                    ${{ number_format($propiedad->{'Precio por unidad'}, 0, '.', ',') }}
-                @else
-                    Precio no disponible
-                @endif
+@if($propiedad->{'Precio por unidad'})
+    @php
+        $precio = $propiedad->{'Precio por unidad'};
+        // Limpiar el precio: quitar $, espacios y puntos de miles
+        $precio_limpio = preg_replace('/[^0-9.]/', '', $precio);
+        // Si tiene puntos de miles (como 3.101.872), convertirlos
+        if (substr_count($precio_limpio, '.') > 1) {
+            $precio_limpio = str_replace('.', '', $precio_limpio);
+        }
+    @endphp
+
+    @if(is_numeric($precio_limpio))
+        ${{ number_format(floatval($precio_limpio), 0, '.', ',') }}
+    @else
+        {{ $precio }} {{-- Mostrar el precio original si no se puede limpiar --}}
+    @endif
+@else
+    Precio no disponible
+@endif
             </p>
 
             <p class="prop-direccion">
@@ -162,7 +176,7 @@
             <script src="https://link.msgsndr.com/js/form_embed.js"></script>
 
             <br>
-            <div class="prop-tipos">
+            {{-- <div class="prop-tipos">
                 <h3 class="titulo-seccion">Tipos de propiedad</h3>
 
                 <ul class="lista-tipos">
@@ -174,131 +188,100 @@
                     <li><a href="/propiedades/edificio-apartamentos">Edificio De Apartamentos</a></li>
                     <li><a href="/propiedades/tienda">Tienda</a></li>
                 </ul>
-            </div>
+            </div> --}}
 
         </aside>
 
     </div>
 
-    {{-- propiedades similares --}}
-    <section class="similares-propiedades">
-        <h2>Propiedades Similares</h2>
-        <br>
-        <div class="grid-propiedades">
-            <!-- Tarjeta 1 -->
-            <article class="tarjeta-propiedad">
-                <div class="imagen-propiedad">
-                    <div class="tags-propiedad">
-                        {{-- insignias --}}
-                        <span class="tag">Desarrollo</span>
-                        <span class="tag">PreVenta</span>
-                    </div>
-                    <img src="{{ asset('imagenes/propiedades/propiedad1.jpg') }}" alt="Nuevo León II"
-                        loading="lazy">
+   {{-- propiedades similares --}}
+<section class="similares-propiedades">
+    <h2>Propiedades Similares</h2>
+    <br>
+    <div class="grid-propiedades">
+        @foreach($propiedadesDestacadas as $propiedadDest)
+        <article class="tarjeta-propiedad">
+            <div class="imagen-propiedad">
+                <div class="tags-propiedad">
+                    {{-- insignias --}}
+                    @if($propiedadDest->{'Entrega Inmediata/Preventa'})
+                        <span class="tag">{{ $propiedadDest->{'Entrega Inmediata/Preventa'} }}</span>
+                    @endif
+                    @if($propiedadDest->{'Tipo de Entrega'})
+                        <span class="tag">{{ $propiedadDest->{'Tipo de Entrega'} }}</span>
+                    @endif
                 </div>
-                <div class="contenido-propiedad">
-                    <h3>Nuevo León II</h3>
-                    <p class="direccion-propiedad">
-                        Hipódromo Condesa, Ciudad de México, Cuauhtémoc
+                @if($propiedadDest->{'Link Imagen'})
+                    <img src="{{ $propiedadDest->{'Link Imagen'} }}" alt="{{ $propiedadDest->{'Nombre Kibah'} }}" loading="lazy">
+                @else
+                    <img src="{{ asset('imagenes/propiedades/propiedad1.jpg') }}" alt="{{ $propiedadDest->{'Nombre Kibah'} }}" loading="lazy">
+                @endif
+            </div>
+            <div class="contenido-propiedad">
+                <h3>{{ $propiedadDest->{'Nombre Kibah'} }}</h3>
+                <p class="direccion-propiedad">
+                    {{ $propiedadDest->{'Dirección'} ?? '' }} {{ $propiedadDest->{'Colonia'} ?? '' }}, {{ $propiedadDest->{'Alcaldia'} ?? '' }}
+                </p>
+
+                <div class="detalles-propiedad">
+                    <span class="item-detalle">
+                        <img src="{{ asset('imagenes/cama.png') }}" alt="">
+                        {{ $propiedadDest->{'Número de Recámaras'} ?? 'N/A' }}
+                    </span>
+                    <span class="separador-detalle">|</span>
+                    <span class="item-detalle">
+                        <img src="{{ asset('imagenes/ducha.png') }}" alt="">
+                        {{ $propiedadDest->{'Número de Baños'} ?? 'N/A' }}
+                    </span>
+                    <span class="separador-detalle">|</span>
+                    <span class="item-detalle">
+                        <img src="{{ asset('imagenes/seleccione.png') }}" alt="">
+                        {{ $propiedadDest->{'M2 Totales'} ?? 'N/A' }} m²
+                    </span>
+                </div>
+
+                <div class="precio-boton">
+                    <p class="precio-propiedad">
+                        @if($propiedadDest->precio_formateado ?? false)
+                            {{ $propiedadDest->precio_formateado }}
+                        @elseif($propiedadDest->{'Precio por unidad'} && is_numeric(floatval(str_replace(['$', '.', ','], '', $propiedadDest->{'Precio por unidad'}))))
+                            @php
+                                $precio = $propiedadDest->{'Precio por unidad'};
+                                $precio_limpio = preg_replace('/[^0-9.]/', '', $precio);
+                                if (substr_count($precio_limpio, '.') > 1) {
+                                    $precio_limpio = str_replace('.', '', $precio_limpio);
+                                }
+                            @endphp
+                            ${{ number_format(floatval($precio_limpio), 0, '.', ',') }}
+                        @else
+                            Precio no disponible
+                        @endif
                     </p>
+                    <a class="btn-detalles" onclick="verDetalle({{ $propiedadDest->id }})">Ver detalles</a>
 
-                    <div class="detalles-propiedad">
-                        <span class="item-detalle">
-                            <!-- Iconos de ejemplo, puedes cambiarlos por imágenes -->
-                            <img src="{{ asset('imagenes/cama.png') }}" alt=""> 2
-                        </span>
-                        <span class="separador-detalle">|</span>
-                        <span class="item-detalle">
-                            <img src="{{ asset('imagenes/ducha.png') }}" alt=""> 2
-                        </span>
-                        <span class="separador-detalle">|</span>
-                        <span class="item-detalle">
-                            <img src="{{ asset('imagenes/seleccione.png') }}" alt=""> 2 m²
-                        </span>
-                    </div>
-
-                    <div class="precio-boton">
-                        <p class="precio-propiedad">$7,789,328</p>
-                        <a href="#" class="btn-detalles">Ver detalles</a>
-                    </div>
                 </div>
-            </article>
+            </div>
+        </article>
+        @endforeach
 
-            <!-- Tarjeta 2 -->
-            <article class="tarjeta-propiedad">
-                <div class="imagen-propiedad">
-                    <div class="tags-propiedad">
-                        {{-- insignias --}}
-                        <span class="tag">Desarrollo</span>
-                        <span class="tag">PreVenta</span>
-                    </div>
-                    <img src="{{ asset('imagenes/propiedades/propiedad2.webp') }}" alt="Juárez I" loading="lazy">
-                </div>
-                <div class="contenido-propiedad">
-                    <h3>Juárez I</h3>
-                    <p class="direccion-propiedad">
-                        Avenida Juárez, Barrio Chino, Centro, Ciudad de México
-                    </p>
-
-                    <div class="detalles-propiedad">
-                        <span class="item-detalle"><img src="{{ asset('imagenes/cama.png') }}" alt="">
-                            1</span>
-                        <span class="separador-detalle">|</span>
-                        <span class="item-detalle"><img src="{{ asset('imagenes/ducha.png') }}" alt="">
-                            1</span>
-                        <span class="separador-detalle">|</span>
-                        <span class="item-detalle">
-                            <img src="{{ asset('imagenes/seleccione.png') }}" alt=""> 2 m²
-                        </span>
-                    </div>
-
-                    <div class="precio-boton">
-                        <p class="precio-propiedad">$5,008,607</p>
-                        <a href="#" class="btn-detalles">Ver detalles</a>
-                    </div>
-                </div>
-            </article>
-
-            <!-- Tarjeta 3 -->
-            <article class="tarjeta-propiedad">
-                <div class="imagen-propiedad">
-                    <div class="tags-propiedad">
-                        {{-- insignias --}}
-                        <span class="tag">Desarrollo</span>
-                        <span class="tag">PreVenta</span>
-                    </div>
-                    <img src="{{ asset('imagenes/propiedades/propiedad1.webp') }}" alt="Tabacalera I"
-                        loading="lazy">
-                </div>
-                <div class="contenido-propiedad">
-                    <h3>Tabacalera I</h3>
-                    <p class="direccion-propiedad">
-                        Tabacalera, Ciudad de México, Cuauhtémoc
-                    </p>
-
-                    <div class="detalles-propiedad">
-                        <span class="item-detalle"><img src="{{ asset('imagenes/cama.png') }}" alt="">
-                            1–2</span>
-                        <span class="separador-detalle">|</span>
-                        <span class="item-detalle"><img src="{{ asset('imagenes/ducha.png') }}" alt="">
-                            1</span>
-                            <span class="separador-detalle">|</span>
-                        <span class="item-detalle">
-                            <img src="{{ asset('imagenes/seleccione.png') }}" alt=""> 2 m²
-                        </span>
-                    </div>
-
-                    <div class="precio-boton">
-                        <p class="precio-propiedad">$5,110,783</p>
-                        <a href="#" class="btn-detalles">Ver detalles</a>
-                    </div>
-                </div>
-            </article>
+        {{-- Mensaje si no hay propiedades --}}
+        @if($propiedadesDestacadas->count() === 0)
+        <div class="sin-resultados">
+            <p>No hay propiedades destacadas disponibles en este momento.</p>
         </div>
-    </section>
+        @endif
+    </div>
+</section>
 
     <!-- footer -->
     @include('footer')
 </body>
 
 </html>
+
+<script>
+function verDetalle(id) {
+    // Redirigir a la página de detalles
+    window.location.href = `/propiedad/${id}/`;
+}
+</script>

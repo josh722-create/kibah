@@ -28,13 +28,17 @@
  </div>
     <!-- Filtro -->
     <form class="filtro-propiedades">
-        <select><option>Todo el estado</option></select>
+        <select name="estado">
+            <option value="" selected disabled>Estado</option>
+            <option value="Entrega Inmediata">Entrega inmediata</option>
+            <option value="Preventa">Preventa</option>
+        </select>
         <select name="colonia">
             @foreach($colonias as $colonia)
                 <option value="{{ $colonia }}">{{ $colonia }}</option>
             @endforeach
         </select>
-        <select><option>Todos los tipos</option></select>
+        {{-- <select><option>Todos los tipos</option></select> --}}
         <button type="button" class="btn-buscar-prop" onclick="realizarBusquedaHeader()">Buscar</button>
     </form>
 
@@ -64,9 +68,12 @@ nav.querySelectorAll("a").forEach(link => {
 
 function realizarBusquedaHeader() {
     const colonia = document.querySelector('form.filtro-propiedades select[name="colonia"]').value;
+    const estado = document.querySelector('form.filtro-propiedades select[name="estado"]').value;
+
 
     console.log('Parámetros de búsqueda (header):', {
-        colonia: colonia
+        colonia: colonia,
+        estado: estado
     });
 
     let url = '/buscar?';

@@ -58,7 +58,7 @@ class SearchController extends Controller
         return view('propiedades', compact('propiedades', 'colonias'));
     }
 
-    public function showProperty($id, $nombre = null)
+    public function showProperty($id)
     {
         // Buscar la propiedad por ID
         $propiedad = Propiedad::find($id);
@@ -82,10 +82,15 @@ class SearchController extends Controller
         // Log para debugging
         Log::info('Vista individual de propiedad:', [
             'id' => $id,
-            'nombre_solicitado' => $nombre,
             'nombre_real' => $propiedad->{'Nombre de la Propiedad'}
         ]);
 
-        return view('propiedad', compact('propiedad', 'colonias'));
+        // Propiedades destacadas
+        $propiedadesDestacadas = Propiedad::whereIn('Entrega Inmediata/Preventa', ['Entrega Inmediata', 'Preventa'])
+            ->inRandomOrder()
+            ->limit(5)
+            ->get();
+
+        return view('propiedad', compact('propiedad', 'colonias', 'propiedadesDestacadas'));
     }
 }

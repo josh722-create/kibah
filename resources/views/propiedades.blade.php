@@ -59,11 +59,25 @@
 
                 <div class="precio-boton">
                     <p class="precio-propiedad">
-                        @if($propiedad->{'Precio por unidad'})
-                            ${{ number_format($propiedad->{'Precio por unidad'}, 0, '.', ',') }}
-                        @else
-                            Precio no disponible
-                        @endif
+@if($propiedad->{'Precio por unidad'})
+    @php
+        $precio = $propiedad->{'Precio por unidad'};
+        // Limpiar el precio: quitar $, espacios y puntos de miles
+        $precio_limpio = preg_replace('/[^0-9.]/', '', $precio);
+        // Si tiene puntos de miles (como 3.101.872), convertirlos
+        if (substr_count($precio_limpio, '.') > 1) {
+            $precio_limpio = str_replace('.', '', $precio_limpio);
+        }
+    @endphp
+
+    @if(is_numeric($precio_limpio))
+        ${{ number_format(floatval($precio_limpio), 0, '.', ',') }}
+    @else
+        {{ $precio }} {{-- Mostrar el precio original si no se puede limpiar --}}
+    @endif
+@else
+    Precio no disponible
+@endif
                     </p>
                     <a class="btn-detalles" onclick="verDetalle({{ $propiedad->id }}, '{{ Str::slug($propiedad->{'Nombre de la Propiedad'}) }}')">Ver detalles</a>
                 </div>
@@ -74,7 +88,7 @@
         @if($propiedades->count() === 0)
         <div class="no-propiedades">
             <p>No se encontraron propiedades con los filtros seleccionados.</p>
-            <a href="{{ url('/') }}" class="btn-volver">Volver a buscar</a>
+            {{-- <a href="{{ url('/') }}" class="btn-volver">Volver a buscar</a> --}}
         </div>
         @endif
         </div>
@@ -87,12 +101,8 @@
 </html>
 
 <script>
-function verDetalle(id, nombreSlug) {
-    console.log('ID de la propiedad:', id);
-    console.log('Nombre slug:', nombreSlug);
-    console.log('URL amigable:', `/propiedad/${id}/${nombreSlug}`);
-
+function verDetalle(id) {
     // Redirigir a la página de detalles
-    window.location.href = `/propiedad/${id}/${nombreSlug}`;
+    window.location.href = `/propiedad/${id}/`;
 }
 </script>
