@@ -70,22 +70,17 @@ function realizarBusquedaHeader() {
     const colonia = document.querySelector('form.filtro-propiedades select[name="colonia"]').value;
     const estado = document.querySelector('form.filtro-propiedades select[name="estado"]').value;
 
-
-    console.log('Parámetros de búsqueda (header):', {
-        colonia: colonia,
-        estado: estado
-    });
-
     let url = '/buscar?';
     const params = [];
 
     if (colonia && colonia !== '-- Selecciona --') {
         params.push(`colonia=${encodeURIComponent(colonia)}`);
     }
+    if (estado) { // si el estado no está vacío
+        params.push(`estado=${encodeURIComponent(estado)}`);
+    }
 
     const finalUrl = url + params.join('&');
-    console.log('URL final (header):', finalUrl);
-
     window.location.href = finalUrl;
 }
 </script>

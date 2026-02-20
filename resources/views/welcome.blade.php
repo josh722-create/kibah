@@ -60,7 +60,7 @@
 
                     <label>Tipos de propiedad</label>
                     <select name="tipo_propiedad">
-                        <option selected disabled>Tipo de propiedad</option>
+                        <option value="" selected disabled>Tipo de propiedad</option>
                         <option value="Entrega Inmediata">Entrega Inmediata</option>
                         <option value="Preventa">Preventa</option>
                     </select>
@@ -223,11 +223,25 @@
 
                 <div class="precio-boton">
                     <p class="precio-propiedad">
-                        @if($propiedad->{'Precio por unidad'})
-                            ${{ number_format($propiedad->{'Precio por unidad'}, 0, '.', ',') }}
-                        @else
-                            Precio no disponible
-                        @endif
+@if($propiedad->{'Precio por unidad'})
+    @php
+        $precio = $propiedad->{'Precio por unidad'};
+        // Limpiar el precio: quitar $, espacios y puntos de miles
+        $precio_limpio = preg_replace('/[^0-9.]/', '', $precio);
+        // Si tiene puntos de miles (como 3.101.872), convertirlos
+        if (substr_count($precio_limpio, '.') > 1) {
+            $precio_limpio = str_replace('.', '', $precio_limpio);
+        }
+    @endphp
+
+    @if(is_numeric($precio_limpio))
+        ${{ number_format(floatval($precio_limpio), 0, '.', ',') }}
+    @else
+        {{ $precio }}
+    @endif
+@else
+    Precio no disponible
+@endif
                     </p>
                     <a class="btn-detalles" onclick="verDetalle({{ $propiedad->id }}, '{{ Str::slug($propiedad->{'Nombre de la Propiedad'}) }}')">Ver detalles</a>
                 </div>
@@ -280,14 +294,27 @@
 
                 <div class="precio-boton">
                     <p class="precio-propiedad">
-                        @if($propiedad->{'Precio por unidad'})
-                            ${{ number_format($propiedad->{'Precio por unidad'}, 0, '.', ',') }}
-                        @else
-                            Precio no disponible
-                        @endif
+@if($propiedad->{'Precio por unidad'})
+    @php
+        $precio = $propiedad->{'Precio por unidad'};
+        // Limpiar el precio: quitar $, espacios y puntos de miles
+        $precio_limpio = preg_replace('/[^0-9.]/', '', $precio);
+        // Si tiene puntos de miles (como 3.101.872), convertirlos
+        if (substr_count($precio_limpio, '.') > 1) {
+            $precio_limpio = str_replace('.', '', $precio_limpio);
+        }
+    @endphp
+
+    @if(is_numeric($precio_limpio))
+        ${{ number_format(floatval($precio_limpio), 0, '.', ',') }}
+    @else
+        {{ $precio }}
+    @endif
+@else
+    Precio no disponible
+@endif
                     </p>
-                    <a class="btn-detalles" onclick="verDetalle({{ $propiedad->id }})">Ver detalles</a>
-                </div>
+<a class="btn-detalles" onclick="verDetalle({{ $propiedad->id }}, '{{ Str::slug($propiedad->{'Nombre de la Propiedad'}) }}')">Ver detalles</a>                </div>
             </div>
         </article>
         @endforeach
@@ -369,7 +396,7 @@
         </div>
     </section>
     {{-- formulario de contarcto --}}
-    <section id="#contacto" class="seccion-contacto">
+    <section id="contacto" class="seccion-contacto">
         <div class="contenedor-contacto">
 
             <!-- Columna izquierda: imagen -->

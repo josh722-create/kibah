@@ -11,8 +11,8 @@
             <button class="cerrar-menu" id="cerrarMenu">✕</button>
 
             <a href="/">INICIO</a>
-            <a href="#">NOSOTROS</a>
-            <a href="/propiedades">PROPIEDADES</a>
+            <a href="/#nosotros">NOSOTROS</a>
+            <a href="{{ route('propiedades.all') }}">PROPIEDADES</a>
             <a href="/#contacto">CONTACTANOS</a>
         </nav>
 

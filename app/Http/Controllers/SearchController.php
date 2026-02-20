@@ -11,7 +11,6 @@ class SearchController extends Controller
 {
     public function buscar(Request $request)
     {
-        // Log para debugging
         Log::info('Búsqueda recibida:', $request->all());
 
         $query = Propiedad::query();
@@ -22,27 +21,38 @@ class SearchController extends Controller
         }
 
         // Filtro por recámaras
-        if ($request->filled('Número de Recámaras')) {
+        if ($request->filled('recamaras')) {
             $recamaras = $request->recamaras;
             if ($recamaras === '5') {
-                $query->where('Número de recámaras', '>=', 5);
+                $query->where('Número de Recámaras', '>=', 5);
             } else {
-                $query->where('Número de recámaras', $recamaras);
+                $query->where('Número de Recámaras', $recamaras);
             }
         }
 
         // Filtro por baños
-        if ($request->filled('Número de Baños')) {
+        if ($request->filled('banos')) {
             $banos = $request->banos;
             if ($banos === '5') {
-                $query->where('Número de baños', '>=', 5);
+                $query->where('Número de Baños', '>=', 5);
             } else {
-                $query->where('Número de baños', $banos);
+                $query->where('Número de Baños', $banos);
             }
+        }
+
+        // Filtro por tipo de propiedad (desde welcome, con nombre 'tipo_propiedad')
+        if ($request->filled('tipo_propiedad')) {
+            $query->where('Entrega Inmediata/Preventa', $request->tipo_propiedad);
+        }
+
+        // Filtro por estado (desde header, con nombre 'estado')
+        if ($request->filled('estado')) {
+            $query->where('Entrega Inmediata/Preventa', $request->estado);
         }
 
         $propiedades = $query->get();
 
+        // Obtener colonias únicas (para el select)
         $colonias = Propiedad::select('Colonia')
             ->whereNotNull('Colonia')
             ->where('Colonia', '!=', '')
@@ -53,7 +63,7 @@ class SearchController extends Controller
                 return !empty(trim($value));
             });
 
-        Log::info($propiedades);
+        Log::info('Resultados obtenidos:', ['cantidad' => $propiedades->count()]);
 
         return view('propiedades', compact('propiedades', 'colonias'));
     }
@@ -97,5 +107,21 @@ class SearchController extends Controller
             ->get();
 
         return view('propiedad', compact('propiedad', 'colonias', 'propiedadesDestacadas', 'propiedadIndividual'));
+    }
+
+    public function allProperties()
+    {
+        $propiedades = Propiedad::all();
+        // colonias
+        $colonias = Propiedad::select('Colonia')
+            ->whereNotNull('Colonia')
+            ->where('Colonia', '!=', '')
+            ->distinct()
+            ->orderBy('Colonia')
+            ->pluck('Colonia')
+            ->filter(function ($value) {
+                return !empty(trim($value));
+            });
+        return view('propiedadesgenerales', compact('propiedades', 'colonias'));
     }
 }
