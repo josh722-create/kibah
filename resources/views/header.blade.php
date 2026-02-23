@@ -5,7 +5,7 @@
 
     <div class="contenedor-header-propiedades">
         <a href="/" class="logo-prop">
-            <img src="{{ asset('imagenes/logo.png') }}" alt="">
+            <img src="{{ asset('../imagenes/logo.png') }}" alt="">
         </a>
 
         <!-- botón hamburguesa -->
