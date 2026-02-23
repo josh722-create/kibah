@@ -145,6 +145,15 @@
                             @endforeach
                         </ul>
                     @endif
+                    @if (!empty(trim($propiedad->{'Link Maps'} ?? '')))
+                        <h3 class="subtitulo-descripcion">Mapa:</h3>
+                        <div style="width: 100%; max-width: 800px; margin: 20px 0; position: relative; overflow: hidden; border-radius: 8px;">
+                            <div style="position: relative;">
+                                {!! str_replace(['width="640"', 'height="480"'], ['width="100%"', 'height="580"', 'style="border:0;"'], $propiedad->{'Link Maps'}) !!}
+                            </div>
+                            <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100px; background: white; z-index: 10;"></div>
+                        </div>
+                    @endif
                 </div>
 
                 <br>
