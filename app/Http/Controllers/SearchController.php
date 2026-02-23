@@ -52,7 +52,7 @@ class SearchController extends Controller
 
         $propiedades = $query->get();
 
-        // Obtener colonias únicas (para el select)
+        // Obtener colonias únicas
         $colonias = Propiedad::select('Colonia')
             ->whereNotNull('Colonia')
             ->where('Colonia', '!=', '')
@@ -65,6 +65,7 @@ class SearchController extends Controller
 
         Log::info('Resultados obtenidos:', ['cantidad' => $propiedades->count()]);
 
+        // Pasar los filtros actuales a la vista
         return view('propiedades', compact('propiedades', 'colonias'));
     }
 

@@ -27,20 +27,27 @@
     </nav>
  </div>
     <!-- Filtro -->
-    <form class="filtro-propiedades">
-        <select name="estado">
-            <option value="" selected disabled>Estado</option>
-            <option value="Entrega Inmediata">Entrega inmediata</option>
-            <option value="Preventa">Preventa</option>
-        </select>
-        <select name="colonia">
-            @foreach($colonias as $colonia)
-                <option value="{{ $colonia }}">{{ $colonia }}</option>
-            @endforeach
-        </select>
-        {{-- <select><option>Todos los tipos</option></select> --}}
-        <button type="button" class="btn-buscar-prop" onclick="realizarBusquedaHeader()">Buscar</button>
-    </form>
+<form class="filtro-propiedades" method="GET" action="{{ route('buscar') }}">
+<select name="estado">
+    <option value="" disabled {{ !request('tipo_propiedad') && !request('estado') ? 'selected' : '' }}>Estado</option>
+    <option value="Entrega Inmediata" {{ (request('tipo_propiedad') == 'Entrega Inmediata' || request('estado') == 'Entrega Inmediata') ? 'selected' : '' }}>
+        Entrega inmediata
+    </option>
+    <option value="Preventa" {{ (request('tipo_propiedad') == 'Preventa' || request('estado') == 'Preventa') ? 'selected' : '' }}>
+        Preventa
+    </option>
+</select>
+
+    <select name="colonia">
+        <option value="" disabled {{ !request('colonia') ? 'selected' : '' }}>Colonia</option>
+        @foreach($colonias as $colonia)
+            <option value="{{ $colonia }}" {{ request('colonia') == $colonia ? 'selected' : '' }}>
+                {{ $colonia }}
+            </option>
+        @endforeach
+    </select>
+
+<button type="button" class="btn-buscar-prop" onclick="realizarBusquedaHeader()">Buscar</button></form>
 
 </header>
 
@@ -67,21 +74,10 @@ nav.querySelectorAll("a").forEach(link => {
 });
 
 function realizarBusquedaHeader() {
-    const colonia = document.querySelector('form.filtro-propiedades select[name="colonia"]').value;
-    const estado = document.querySelector('form.filtro-propiedades select[name="estado"]').value;
-
-    let url = '/buscar?';
-    const params = [];
-
-    if (colonia && colonia !== '-- Selecciona --') {
-        params.push(`colonia=${encodeURIComponent(colonia)}`);
-    }
-    if (estado) { // si el estado no está vacío
-        params.push(`estado=${encodeURIComponent(estado)}`);
-    }
-
-    const finalUrl = url + params.join('&');
-    window.location.href = finalUrl;
+    const form = document.querySelector('.filtro-propiedades');
+    const formData = new FormData(form);
+    const params = new URLSearchParams(formData);
+    window.location.href = `/buscar?${params.toString()}`;
 }
 </script>
 
