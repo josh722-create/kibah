@@ -29,7 +29,7 @@
     <!-- Filtro -->
 <form class="filtro-propiedades" method="GET" action="{{ route('buscar') }}">
 <select name="estado">
-    <option value="" disabled {{ !request('tipo_propiedad') && !request('estado') ? 'selected' : '' }}>Estado</option>
+    <option value="" disabled {{ !request('tipo_propiedad') && !request('estado') ? 'selected' : '' }}>Tipo de propiedad</option>
     <option value="Entrega Inmediata" {{ (request('tipo_propiedad') == 'Entrega Inmediata' || request('estado') == 'Entrega Inmediata') ? 'selected' : '' }}>
         Entrega inmediata
     </option>

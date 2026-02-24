@@ -136,7 +136,7 @@
                             Disponibilidad: {{ $propiedad->{'Disponibilidad'} }}.
                         @endif
                     </p>
-
+{{--
                     @if ($propiedad->Amenidades)
                         <h3 class="subtitulo-descripcion">Amenidades:</h3>
                         <ul class="lista-amenidades">
@@ -144,7 +144,7 @@
                                 <li>{{ trim($amenidad) }}</li>
                             @endforeach
                         </ul>
-                    @endif
+                    @endif --}}
                     @if (!empty(trim($propiedad->{'Link Maps'} ?? '')))
                         <h3 class="subtitulo-descripcion">Mapa:</h3>
                         <div style="width: 100%; max-width: 800px; margin: 20px 0; position: relative; overflow: hidden; border-radius: 8px;">
