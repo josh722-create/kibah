@@ -243,7 +243,7 @@
     Precio no disponible
 @endif
                     </p>
-                    <a class="btn-detalles" onclick="verDetalle({{ $propiedad->id }}, '{{ Str::slug($propiedad->{'Nombre de la Propiedad'}) }}')">Ver detalles</a>
+                    <a class="btn-detalles" href="{{ route('propiedad.show', $propiedad->id) }}">Ver detalles</a>
                 </div>
             </div>
         </article>
@@ -314,7 +314,7 @@
     Precio no disponible
 @endif
                     </p>
-<a class="btn-detalles" onclick="verDetalle({{ $propiedad->id }}, '{{ Str::slug($propiedad->{'Nombre de la Propiedad'}) }}')">Ver detalles</a>                </div>
+                    <a class="btn-detalles" href="{{ route('propiedad.show', $propiedad->id) }}">Ver detalles</a>
             </div>
         </article>
         @endforeach

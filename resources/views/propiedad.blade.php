@@ -247,7 +247,7 @@
                             Precio no disponible
                         @endif
                     </p>
-                    <a class="btn-detalles" onclick="verDetalle({{ $propiedad->id }})">Ver detalles</a>
+                    <a class="btn-detalles" href="{{ route('propiedad.show', $propiedad->id) }}">Ver detalles</a>
 
                 </div>
             </div>
@@ -345,7 +345,8 @@
                             Precio no disponible
                         @endif
                     </p>
-                    <a class="btn-detalles" onclick="verDetalle({{ $propiedadDest->id }})">Ver detalles</a>
+
+                    <a class="btn-detalles" href="{{ route('propiedad.show', $propiedad->id) }}">Ver detalles</a>
 
                 </div>
             </div>
