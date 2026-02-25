@@ -20,6 +20,7 @@
 @foreach($propiedades as $propiedad)
         <!-- Tarjeta {{ $loop->iteration }} -->
         <article class="tarjeta-propiedad">
+            <a  style="text-decoration: none;" href="{{ route('propiedad.show', $propiedad->id) }}">
             <div class="imagen-propiedad">
                 <div class="tags-propiedad">
                     {{-- insignias --}}
@@ -82,6 +83,7 @@
                     <a class="btn-detalles" href="{{ route('propiedad.show', $propiedad->id) }}">Ver detalles</a>
                 </div>
             </div>
+        </a>
         </article>
         @endforeach
                 {{-- Mensaje cuando NO hay propiedades --}}

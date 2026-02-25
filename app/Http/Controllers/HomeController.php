@@ -43,6 +43,8 @@ class HomeController extends Controller
             ->inRandomOrder()
             ->limit(5)
             ->get();
-        return view('welcome', compact('colonias', 'tiposEntrega', 'entregaInmediata', 'preventa'));
+
+        $propiedadesDestacadasHome = $entregaInmediata->merge($preventa)->shuffle();
+        return view('welcome', compact('colonias', 'tiposEntrega', 'propiedadesDestacadasHome'));
     }
 }

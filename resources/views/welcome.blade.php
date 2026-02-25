@@ -171,8 +171,8 @@
                     {{-- <button class="filtro-propiedad">Desarrollo</button> --}}
                     {{-- <button class="filtro-propiedad">En Renta</button> --}}
                     {{-- <button class="filtro-propiedad">En Venta</button> --}}
-                    <button class="filtro-propiedad inmediata">Entrega Inmediata</button>
-                    <button class="filtro-propiedad preventa">PreVenta</button>
+                    {{-- <button class="filtro-propiedad inmediata">Entrega Inmediata</button> --}}
+                    {{-- <button class="filtro-propiedad preventa">PreVenta</button> --}}
                     {{-- <button class="filtro-propiedad">Ticket de inversión</button> --}}
                     {{-- <button class="filtro-propiedad">Último departamento</button> --}}
                 </div>
@@ -181,9 +181,10 @@
 
             <div class="grid-propiedades inmediata-seccion">
                 <!-- Tarjeta 1 -->
-        @foreach($entregaInmediata as $propiedad)
+        @foreach($propiedadesDestacadasHome as $propiedad)
         <!-- Tarjeta {{ $loop->iteration }} -->
         <article class="tarjeta-propiedad">
+            <a  style="text-decoration: none;" href="{{ route('propiedad.show', $propiedad->id) }}">
             <div class="imagen-propiedad">
                 <div class="tags-propiedad">
                     {{-- insignias --}}
@@ -246,76 +247,7 @@
                     <a class="btn-detalles" href="{{ route('propiedad.show', $propiedad->id) }}">Ver detalles</a>
                 </div>
             </div>
-        </article>
-        @endforeach
-            </div>
-            {{-- contenedor preventa --}}
-              <div class="grid-propiedades preventa-seccion">
-                <!-- Tarjeta 1 -->
-            @foreach($preventa as $propiedad)
-        <!-- Tarjeta {{ $loop->iteration }} -->
-        <article class="tarjeta-propiedad">
-            <div class="imagen-propiedad">
-                <div class="tags-propiedad">
-                    {{-- insignias --}}
-                    {{-- <span class="tag">Desarrollo</span> --}}
-                    @if($propiedad->{'Entrega Inmediata/Preventa'})
-                        <span class="tag">{{ $propiedad->{'Entrega Inmediata/Preventa'} }}</span>
-                    @endif
-                </div>
-                {{-- <img src="{{ $propiedad->{'Link Drive'} }}" alt="{{ $propiedad->{'Nombre de la Propiedad'} }}" loading="lazy"> --}}
-
-        @if($propiedad->{'Link Imagen'})
-            <img src="{{ $propiedad->{'Link Imagen'} }}" alt="{{ $propiedad->{'Nombre de la Propiedad'} }}" class="prop-hero-img">
-        @else
-            {{-- <img src="{{ asset('imagenes/propiedades/propiedad1.webp') }}" alt="{{ $propiedad->{'Nombre de la Propiedad'} }}" class="prop-hero-img"> --}}
-        @endif            </div>
-            <div class="contenido-propiedad">
-                <h3>{{ $propiedad->{'Nombre Kibah'} }}</h3>
-                <p class="direccion-propiedad">
-                    {{ $propiedad->Colonia }}, {{ $propiedad->Alcaldía }}
-                </p>
-
-                <div class="detalles-propiedad">
-                    <span class="item-detalle">
-                        <img src="{{ asset('imagenes/cama.png') }}" alt=""> {{ $propiedad->{'Número de Recámaras'} ?? 'N/A' }}
-                    </span>
-                    <span class="separador-detalle">|</span>
-                    <span class="item-detalle">
-                        <img src="{{ asset('imagenes/ducha.png') }}" alt=""> {{ $propiedad->{'Número de Baños'} ?? 'N/A' }}
-                    </span>
-                    @if($propiedad->{'M2 Totales'})
-                    <span class="separador-detalle">|</span>
-                    <span class="item-detalle">
-                        <img src="{{ asset('imagenes/seleccione.png') }}" alt=""> {{ $propiedad->{'M2 Totales'} }} m²
-                    </span>
-                    @endif
-                </div>
-
-                <div class="precio-boton">
-                    <p class="precio-propiedad">
-@if($propiedad->{'Precio por unidad'})
-    @php
-        $precio = $propiedad->{'Precio por unidad'};
-        // Limpiar el precio: quitar $, espacios y puntos de miles
-        $precio_limpio = preg_replace('/[^0-9.]/', '', $precio);
-        // Si tiene puntos de miles (como 3.101.872), convertirlos
-        if (substr_count($precio_limpio, '.') > 1) {
-            $precio_limpio = str_replace('.', '', $precio_limpio);
-        }
-    @endphp
-
-    @if(is_numeric($precio_limpio))
-        ${{ number_format(floatval($precio_limpio), 0, '.', ',') }}
-    @else
-        {{ $precio }}
-    @endif
-@else
-    Precio no disponible
-@endif
-                    </p>
-                    <a class="btn-detalles" href="{{ route('propiedad.show', $propiedad->id) }}">Ver detalles</a>
-            </div>
+        </a>
         </article>
         @endforeach
             </div>

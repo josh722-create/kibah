@@ -191,6 +191,8 @@
              <div class="grid-propiedades">
         @foreach($propiedadIndividual as $propiedad)
         <article class="tarjeta-propiedad">
+                        <a  style="text-decoration: none;" href="{{ route('propiedad.show', $propiedad->id) }}">
+
             <div class="imagen-propiedad">
                 <div class="tags-propiedad">
                     {{-- insignias --}}
@@ -251,6 +253,7 @@
 
                 </div>
             </div>
+        </a>
         </article>
         @endforeach
 
@@ -261,22 +264,22 @@
         </div>
         @endif
     </div>
-            <div class="prop-tipos">
+            {{-- <div class="prop-tipos">
                 <h3 class="titulo-seccion">Tipos de propiedad</h3>
 
                 <ul class="lista-tipos">
-                    {{-- <li><a href="/propiedades/casa-familiar">Casa Familiar</a></li> --}}
-                    {{-- <li><a href="/propiedades/departamento">Departamento</a></li> --}}
-                    {{-- <li><a href="/propiedades/oficina">Oficina</a></li> --}}
-                    {{-- <li><a href="/propiedades/villa">Villa</a></li> --}}
-                    {{-- <li><a href="/propiedades/casas">Casas</a></li> --}}
-                    {{-- <li><a href="/propiedades/edificio-apartamentos">Edificio De Apartamentos</a></li> --}}
-                    {{-- <li><a href="/propiedades/tienda">Tienda</a></li> --}}
+                    <li><a href="/propiedades/casa-familiar">Casa Familiar</a></li>
+                    <li><a href="/propiedades/departamento">Departamento</a></li>
+                    <li><a href="/propiedades/oficina">Oficina</a></li>
+                    <li><a href="/propiedades/villa">Villa</a></li>
+                    <li><a href="/propiedades/casas">Casas</a></li>
+                    <li><a href="/propiedades/edificio-apartamentos">Edificio De Apartamentos</a></li>
+                    <li><a href="/propiedades/tienda">Tienda</a></li>
                     <li><a href="/propiedades/tienda">Entrega Inmediata</a></li>
                     <li><a href="/propiedades/tienda">Preventa</a></li>
 
                 </ul>
-            </div>
+            </div> --}}
 
         </aside>
 
@@ -289,6 +292,7 @@
     <div class="grid-propiedades">
         @foreach($propiedadesDestacadas as $propiedadDest)
         <article class="tarjeta-propiedad">
+        <a  style="text-decoration: none;" href="{{ route('propiedad.show', $propiedadDest->id) }}">
             <div class="imagen-propiedad">
                 <div class="tags-propiedad">
                     {{-- insignias --}}
@@ -350,6 +354,7 @@
 
                 </div>
             </div>
+        </a>
         </article>
         @endforeach
 
