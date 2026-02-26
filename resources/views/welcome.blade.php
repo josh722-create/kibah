@@ -267,7 +267,7 @@
                 <h3>CRÉDITOS HIPOTECARIOS</h3>
                 <p>Te ayudamos a conseguir tu préstamo con facilidad y claridad, asegurando que obtengas las mejores
                     condiciones posibles.</p>
-                <a href="#" class="btn-servicio">COMENZAR MI TRÁMITE</a>
+                <a target="blank" href="https://wa.me/5215527150540?text=quiero%20informaci%C3%B3n%20sobre%20un%20cr%C3%A9dito%20hipotecario" class="btn-servicio">COMENZAR MI TRÁMITE</a>
             </div>
 
             <!-- TARJETA 2 -->
@@ -278,7 +278,7 @@
                 <h3>VENTA INTEGRAL PARA DESARROLLADORES</h3>
                 <p>Servicio completo de marketing, desde la estrategia hasta la conversión. IA para respuestas y
                     seguimiento precisos.</p>
-                <a href="#" class="btn-servicio">COMENZAR AHORA</a>
+                <a href="https://tupropiedad.kibah.com.mx/venta?_gl=1*wsgmxp*_ga*MTExMzU3NzE0Ny4xNzM4MjY0ODAy*_ga_2E9TCB8Y9J*czE3NzIxMjU0MTQkbzQ5JGcxJHQxNzcyMTI1Njg1JGo2MCRsMCRoMA.." target="blank" class="btn-servicio">COMENZAR AHORA</a>
             </div>
 
             <!-- TARJETA 3 -->
@@ -290,7 +290,7 @@
                 <h3>VENDE TU PROPIEDAD</h3>
                 <p>Hacemos que vender tu casa sea fácil y rentable. Nos ocupamos de todo, desde analizar el precio hasta
                     encontrar al comprador perfecto.</p>
-                <a href="#" class="btn-servicio">COMENZAR AHORA</a>
+                <a href="https://tupropiedad.kibah.com.mx/" target="_blank" class="btn-servicio">COMENZAR AHORA</a>
             </div>
 
             <!-- TARJETA 4 -->
@@ -301,7 +301,7 @@
                 <h3>RENTA TU PROPIEDAD</h3>
                 <p>¿Quieres rentar tu casa? Nos encargamos de todo, desde promocionarla en línea hasta manejar los
                     trámites.</p>
-                <a href="#" class="btn-servicio">COMENZAR AHORA</a>
+                <a href="https://tupropiedad.kibah.com.mx/renta" target="_blank" class="btn-servicio">COMENZAR AHORA</a>
             </div>
 
             <!-- TARJETA 5 -->
@@ -312,7 +312,7 @@
                 <h3>ARMA TU PORTAFOLIO INVERSIONISTA</h3>
                 <p>Te guiamos para elegir las mejores propiedades para invertir, asegurando que tu dinero trabaje por
                     ti.</p>
-                <a href="#" class="btn-servicio">COMENZAR AHORA</a>
+                <a href="https://wa.me/5215527150540?text=hola%20quiero%20gu%C3%ADa%20para%20armar%20mi%20portafolio%20inversionista" class="btn-servicio">COMENZAR AHORA</a>
             </div>
 
             <!-- TARJETA 6 -->
@@ -322,7 +322,7 @@
                 </div>
                 <h3>FORMA PARTE DEL EQUIPO</h3>
                 <p>¿Te apasiona el mundo inmobiliario? Envíanos tu CV y descubre cómo crecer con nosotros.</p>
-                <a href="#" class="btn-servicio">COMENZAR AHORA</a>
+                <a href="https://wa.me/5215527150540?text=hola%2C%20quiero%20ser%20parte%20del%20equipo" target="_blank" class="btn-servicio">COMENZAR AHORA</a>
             </div>
 
         </div>
@@ -363,6 +363,7 @@
         </div>
     </section>
     {{-- footer --}}
+    @include('whatsapp')
     @include('footer')
 </body>
 

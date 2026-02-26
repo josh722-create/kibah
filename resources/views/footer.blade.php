@@ -10,8 +10,8 @@
         <!-- Columna 2: Enlaces rápidos -->
         <div class="footer-col">
             <h4>ENLACES RÁPIDOS</h4>
-            <a href="#">Propiedades</a>
-            <a href="#">Aviso de privacidad</a>
+            <a href="/propiedades">Propiedades</a>{{--
+            <a href="#">Aviso de privacidad</a> --}}
         </div>
 
         <!-- Columna 3: Contacto -->
@@ -26,7 +26,7 @@
             <h4>HABLAR CON UN EXPERTO</h4>
             <p>Obtenga una consulta de expertos sobre sus<br> necesidades inmobiliarias.</p>
 
-            <a href="https://api.whatsapp.com/send/?phone=5215527150540&text=Hola+%2AKibah%2A.+Necesito+m%C3%A1s+informaci%C3%B3n+sobre+Kibah+https%3A%2F%2Fkibah.com.mx%2F&type=phone_number&app_absent=0" target="_blank" class="btn-footer">Hacer una consulta</a>
+            <a href="https://wa.me/5215527150540?text=hola%2C%20quiero%20hablar%20con%20un%20asesor" target="_blank" class="btn-footer">Hacer una consulta</a>
         </div>
 
     </div>

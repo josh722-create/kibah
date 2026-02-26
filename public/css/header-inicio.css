@@ -14,7 +14,8 @@
     transition: background 0.3s ease;
 
     /* Fondo transparente elegante */
-    background: rgba(10, 10, 10, 0.05);
+    background: var(--color-primary);
+    /* background: rgba(10, 10, 10, 0.05); */
     backdrop-filter: blur(6px);
 }
 
