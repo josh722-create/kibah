@@ -20,7 +20,7 @@
         <button class="btn-cerrar-menu" id="btnCerrarMenu">&times;</button>
 
         <a href="/">Inicio</a>
-        <a href="#">Nosotros</a>
+        <a href="/#nosotros">Nosotros</a>
         <a href="/propiedades">Propiedades</a>
         <a href="/#contacto">Contáctanos</a>
     </nav>
