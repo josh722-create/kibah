@@ -7,7 +7,7 @@
     <title>Kibah</title>
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <meta name="description" content="Nos especializamos en descubrir y ofrecer acceso a precios de preventa exclusivos, garantizando que maximices tu inversión desde el inicio.">
-
+    <meta name="google-site-verification" content="YMEajd8zI1kh4yPV0Rx2YiR726MNsrdGDO9FXQqPV2M" />
 </head>
 
 <body>
