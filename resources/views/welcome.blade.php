@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kibah</title>
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <meta name="description" content="Nos especializamos en descubrir y ofrecer acceso a precios de preventa exclusivos, garantizando que maximices tu inversión desde el inicio.">
+
 </head>
 
 <body>
