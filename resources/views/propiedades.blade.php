@@ -97,6 +97,7 @@
     </section>
 
     <!-- footer -->
+    @include('whatsapp')
     @include('footer')
 </body>
 

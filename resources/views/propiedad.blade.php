@@ -189,56 +189,56 @@
 
             {{-- propiedad individual --}}
              <div class="grid-propiedades">
-        @foreach($propiedadIndividual as $propiedad)
+        @foreach($propiedadIndividual as $propiedadI)
         <article class="tarjeta-propiedad">
-                        <a  style="text-decoration: none;" href="{{ route('propiedad.show', $propiedad->id) }}">
+                        <a  style="text-decoration: none;" href="{{ route('propiedad.show', $propiedadI->id) }}">
 
             <div class="imagen-propiedad">
                 <div class="tags-propiedad">
                     {{-- insignias --}}
-                    @if($propiedad->{'Entrega Inmediata/Preventa'})
-                        <span class="tag">{{ $propiedad->{'Entrega Inmediata/Preventa'} }}</span>
+                    @if($propiedadI->{'Entrega Inmediata/Preventa'})
+                        <span class="tag">{{ $propiedadI->{'Entrega Inmediata/Preventa'} }}</span>
                     @endif
-                    @if($propiedad->{'Tipo de Entrega'})
-                        <span class="tag">{{ $propiedad->{'Tipo de Entrega'} }}</span>
+                    @if($propiedadI->{'Tipo de Entrega'})
+                        <span class="tag">{{ $propiedadI->{'Tipo de Entrega'} }}</span>
                     @endif
                 </div>
-                @if($propiedad->{'Link Imagen'})
-                    <img src="{{ $propiedad->{'Link Imagen'} }}" alt="{{ $propiedad->{'Nombre Kibah'} }}" loading="lazy">
+                @if($propiedadI->{'Link Imagen'})
+                    <img src="{{ $propiedadI->{'Link Imagen'} }}" alt="{{ $propiedadI->{'Nombre Kibah'} }}" loading="lazy">
                 @else
-                    <img src="{{ asset('imagenes/propiedades/propiedad1.jpg') }}" alt="{{ $propiedad->{'Nombre Kibah'} }}" loading="lazy">
+                    <img src="{{ asset('imagenes/propiedades/propiedad1.jpg') }}" alt="{{ $propiedadI->{'Nombre Kibah'} }}" loading="lazy">
                 @endif
             </div>
             <div class="contenido-propiedad">
-                <h3>{{ $propiedad->{'Nombre Kibah'} }}</h3>
+                <h3>{{ $propiedadI->{'Nombre Kibah'} }}</h3>
                 <p class="direccion-propiedad">
-                    {{ $propiedad->{'Dirección'} ?? '' }} {{ $propiedad->{'Colonia'} ?? '' }}, {{ $propiedad->{'Alcaldia'} ?? '' }}
+                    {{ $propiedadI->{'Dirección'} ?? '' }} {{ $propiedadI->{'Colonia'} ?? '' }}, {{ $propiedadI->{'Alcaldia'} ?? '' }}
                 </p>
 
                 <div class="detalles-propiedad">
                     <span class="item-detalle">
                         <img src="{{ asset('imagenes/cama.png') }}" alt="">
-                        {{ $propiedad->{'Número de Recámaras'} ?? 'N/A' }}
+                        {{ $propiedadI->{'Número de Recámaras'} ?? 'N/A' }}
                     </span>
                     <span class="separador-detalle">|</span>
                     <span class="item-detalle">
                         <img src="{{ asset('imagenes/ducha.png') }}" alt="">
-                        {{ $propiedad->{'Número de Baños'} ?? 'N/A' }}
+                        {{ $propiedadI->{'Número de Baños'} ?? 'N/A' }}
                     </span>
                     <span class="separador-detalle">|</span>
                     <span class="item-detalle">
                         <img src="{{ asset('imagenes/seleccione.png') }}" alt="">
-                        {{ $propiedad->{'M2 Totales'} ?? 'N/A' }} m²
+                        {{ $propiedadI->{'M2 Totales'} ?? 'N/A' }} m²
                     </span>
                 </div>
 
                 <div class="precio-boton">
                     <p class="precio-propiedad">
-                        @if($propiedad->precio_formateado ?? false)
-                            {{ $propiedad->precio_formateado }}
-                        @elseif($propiedad->{'Precio por unidad'} && is_numeric(floatval(str_replace(['$', '.', ','], '', $propiedad->{'Precio por unidad'}))))
+                        @if($propiedadI->precio_formateado ?? false)
+                            {{ $propiedadI->precio_formateado }}
+                        @elseif($propiedadI->{'Precio por unidad'} && is_numeric(floatval(str_replace(['$', '.', ','], '', $propiedadI->{'Precio por unidad'}))))
                             @php
-                                $precio = $propiedad->{'Precio por unidad'};
+                                $precio = $propiedadI->{'Precio por unidad'};
                                 $precio_limpio = preg_replace('/[^0-9.]/', '', $precio);
                                 if (substr_count($precio_limpio, '.') > 1) {
                                     $precio_limpio = str_replace('.', '', $precio_limpio);
@@ -249,7 +249,7 @@
                             Precio no disponible
                         @endif
                     </p>
-                    <a class="btn-detalles" href="{{ route('propiedad.show', $propiedad->id) }}">Ver detalles</a>
+                    <a class="btn-detalles" href="{{ route('propiedad.show', $propiedadI->id) }}">Ver detalles</a>
 
                 </div>
             </div>
@@ -350,7 +350,7 @@
                         @endif
                     </p>
 
-                    <a class="btn-detalles" href="{{ route('propiedad.show', $propiedad->id) }}">Ver detalles</a>
+                    <a class="btn-detalles" href="{{ route('propiedad.show', $propiedadDest->id) }}">Ver detalles</a>
 
                 </div>
             </div>
@@ -368,6 +368,7 @@
 </section>
 
     <!-- footer -->
+    @include('whatsappdinamico', ['propiedad' => $propiedad])
     @include('footer')
 </body>
 
