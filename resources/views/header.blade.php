@@ -29,7 +29,10 @@
     <!-- Filtro -->
     <form class="filtro-propiedades" method="GET" action="{{ route('buscar') }}" id="formFiltros">
         <select name="estado" id="selectEstado">
-            <option value="" selected>Tipo de propiedad</option>
+            <option value="" selected disabled>Tipo de propiedad</option>
+            <option value="" {{ (request('tipo_propiedad') == '' || request('estado') == '') ? 'selected' : '' }}>
+                Cualquier tipo de propiedad
+            </option>
             <option value="Entrega Inmediata" {{ (request('tipo_propiedad') == 'Entrega Inmediata' || request('estado') == 'Entrega Inmediata') ? 'selected' : '' }}>
                 Entrega inmediata
             </option>
@@ -38,28 +41,52 @@
             </option>
         </select>
 
-        <select name="colonia" id="selectColonia">
-            <option value="" selected>Colonia</option>
-            @foreach($colonias as $colonia)
-                <option value="{{ $colonia }}" {{ request('colonia') == $colonia ? 'selected' : '' }}>
-                    {{ $colonia }}
-                </option>
-            @endforeach
+        <!-- Colonia con multiselect (estilo select normal) -->
+        <div class="select-wrapper">
+            <select class="fake-select" id="coloniaFakeSelect">
+                <option id="coloniaPlaceholder">Colonia</option>
+            </select>
+            <div class="multiselect-dropdown" id="coloniaDropdown">
+                @foreach($colonias as $colonia)
+                    <label class="multiselect-option">
+                        <input
+                            type="checkbox"
+                            name="colonias[]"
+                            value="{{ $colonia }}"
+                            {{ in_array($colonia, request('colonias', [])) ? 'checked' : '' }}
+                        >
+                        <span>{{ $colonia }}</span>
+                    </label>
+                @endforeach
+            </div>
+        </div>
+
+        <!-- Recámaras mínimas -->
+        <select name="recamaras_min" id="selectRecamarasMin">
+            <option value="" selected disabled>Recámaras mínimas</option>
+            <option value="" {{ request('recamaras_min') == '' ? 'selected' : '' }}>Cualquier número de recámaras min</option>
+            <option value="1" {{ request('recamaras_min') == '1' ? 'selected' : '' }}>1</option>
+            <option value="2" {{ request('recamaras_min') == '2' ? 'selected' : '' }}>2</option>
+            <option value="3" {{ request('recamaras_min') == '3' ? 'selected' : '' }}>3</option>
+            <option value="4" {{ request('recamaras_min') == '4' ? 'selected' : '' }}>4</option>
+            <option value="5" {{ request('recamaras_min') == '5' ? 'selected' : '' }}>5+</option>
         </select>
 
-        <!-- Número de recámaras -->
-        <select name="recamaras" id="selectRecamaras">
-            <option value="" selected>Recámaras</option>
-            <option value="1" {{ request('recamaras') == '1' ? 'selected' : '' }}>1</option>
-            <option value="2" {{ request('recamaras') == '2' ? 'selected' : '' }}>2</option>
-            <option value="3" {{ request('recamaras') == '3' ? 'selected' : '' }}>3</option>
-            <option value="4" {{ request('recamaras') == '4' ? 'selected' : '' }}>4</option>
-            <option value="5" {{ request('recamaras') == '5' ? 'selected' : '' }}>5+</option>
+        <!-- Recámaras máximas -->
+        <select name="recamaras_max" id="selectRecamarasMax">
+            <option value="" selected disabled>Recámaras máximas</option>
+            <option value="" {{ request('recamaras_max') == '' ? 'selected' : '' }}>Cualquier número de recámaras max</option>
+            <option value="1" {{ request('recamaras_max') == '1' ? 'selected' : '' }}>1</option>
+            <option value="2" {{ request('recamaras_max') == '2' ? 'selected' : '' }}>2</option>
+            <option value="3" {{ request('recamaras_max') == '3' ? 'selected' : '' }}>3</option>
+            <option value="4" {{ request('recamaras_max') == '4' ? 'selected' : '' }}>4</option>
+            <option value="5" {{ request('recamaras_max') == '5' ? 'selected' : '' }}>5+</option>
         </select>
 
         <!-- Precio mínimo (DESDE) -->
         <select name="precio_min" id="selectPrecioMin">
-            <option value="" selected>Precio desde</option>
+            <option value="" selected disabled>Precio desde</option>
+            <option value="" {{ request('precio_min') == '' ? 'selected' : '' }}>Sin precio mínimo</option>
             <option value="800000" {{ request('precio_min') == '800000' ? 'selected' : '' }}>$800,000</option>
             <option value="1000000" {{ request('precio_min') == '1000000' ? 'selected' : '' }}>$1,000,000</option>
             <option value="2000000" {{ request('precio_min') == '2000000' ? 'selected' : '' }}>$2,000,000</option>
@@ -71,7 +98,8 @@
 
         <!-- Precio máximo (HASTA) -->
         <select name="precio_max" id="selectPrecioMax">
-            <option value="" selected>Precio hasta</option>
+            <option value="" selected disabled>Precio hasta</option>
+            <option value="" {{ request('precio_max') == '' ? 'selected' : '' }}>Sin precio máximo</option>
             <option value="10000000" {{ request('precio_max') == '10000000' ? 'selected' : '' }}>$10,000,000</option>
             <option value="15000000" {{ request('precio_max') == '15000000' ? 'selected' : '' }}>$15,000,000</option>
             <option value="20000000" {{ request('precio_max') == '20000000' ? 'selected' : '' }}>$20,000,000</option>
@@ -115,6 +143,37 @@ nav.querySelectorAll("a").forEach(link => {
     });
 });
 
+// Multiselect de colonias
+const coloniaFakeSelect = document.getElementById('coloniaFakeSelect');
+const coloniaDropdown = document.getElementById('coloniaDropdown');
+const coloniaPlaceholder = document.getElementById('coloniaPlaceholder');
+
+coloniaFakeSelect.addEventListener('click', function(e) {
+    e.stopPropagation();
+    coloniaDropdown.classList.toggle('show');
+});
+
+// Cerrar dropdown al hacer click fuera
+document.addEventListener('click', function() {
+    coloniaDropdown.classList.remove('show');
+});
+
+coloniaDropdown.addEventListener('click', function(e) {
+    e.stopPropagation();
+});
+
+// Actualizar el texto del select cuando cambian los checkboxes
+coloniaDropdown.addEventListener('change', function() {
+    const checkboxes = coloniaDropdown.querySelectorAll('input[type="checkbox"]:checked');
+    if (checkboxes.length === 0) {
+        coloniaPlaceholder.textContent = 'Colonia';
+    } else if (checkboxes.length === 1) {
+        coloniaPlaceholder.textContent = checkboxes[0].nextElementSibling.textContent;
+    } else {
+        coloniaPlaceholder.textContent = `${checkboxes.length} colonias seleccionadas`;
+    }
+});
+
 function realizarBusquedaHeader() {
     const form = document.querySelector('.filtro-propiedades');
     const formData = new FormData(form);
@@ -130,13 +189,19 @@ function realizarBusquedaHeader() {
     window.location.href = `/buscar?${params.toString()}`;
 }
 
-// Función limpiar filtros: solo resetea, NO busca
+// Función limpiar filtros
 function limpiarFiltros() {
-    document.getElementById('selectEstado').selectedIndex = 0;
-    document.getElementById('selectColonia').selectedIndex = 0;
-    document.getElementById('selectRecamaras').selectedIndex = 0;
-    document.getElementById('selectPrecioMin').selectedIndex = 0;
-    document.getElementById('selectPrecioMax').selectedIndex = 0;
+    document.getElementById('selectEstado').selectedIndex = 1;
+
+    // Limpiar colonias
+    const checkboxes = coloniaDropdown.querySelectorAll('input[type="checkbox"]');
+    checkboxes.forEach(cb => cb.checked = false);
+    coloniaPlaceholder.textContent = 'Colonia';
+
+    document.getElementById('selectRecamarasMin').selectedIndex = 1;
+    document.getElementById('selectRecamarasMax').selectedIndex = 1;
+    document.getElementById('selectPrecioMin').selectedIndex = 1;
+    document.getElementById('selectPrecioMax').selectedIndex = 1;
 }
 </script>
 
@@ -156,6 +221,58 @@ function limpiarFiltros() {
 
 .btn-limpiar-filtros:hover {
     background: #cc0000;
+}
+
+/* Wrapper para el multiselect */
+.select-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.fake-select {
+    cursor: pointer;
+    pointer-events: auto;
+}
+
+.multiselect-dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    max-height: 300px;
+    overflow-y: auto;
+    z-index: 1000;
+    min-width: 100%;
+    margin-top: 4px;
+}
+
+.multiselect-dropdown.show {
+    display: block;
+}
+
+.multiselect-option {
+    display: flex;
+    align-items: center;
+    padding: 8px 12px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.multiselect-option:hover {
+    background: #f0f0f0;
+}
+
+.multiselect-option input[type="checkbox"] {
+    margin-right: 8px;
+    cursor: pointer;
+}
+
+.multiselect-option span {
+    flex: 1;
 }
 
 /* Responsive */

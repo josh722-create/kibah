@@ -16,20 +16,62 @@ class SearchController extends Controller
 
         $query = Propiedad::query();
 
-        // Filtro por colonia
+        // Variable para colonias seleccionadas
+        $coloniasSeleccionadas = [];
+
+        // Filtro por colonia (singular - desde formulario principal)
         if ($request->filled('colonia')) {
             Log::info('Aplicando filtro de colonia:', ['colonia' => $request->colonia]);
             $query->where('Colonia', $request->colonia);
+            $coloniasSeleccionadas = [$request->colonia]; // Para mostrar en la vista
         }
 
-        // Filtro por recámaras
+        // Filtro por colonias (múltiples - desde header)
+        if ($request->filled('colonias')) {
+            $coloniasSeleccionadas = $request->colonias;
+            Log::info('Aplicando filtro de colonias:', ['colonias' => $coloniasSeleccionadas]);
+            $query->whereIn('Colonia', $coloniasSeleccionadas);
+        }
+
+        // Filtro por recámaras (exacto - desde formulario principal)
         if ($request->filled('recamaras')) {
             $recamaras = $request->recamaras;
-            Log::info('Aplicando filtro de recámaras:', ['recamaras' => $recamaras]);
+            Log::info('Aplicando filtro recámaras exactas:', ['recamaras' => $recamaras]);
             if ($recamaras === '5') {
                 $query->where('Número de Recámaras', '>=', 5);
             } else {
                 $query->where('Número de Recámaras', $recamaras);
+            }
+        }
+
+        // Filtro por recámaras mínimas (desde header)
+        if ($request->filled('recamaras_min')) {
+            $recamarasMin = $request->recamaras_min;
+            Log::info('Aplicando filtro recámaras mínimas:', ['recamaras_min' => $recamarasMin]);
+            if ($recamarasMin === '5') {
+                $query->where('Número de Recámaras', '>=', 5);
+            } else {
+                $query->where('Número de Recámaras', '>=', $recamarasMin);
+            }
+        }
+
+        // Filtro por recámaras máximas (desde header)
+        if ($request->filled('recamaras_max')) {
+            $recamarasMax = $request->recamaras_max;
+            Log::info('Aplicando filtro recámaras máximas:', ['recamaras_max' => $recamarasMax]);
+            if ($recamarasMax !== '5') {
+                $query->where('Número de Recámaras', '<=', $recamarasMax);
+            }
+        }
+
+        // Filtro por baños (desde formulario principal)
+        if ($request->filled('banos')) {
+            $banos = $request->banos;
+            Log::info('Aplicando filtro baños:', ['banos' => $banos]);
+            if ($banos === '5') {
+                $query->where('Número de Baños', '>=', 5);
+            } else {
+                $query->where('Número de Baños', $banos);
             }
         }
 
@@ -51,7 +93,7 @@ class SearchController extends Controller
             $query->where('Entrega Inmediata/Preventa', $request->tipo_propiedad);
         }
 
-        // Filtro por estado
+        // Filtro por estado (desde header)
         if ($request->filled('estado')) {
             Log::info('Aplicando filtro estado:', ['estado' => $request->estado]);
             $query->where('Entrega Inmediata/Preventa', $request->estado);
@@ -64,23 +106,10 @@ class SearchController extends Controller
 
         $propiedades = $query->get();
 
-        // VER RESULTADOS
         Log::info('Total propiedades encontradas:', ['cantidad' => $propiedades->count()]);
-
-        // Ver precios de las primeras 5 propiedades
-        $propiedades->take(5)->each(function ($prop) {
-            Log::info('Propiedad:', [
-                'id' => $prop->id,
-                'nombre' => $prop->{'Nombre de la Propiedad'},
-                'colonia' => $prop->Colonia,
-                'precio' => $prop->{'Precio por unidad'},
-                'tipo_precio' => gettype($prop->{'Precio por unidad'})
-            ]);
-        });
-
         Log::info('========== FIN BÚSQUEDA ==========');
 
-        // Obtener colonias únicas
+        // Obtener colonias únicas (todas disponibles)
         $colonias = Propiedad::select('Colonia')
             ->whereNotNull('Colonia')
             ->where('Colonia', '!=', '')
@@ -91,7 +120,7 @@ class SearchController extends Controller
                 return !empty(trim($value));
             });
 
-        return view('propiedades', compact('propiedades', 'colonias'));
+        return view('propiedades', compact('propiedades', 'colonias', 'coloniasSeleccionadas'));
     }
 
     public function showProperty($id)

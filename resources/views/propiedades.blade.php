@@ -15,6 +15,13 @@
     {{-- padre propiedades --}}
     <section class="propiedadesvista">
         <h1>Propiedades</h1>
+        @if(count($coloniasSeleccionadas) > 0)
+    <div class="filtros-activos">
+        <p>Mostrando propiedades en:
+            <strong>{{ implode(', ', $coloniasSeleccionadas) }}</strong>
+        </p>
+    </div>
+@endif
         <div class="grid-propiedades">
             <!-- Tarjeta 1 -->
 @foreach($propiedades as $propiedad)
