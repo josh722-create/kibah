@@ -45,25 +45,25 @@
 
                 <div class="detalles-propiedad">
                     <span class="item-detalle">
-                        <img src="{{ asset('imagenes/cama.png') }}" alt=""> {{ $propiedad->{'Número de Recámaras'} ?? 'N/A' }}
+                        <img src="{{ asset('imagenes/cama.png') }}" alt=""> {{ $propiedad->{'Recámaras Min'} ?? 'N/A' }}
                     </span>
                     <span class="separador-detalle">|</span>
                     <span class="item-detalle">
-                        <img src="{{ asset('imagenes/ducha.png') }}" alt=""> {{ $propiedad->{'Número de Baños'} ?? 'N/A' }}
+                        <img src="{{ asset('imagenes/ducha.png') }}" alt=""> {{ $propiedad->{'Baños Max'} ?? 'N/A' }}
                     </span>
                     @if($propiedad->{'M2 Totales'})
                     <span class="separador-detalle">|</span>
                     <span class="item-detalle">
-                        <img src="{{ asset('imagenes/seleccione.png') }}" alt=""> {{ $propiedad->{'M2 Totales'} }} m²
+                        <img src="{{ asset('imagenes/seleccione.png') }}" alt=""> {{ $propiedad->{'M2 Totales Min'} }} m²
                     </span>
                     @endif
                 </div>
 
                 <div class="precio-boton">
                     <p class="precio-propiedad">
-@if($propiedad->{'Precio por unidad'})
+@if($propiedad->{'Precio Min'})
     @php
-        $precio = $propiedad->{'Precio por unidad'};
+        $precio = $propiedad->{'Precio Min'};
         // Limpiar el precio: quitar $, espacios y puntos de miles
         $precio_limpio = preg_replace('/[^0-9.]/', '', $precio);
         // Si tiene puntos de miles (como 3.101.872), convertirlos

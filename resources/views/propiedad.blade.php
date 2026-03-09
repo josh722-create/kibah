@@ -37,9 +37,9 @@
             <h1 class="prop-titulo">{{ $propiedad->{'Nombre Kibah'} }}</h1>
 
             <p class="prop-precio">
-@if($propiedad->{'Precio por unidad'})
+@if($propiedad->{'Precio Min'})
     @php
-        $precio = $propiedad->{'Precio por unidad'};
+        $precio = $propiedad->{'Precio Min'};
         // Limpiar el precio: quitar $, espacios y puntos de miles
         $precio_limpio = preg_replace('/[^0-9.]/', '', $precio);
         // Si tiene puntos de miles (como 3.101.872), convertirlos
@@ -82,7 +82,7 @@
                             <p class="label-resumen">Habitaciones</p>
                             <div class="valor-resumen">
                                 <img src="{{ asset('imagenes/cama.png') }}" alt="">
-                                <span>{{ $propiedad->{'Número de Recámaras'} ?? 'N/A' }}</span>
+                                <span>{{ $propiedad->{'Recámaras Min'} ?? 'N/A' }}</span>
                             </div>
                         </div>
 
@@ -90,7 +90,7 @@
                             <p class="label-resumen">Baños</p>
                             <div class="valor-resumen">
                                 <img src="{{ asset('imagenes/ducha.png') }}" alt="">
-                                <span>{{ $propiedad->{'Número de Baños'} ?? 'N/A' }}</span>
+                                <span>{{ $propiedad->{'Baños Max'} ?? 'N/A' }}</span>
                             </div>
                         </div>
 
@@ -98,10 +98,10 @@
                             <p class="label-resumen">Cocheras</p>
                             <div class="valor-resumen">
                                 <img src="{{ asset('imagenes/cochera.png') }}" alt="">
-                                @if ($propiedad->{'Lugares de Estacionamiento'} < 1)
+                                @if ($propiedad->{'Estacionamientos Min'} < 1)
                                     <span>N/A</span>
                                 @else
-                                    <span>{{ $propiedad->{'Lugares de Estacionamiento'} }}</span>
+                                    <span>{{ $propiedad->{'Estacionamientos Min'} }}</span>
                                 @endif
                             </div>
                         </div>
@@ -110,7 +110,7 @@
                             <p class="label-resumen">Area</p>
                             <div class="valor-resumen">
                                 <img src="{{ asset('imagenes/seleccione.png') }}" alt="">
-                                <span>{{ $propiedad->{'M2 Totales'} ?? 'N/A' }} m²</span>
+                                <span>{{ $propiedad->{'M2 Totales Min'} ?? 'N/A' }} m²</span>
                             </div>
                         </div>
 
@@ -218,17 +218,17 @@
                 <div class="detalles-propiedad">
                     <span class="item-detalle">
                         <img src="{{ asset('imagenes/cama.png') }}" alt="">
-                        {{ $propiedadI->{'Número de Recámaras'} ?? 'N/A' }}
+                        {{ $propiedadI->{'Recámaras Min'} ?? 'N/A' }}
                     </span>
                     <span class="separador-detalle">|</span>
                     <span class="item-detalle">
                         <img src="{{ asset('imagenes/ducha.png') }}" alt="">
-                        {{ $propiedadI->{'Número de Baños'} ?? 'N/A' }}
+                        {{ $propiedadI->{'Baños Max'} ?? 'N/A' }}
                     </span>
                     <span class="separador-detalle">|</span>
                     <span class="item-detalle">
                         <img src="{{ asset('imagenes/seleccione.png') }}" alt="">
-                        {{ $propiedadI->{'M2 Totales'} ?? 'N/A' }} m²
+                        {{ $propiedadI->{'M2 Totales Min'} ?? 'N/A' }} m²
                     </span>
                 </div>
 
@@ -236,9 +236,9 @@
                     <p class="precio-propiedad">
                         @if($propiedadI->precio_formateado ?? false)
                             {{ $propiedadI->precio_formateado }}
-                        @elseif($propiedadI->{'Precio por unidad'} && is_numeric(floatval(str_replace(['$', '.', ','], '', $propiedadI->{'Precio por unidad'}))))
+                        @elseif($propiedadI->{'Precio Min'} && is_numeric(floatval(str_replace(['$', '.', ','], '', $propiedadI->{'Precio por unidad'}))))
                             @php
-                                $precio = $propiedadI->{'Precio por unidad'};
+                                $precio = $propiedadI->{'Precio Min'};
                                 $precio_limpio = preg_replace('/[^0-9.]/', '', $precio);
                                 if (substr_count($precio_limpio, '.') > 1) {
                                     $precio_limpio = str_replace('.', '', $precio_limpio);
@@ -318,17 +318,17 @@
                 <div class="detalles-propiedad">
                     <span class="item-detalle">
                         <img src="{{ asset('imagenes/cama.png') }}" alt="">
-                        {{ $propiedadDest->{'Número de Recámaras'} ?? 'N/A' }}
+                        {{ $propiedadDest->{'Recámaras Min'} ?? 'N/A' }}
                     </span>
                     <span class="separador-detalle">|</span>
                     <span class="item-detalle">
                         <img src="{{ asset('imagenes/ducha.png') }}" alt="">
-                        {{ $propiedadDest->{'Número de Baños'} ?? 'N/A' }}
+                        {{ $propiedadDest->{'Baños Max'} ?? 'N/A' }}
                     </span>
                     <span class="separador-detalle">|</span>
                     <span class="item-detalle">
                         <img src="{{ asset('imagenes/seleccione.png') }}" alt="">
-                        {{ $propiedadDest->{'M2 Totales'} ?? 'N/A' }} m²
+                        {{ $propiedadDest->{'M2 Totales Min'} ?? 'N/A' }} m²
                     </span>
                 </div>
 
@@ -336,9 +336,9 @@
                     <p class="precio-propiedad">
                         @if($propiedadDest->precio_formateado ?? false)
                             {{ $propiedadDest->precio_formateado }}
-                        @elseif($propiedadDest->{'Precio por unidad'} && is_numeric(floatval(str_replace(['$', '.', ','], '', $propiedadDest->{'Precio por unidad'}))))
+                        @elseif($propiedadDest->{'Precio Min'} && is_numeric(floatval(str_replace(['$', '.', ','], '', $propiedadDest->{'Precio por unidad'}))))
                             @php
-                                $precio = $propiedadDest->{'Precio por unidad'};
+                                $precio = $propiedadDest->{'Precio Min'};
                                 $precio_limpio = preg_replace('/[^0-9.]/', '', $precio);
                                 if (substr_count($precio_limpio, '.') > 1) {
                                     $precio_limpio = str_replace('.', '', $precio_limpio);

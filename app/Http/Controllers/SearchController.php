@@ -38,9 +38,9 @@ class SearchController extends Controller
             $recamaras = $request->recamaras;
             Log::info('Aplicando filtro recámaras exactas:', ['recamaras' => $recamaras]);
             if ($recamaras === '5') {
-                $query->where('Número de Recámaras', '>=', 5);
+                $query->where('Recámaras Min', '>=', 5);
             } else {
-                $query->where('Número de Recámaras', $recamaras);
+                $query->where('Recámaras Min', $recamaras);
             }
         }
 
@@ -49,9 +49,9 @@ class SearchController extends Controller
             $recamarasMin = $request->recamaras_min;
             Log::info('Aplicando filtro recámaras mínimas:', ['recamaras_min' => $recamarasMin]);
             if ($recamarasMin === '5') {
-                $query->where('Número de Recámaras', '>=', 5);
+                $query->where('Recámaras Min', '>=', 5);
             } else {
-                $query->where('Número de Recámaras', '>=', $recamarasMin);
+                $query->where('Recámaras Min', '>=', $recamarasMin);
             }
         }
 
@@ -60,7 +60,7 @@ class SearchController extends Controller
             $recamarasMax = $request->recamaras_max;
             Log::info('Aplicando filtro recámaras máximas:', ['recamaras_max' => $recamarasMax]);
             if ($recamarasMax !== '5') {
-                $query->where('Número de Recámaras', '<=', $recamarasMax);
+                $query->where('Recámaras Min', '<=', $recamarasMax);
             }
         }
 
@@ -69,22 +69,22 @@ class SearchController extends Controller
             $banos = $request->banos;
             Log::info('Aplicando filtro baños:', ['banos' => $banos]);
             if ($banos === '5') {
-                $query->where('Número de Baños', '>=', 5);
+                $query->where('Baños Max', '>=', 5);
             } else {
-                $query->where('Número de Baños', $banos);
+                $query->where('Baños Max', $banos);
             }
         }
 
         // Filtro por precio mínimo
         if ($request->filled('precio_min')) {
             Log::info('Aplicando filtro precio mínimo:', ['precio_min' => $request->precio_min]);
-            $query->where('Precio por unidad', '>=', $request->precio_min);
+            $query->where('Precio Min', '>=', $request->precio_min);
         }
 
         // Filtro por precio máximo
         if ($request->filled('precio_max')) {
             Log::info('Aplicando filtro precio máximo:', ['precio_max' => $request->precio_max]);
-            $query->where('Precio por unidad', '<=', $request->precio_max);
+            $query->where('Precio Min', '<=', $request->precio_max);
         }
 
         // Filtro por tipo de propiedad
