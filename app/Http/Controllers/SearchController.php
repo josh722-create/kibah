@@ -23,7 +23,7 @@ class SearchController extends Controller
         if ($request->filled('colonia')) {
             Log::info('Aplicando filtro de colonia:', ['colonia' => $request->colonia]);
             $query->where('Colonia', $request->colonia);
-            $coloniasSeleccionadas = [$request->colonia]; // Para mostrar en la vista
+            $coloniasSeleccionadas = [$request->colonia];
         }
 
         // Filtro por colonias (múltiples - desde header)
@@ -33,25 +33,17 @@ class SearchController extends Controller
             $query->whereIn('Colonia', $coloniasSeleccionadas);
         }
 
-        // Filtro por recámaras (exacto - desde formulario principal)
-        if ($request->filled('recamaras')) {
-            $recamaras = $request->recamaras;
-            Log::info('Aplicando filtro recámaras exactas:', ['recamaras' => $recamaras]);
-            if ($recamaras === '5') {
-                $query->where('Recámaras Min', '>=', 5);
-            } else {
-                $query->where('Recámaras Min', $recamaras);
-            }
-        }
-
-        // Filtro por recámaras mínimas (desde header)
+        // Filtro por recámaras mínimas (desde header Y formulario principal)
         if ($request->filled('recamaras_min')) {
             $recamarasMin = $request->recamaras_min;
             Log::info('Aplicando filtro recámaras mínimas:', ['recamaras_min' => $recamarasMin]);
+
             if ($recamarasMin === '5') {
-                $query->where('Recámaras Min', '>=', 5);
+                // El máximo debe ser al menos 5
+                $query->where('Recámaras Max', '>=', 5);
             } else {
-                $query->where('Recámaras Min', '>=', $recamarasMin);
+                // El máximo debe ser al menos el mínimo solicitado
+                $query->where('Recámaras Max', '>=', $recamarasMin);
             }
         }
 
@@ -59,31 +51,39 @@ class SearchController extends Controller
         if ($request->filled('recamaras_max')) {
             $recamarasMax = $request->recamaras_max;
             Log::info('Aplicando filtro recámaras máximas:', ['recamaras_max' => $recamarasMax]);
+
             if ($recamarasMax !== '5') {
+                // El mínimo debe ser como máximo el máximo solicitado
                 $query->where('Recámaras Min', '<=', $recamarasMax);
             }
+            // Si es 5+, no aplicamos límite superior
         }
 
-        // Filtro por baños (desde formulario principal)
-        if ($request->filled('banos')) {
-            $banos = $request->banos;
-            Log::info('Aplicando filtro baños:', ['banos' => $banos]);
-            if ($banos === '5') {
+        // Filtro por baños mínimos (desde formulario principal)
+        if ($request->filled('banos_min')) {
+            $banosMin = $request->banos_min;
+            Log::info('Aplicando filtro baños mínimos:', ['banos_min' => $banosMin]);
+
+            if ($banosMin === '5') {
+                // El máximo debe ser al menos 5
                 $query->where('Baños Max', '>=', 5);
             } else {
-                $query->where('Baños Max', $banos);
+                // El máximo debe ser al menos el mínimo solicitado
+                $query->where('Baños Max', '>=', $banosMin);
             }
         }
 
         // Filtro por precio mínimo
         if ($request->filled('precio_min')) {
             Log::info('Aplicando filtro precio mínimo:', ['precio_min' => $request->precio_min]);
-            $query->where('Precio Min', '>=', $request->precio_min);
+            // El precio máximo de la propiedad debe ser al menos el mínimo solicitado
+            $query->where('Precio Max', '>=', $request->precio_min);
         }
 
         // Filtro por precio máximo
         if ($request->filled('precio_max')) {
             Log::info('Aplicando filtro precio máximo:', ['precio_max' => $request->precio_max]);
+            // El precio mínimo de la propiedad debe ser como máximo el máximo solicitado
             $query->where('Precio Min', '<=', $request->precio_max);
         }
 

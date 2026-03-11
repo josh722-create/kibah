@@ -1,7 +1,7 @@
 @php
     $numeroWhatsApp = '5215527150540';
 
-    $textoMensaje = "Hola, estoy interesado en {$propiedad->{'Nombre Kibah'}} ubicada en {$propiedad->{'Colonia'}} con {$propiedad->{'Número de Recámaras'}} recámaras y {$propiedad->{'Número de Baños'}} baños";
+    $textoMensaje = "Hola, estoy interesado en {$propiedad->{'Nombre Kibah'}} ubicada en {$propiedad->{'Colonia'}}";
 
     $urlWhatsApp = "https://wa.me/{$numeroWhatsApp}?text=" . urlencode($textoMensaje);
 @endphp

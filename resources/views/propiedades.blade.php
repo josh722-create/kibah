@@ -23,76 +23,99 @@
     </div>
 @endif
         <div class="grid-propiedades">
-            <!-- Tarjeta 1 -->
-@foreach($propiedades as $propiedad)
-        <!-- Tarjeta {{ $loop->iteration }} -->
-        <article class="tarjeta-propiedad">
-            <a  style="text-decoration: none;" href="{{ route('propiedad.show', $propiedad->id) }}">
-            <div class="imagen-propiedad">
-                <div class="tags-propiedad">
-                    {{-- insignias --}}
-                    {{-- <span class="tag">Desarrollo</span> --}}
-                    @if($propiedad->{'Entrega Inmediata/Preventa'})
-                        <span class="tag">{{ $propiedad->{'Entrega Inmediata/Preventa'} }}</span>
-                    @endif
-                </div>
-                {{-- <img src="{{ $propiedad->{'Link Drive'} }}" alt="{{ $propiedad->{'Nombre de la Propiedad'} }}" loading="lazy"> --}}
-
-        @if($propiedad->{'Link Imagen'})
-            <img src="{{ $propiedad->{'Link Imagen'} }}" alt="{{ $propiedad->{'Nombre de la Propiedad'} }}" class="prop-hero-img">
-        @else
-            {{-- <img src="{{ asset('imagenes/propiedades/propiedad1.webp') }}" alt="{{ $propiedad->{'Nombre de la Propiedad'} }}" class="prop-hero-img"> --}}
-        @endif            </div>
-            <div class="contenido-propiedad">
-                <h3>{{ $propiedad->{'Nombre Kibah'} }}</h3>
-                <p class="direccion-propiedad">
-                    {{ $propiedad->Colonia }}, {{ $propiedad->Alcaldía }}
-                </p>
-
-                <div class="detalles-propiedad">
-                    <span class="item-detalle">
-                        <img src="{{ asset('imagenes/cama.png') }}" alt=""> {{ $propiedad->{'Recámaras Min'} ?? 'N/A' }}
-                    </span>
-                    <span class="separador-detalle">|</span>
-                    <span class="item-detalle">
-                        <img src="{{ asset('imagenes/ducha.png') }}" alt=""> {{ $propiedad->{'Baños Max'} ?? 'N/A' }}
-                    </span>
-                    @if($propiedad->{'M2 Totales'})
-                    <span class="separador-detalle">|</span>
-                    <span class="item-detalle">
-                        <img src="{{ asset('imagenes/seleccione.png') }}" alt=""> {{ $propiedad->{'M2 Totales Min'} }} m²
-                    </span>
-                    @endif
-                </div>
-
-                <div class="precio-boton">
-                    <p class="precio-propiedad">
-@if($propiedad->{'Precio Min'})
-    @php
-        $precio = $propiedad->{'Precio Min'};
-        // Limpiar el precio: quitar $, espacios y puntos de miles
-        $precio_limpio = preg_replace('/[^0-9.]/', '', $precio);
-        // Si tiene puntos de miles (como 3.101.872), convertirlos
-        if (substr_count($precio_limpio, '.') > 1) {
-            $precio_limpio = str_replace('.', '', $precio_limpio);
+            <!-- Tarjeta 1 -->@php
+    // Función helper para mostrar rangos (Min - Max)
+    $mostrarRango = function($min, $max, $sufijo = '') {
+        if ($min && $max && $min != $max) {
+            return $min . ' - ' . $max . $sufijo;
+        } elseif ($max) {
+            return $max . $sufijo;
+        } elseif ($min) {
+            return $min . $sufijo;
         }
-    @endphp
+        return 'N/A';
+    };
+@endphp
 
-    @if(is_numeric($precio_limpio))
-        ${{ number_format(floatval($precio_limpio), 0, '.', ',') }}
-    @else
-        {{ $precio }} {{-- Mostrar el precio original si no se puede limpiar --}}
-    @endif
-@else
-    Precio no disponible
-@endif
-                    </p>
-                    <a class="btn-detalles" href="{{ route('propiedad.show', $propiedad->id) }}">Ver detalles</a>
-                </div>
+@foreach($propiedades as $propiedad)
+<!-- Tarjeta {{ $loop->iteration }} -->
+<article class="tarjeta-propiedad">
+    <a style="text-decoration: none;" href="{{ route('propiedad.show', $propiedad->id) }}">
+        <div class="imagen-propiedad">
+            <div class="tags-propiedad">
+                @if($propiedad->{'Entrega Inmediata/Preventa'})
+                    <span class="tag">{{ $propiedad->{'Entrega Inmediata/Preventa'} }}</span>
+                @endif
             </div>
-        </a>
-        </article>
-        @endforeach
+
+            @if($propiedad->{'Link Imagen'})
+                <img src="{{ $propiedad->{'Link Imagen'} }}" alt="{{ $propiedad->{'Nombre de la Propiedad'} }}" class="prop-hero-img">
+            @endif
+        </div>
+
+        <div class="contenido-propiedad">
+            <h3>{{ $propiedad->{'Nombre Kibah'} }}</h3>
+            <p class="direccion-propiedad">
+                {{ $propiedad->Colonia }}, {{ $propiedad->Alcaldía }}
+            </p>
+
+            <div class="detalles-propiedad">
+                {{-- Recámaras --}}
+                <span class="item-detalle">
+                    <img src="{{ asset('imagenes/cama.png') }}" alt="">
+                    {{ $mostrarRango($propiedad->{'Recámaras Min'}, $propiedad->{'Recámaras Max'}) }}
+                </span>
+
+                <span class="separador-detalle">|</span>
+
+                {{-- Baños --}}
+                <span class="item-detalle">
+                    <img src="{{ asset('imagenes/ducha.png') }}" alt="">
+                    {{ $mostrarRango($propiedad->{'Baños Min'}, $propiedad->{'Baños Max'}) }}
+                </span>
+
+                {{-- Estacionamientos (solo si existe) --}}
+                @if($propiedad->{'Estacionamientos Min'} || $propiedad->{'Estacionamientos Max'})
+                    <span class="separador-detalle">|</span>
+                    <span class="item-detalle">
+                        <img src="{{ asset('imagenes/cochera.png') }}" alt="">
+                        {{ $mostrarRango($propiedad->{'Estacionamientos Min'}, $propiedad->{'Estacionamientos Max'}) }}
+                    </span>
+                @endif
+
+                {{-- M2 Totales --}}
+                {{-- @if($propiedad->{'M2 Totales Min'} || $propiedad->{'M2 Totales Max'})
+                    <span class="separador-detalle">|</span>
+                    <span class="item-detalle">
+                        <img src="{{ asset('imagenes/seleccione.png') }}" alt="">
+                        {{ $mostrarRango($propiedad->{'M2 Totales Min'}, $propiedad->{'M2 Totales Max'}, ' m²') }}
+                    </span>
+                @endif --}}
+            </div>
+
+            <div class="precio-boton">
+                <p class="precio-propiedad">
+                    @php
+                        $precioMin = $propiedad->{'Precio Min'} ? preg_replace('/[^0-9.]/', '', $propiedad->{'Precio Min'}) : null;
+                        $precioMax = $propiedad->{'Precio Max'} ? preg_replace('/[^0-9.]/', '', $propiedad->{'Precio Max'}) : null;
+                    @endphp
+
+                    @if($precioMin && $precioMax)
+                        ${{ number_format($precioMin, 0, '.', ',') }} - ${{ number_format($precioMax, 0, '.', ',') }}
+                    @elseif($precioMax)
+                        ${{ number_format($precioMax, 0, '.', ',') }}
+                    @elseif($precioMin)
+                        ${{ number_format($precioMin, 0, '.', ',') }}
+                    @else
+                        Precio no disponible
+                    @endif
+                </p>
+                <a class="btn-detalles" href="{{ route('propiedad.show', $propiedad->id) }}">Ver detalles</a>
+            </div>
+        </div>
+    </a>
+</article>
+@endforeach
                 {{-- Mensaje cuando NO hay propiedades --}}
         @if($propiedades->count() === 0)
         <div class="no-propiedades">

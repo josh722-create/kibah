@@ -34,43 +34,52 @@
                     {{-- <button class="tab">Ticket de inversión</button> --}}
                 </div>
 
-                <div class="filtro-body">
-                    <label>Ubicación principal</label>
-                    <select name="colonia">
-                        @foreach ($colonias as $colonia)
-                            <option value="{{ $colonia }}">{{ $colonia }}</option>
-                        @endforeach
-                    </select>
+<div class="filtro-body">
+    <label>Ubicación principal</label>
+    <select name="colonia">
+        <option value="" {{ !request('colonia') ? 'selected' : '' }}>Todas las colonias</option>
+        @foreach ($colonias as $colonia)
+            <option value="{{ $colonia }}" {{ request('colonia') == $colonia ? 'selected' : '' }}>
+                {{ $colonia }}
+            </option>
+        @endforeach
+    </select>
 
-                    <label>Recamaras</label>
-                    <select name="recamaras">
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5+</option>
-                    </select>
+    <label>Recámaras mínimas</label>
+    <select name="recamaras_min">
+        <option value="" {{ !request('recamaras_min') ? 'selected' : '' }}>Todas las recámaras</option>
+        <option value="1" {{ request('recamaras_min') == '1' ? 'selected' : '' }}>1+</option>
+        <option value="2" {{ request('recamaras_min') == '2' ? 'selected' : '' }}>2+</option>
+        <option value="3" {{ request('recamaras_min') == '3' ? 'selected' : '' }}>3+</option>
+        <option value="4" {{ request('recamaras_min') == '4' ? 'selected' : '' }}>4+</option>
+        <option value="5" {{ request('recamaras_min') == '5' ? 'selected' : '' }}>5+</option>
+    </select>
 
-                    <label>Baños</label>
-                    <select name="banos">
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5+</option>
-                    </select>
+    <label>Baños mínimos</label>
+    <select name="banos_min">
+        <option value="" {{ !request('banos_min') ? 'selected' : '' }}>Todos los baños</option>
+        <option value="1" {{ request('banos_min') == '1' ? 'selected' : '' }}>1+</option>
+        <option value="2" {{ request('banos_min') == '2' ? 'selected' : '' }}>2+</option>
+        <option value="3" {{ request('banos_min') == '3' ? 'selected' : '' }}>3+</option>
+        <option value="4" {{ request('banos_min') == '4' ? 'selected' : '' }}>4+</option>
+        <option value="5" {{ request('banos_min') == '5' ? 'selected' : '' }}>5+</option>
+    </select>
 
-                    <label>Tipos de propiedad</label>
-                    <select name="tipo_propiedad">
-                        <option value="" selected disabled>Tipo de propiedad</option>
-                        <option value="Entrega Inmediata">Entrega Inmediata</option>
-                        <option value="Preventa">Preventa</option>
-                    </select>
+    <label>Tipos de propiedad</label>
+    <select name="tipo_propiedad">
+        <option value="" {{ !request('tipo_propiedad') ? 'selected' : '' }}>Todos los tipos</option>
+        <option value="Entrega Inmediata" {{ request('tipo_propiedad') == 'Entrega Inmediata' ? 'selected' : '' }}>
+            Entrega Inmediata
+        </option>
+        <option value="Preventa" {{ request('tipo_propiedad') == 'Preventa' ? 'selected' : '' }}>
+            Preventa
+        </option>
+    </select>
 
-                    <button class="btn-search" type="button" onclick="realizarBusqueda()">
-                        Buscar
-                    </button>
-                </div>
+    <button class="btn-search" type="button" onclick="realizarBusqueda()">
+        Buscar
+    </button>
+</div>
 
             </div>
 
@@ -183,75 +192,99 @@
 
             <div class="grid-propiedades inmediata-seccion">
                 <!-- Tarjeta 1 -->
-        @foreach($propiedadesDestacadasHome as $propiedad)
-        <!-- Tarjeta {{ $loop->iteration }} -->
-        <article class="tarjeta-propiedad">
-            <a  style="text-decoration: none;" href="{{ route('propiedad.show', $propiedad->id) }}">
-            <div class="imagen-propiedad">
-                <div class="tags-propiedad">
-                    {{-- insignias --}}
-                    {{-- <span class="tag">Desarrollo</span> --}}
-                    @if($propiedad->{'Entrega Inmediata/Preventa'})
-                        <span class="tag">{{ $propiedad->{'Entrega Inmediata/Preventa'} }}</span>
-                    @endif
-                </div>
-                {{-- <img src="{{ $propiedad->{'Link Drive'} }}" alt="{{ $propiedad->{'Nombre de la Propiedad'} }}" loading="lazy"> --}}
-
-        @if($propiedad->{'Link Imagen'})
-            <img src="{{ $propiedad->{'Link Imagen'} }}" alt="{{ $propiedad->{'Nombre de la Propiedad'} }}" class="prop-hero-img">
-        @else
-            {{-- <img src="{{ asset('imagenes/propiedades/propiedad1.webp') }}" alt="{{ $propiedad->{'Nombre de la Propiedad'} }}" class="prop-hero-img"> --}}
-        @endif            </div>
-            <div class="contenido-propiedad">
-                <h3>{{ $propiedad->{'Nombre Kibah'} }}</h3>
-                <p class="direccion-propiedad">
-                    {{ $propiedad->Colonia }}, {{ $propiedad->Alcaldía }}
-                </p>
-
-                <div class="detalles-propiedad">
-                    <span class="item-detalle">
-                        <img src="{{ asset('imagenes/cama.png') }}" alt=""> {{ $propiedad->{'Recámaras Min'} ?? 'N/A' }}
-                    </span>
-                    <span class="separador-detalle">|</span>
-                    <span class="item-detalle">
-                        <img src="{{ asset('imagenes/ducha.png') }}" alt=""> {{ $propiedad->{'Baños Max'} ?? 'N/A' }}
-                    </span>
-                    @if($propiedad->{'M2 Totales'})
-                    <span class="separador-detalle">|</span>
-                    <span class="item-detalle">
-                        <img src="{{ asset('imagenes/seleccione.png') }}" alt=""> {{ $propiedad->{'M2 Totales Min'} }} m²
-                    </span>
-                    @endif
-                </div>
-
-                <div class="precio-boton">
-                    <p class="precio-propiedad">
-@if($propiedad->{'Precio Min'})
-    @php
-        $precio = $propiedad->{'Precio Min'};
-        // Limpiar el precio: quitar $, espacios y puntos de miles
-        $precio_limpio = preg_replace('/[^0-9.]/', '', $precio);
-        // Si tiene puntos de miles (como 3.101.872), convertirlos
-        if (substr_count($precio_limpio, '.') > 1) {
-            $precio_limpio = str_replace('.', '', $precio_limpio);
+@php
+    // Función helper para mostrar rangos (Min - Max)
+    $mostrarRango = function($min, $max, $sufijo = '') {
+        if ($min && $max && $min != $max) {
+            return $min . ' - ' . $max . $sufijo;
+        } elseif ($max) {
+            return $max . $sufijo;
+        } elseif ($min) {
+            return $min . $sufijo;
         }
-    @endphp
+        return 'N/A';
+    };
+@endphp
 
-    @if(is_numeric($precio_limpio))
-        ${{ number_format(floatval($precio_limpio), 0, '.', ',') }}
-    @else
-        {{ $precio }}
-    @endif
-@else
-    Precio no disponible
-@endif
-                    </p>
-                    <a class="btn-detalles" href="{{ route('propiedad.show', $propiedad->id) }}">Ver detalles</a>
-                </div>
+@foreach($propiedadesDestacadasHome as $propiedad)
+<!-- Tarjeta {{ $loop->iteration }} -->
+<article class="tarjeta-propiedad">
+    <a style="text-decoration: none;" href="{{ route('propiedad.show', $propiedad->id) }}">
+        <div class="imagen-propiedad">
+            <div class="tags-propiedad">
+                @if($propiedad->{'Entrega Inmediata/Preventa'})
+                    <span class="tag">{{ $propiedad->{'Entrega Inmediata/Preventa'} }}</span>
+                @endif
             </div>
-        </a>
-        </article>
-        @endforeach
+
+            @if($propiedad->{'Link Imagen'})
+                <img src="{{ $propiedad->{'Link Imagen'} }}" alt="{{ $propiedad->{'Nombre de la Propiedad'} }}" class="prop-hero-img">
+            @endif
+        </div>
+
+        <div class="contenido-propiedad">
+            <h3>{{ $propiedad->{'Nombre Kibah'} }}</h3>
+            <p class="direccion-propiedad">
+                {{ $propiedad->Colonia }}, {{ $propiedad->Alcaldía }}
+            </p>
+
+            <div class="detalles-propiedad">
+                {{-- Recámaras --}}
+                <span class="item-detalle">
+                    <img src="{{ asset('imagenes/cama.png') }}" alt="">
+                    {{ $mostrarRango($propiedad->{'Recámaras Min'}, $propiedad->{'Recámaras Max'}) }}
+                </span>
+
+                <span class="separador-detalle">|</span>
+
+                {{-- Baños --}}
+                <span class="item-detalle">
+                    <img src="{{ asset('imagenes/ducha.png') }}" alt="">
+                    {{ $mostrarRango($propiedad->{'Baños Min'}, $propiedad->{'Baños Max'}) }}
+                </span>
+
+                {{-- Estacionamientos (solo si existe) --}}
+                @if($propiedad->{'Estacionamientos Min'} || $propiedad->{'Estacionamientos Max'})
+                    <span class="separador-detalle">|</span>
+                    <span class="item-detalle">
+                        <img src="{{ asset('imagenes/cochera.png') }}" alt="">
+                        {{ $mostrarRango($propiedad->{'Estacionamientos Min'}, $propiedad->{'Estacionamientos Max'}) }}
+                    </span>
+                @endif
+
+                {{-- M2 Totales --}}
+                {{-- @if($propiedad->{'M2 Totales Min'} || $propiedad->{'M2 Totales Max'})
+                    <span class="separador-detalle">|</span>
+                    <span class="item-detalle">
+                        <img src="{{ asset('imagenes/seleccione.png') }}" alt="">
+                        {{ $mostrarRango($propiedad->{'M2 Totales Min'}, $propiedad->{'M2 Totales Max'}, ' m²') }}
+                    </span>
+                @endif --}}
+            </div>
+
+            <div class="precio-boton">
+                <p class="precio-propiedad">
+                    @php
+                        $precioMin = $propiedad->{'Precio Min'} ? preg_replace('/[^0-9.]/', '', $propiedad->{'Precio Min'}) : null;
+                        $precioMax = $propiedad->{'Precio Max'} ? preg_replace('/[^0-9.]/', '', $propiedad->{'Precio Max'}) : null;
+                    @endphp
+
+                    @if($precioMin && $precioMax)
+                        ${{ number_format($precioMin, 0, '.', ',') }} - ${{ number_format($precioMax, 0, '.', ',') }}
+                    @elseif($precioMax)
+                        ${{ number_format($precioMax, 0, '.', ',') }}
+                    @elseif($precioMin)
+                        ${{ number_format($precioMin, 0, '.', ',') }}
+                    @else
+                        Precio no disponible
+                    @endif
+                </p>
+                <a class="btn-detalles" href="{{ route('propiedad.show', $propiedad->id) }}">Ver detalles</a>
+            </div>
+        </div>
+    </a>
+</article>
+@endforeach
             </div>
         </div>
     </section>
@@ -390,32 +423,23 @@
     })
 
 
-    function realizarBusqueda() {
-        const colonia = document.querySelector('[name="colonia"]').value;
-        const recamaras = document.querySelector('[name="recamaras"]').value;
-        const banos = document.querySelector('[name="banos"]').value;
-        const tipoPropiedad = document.querySelector('[name="tipo_propiedad"]').value;
+function realizarBusqueda() {
+    const colonia = document.querySelector('[name="colonia"]').value;
+    const recamarasMin = document.querySelector('[name="recamaras_min"]').value;
+    const banosMin = document.querySelector('[name="banos_min"]').value;
+    const tipoPropiedad = document.querySelector('[name="tipo_propiedad"]').value;
 
-        console.log('Parámetros de búsqueda:', {
-            colonia: colonia,
-            recamaras: recamaras,
-            banos: banos,
-            tipoPropiedad: tipoPropiedad
-        });
+    let url = '/buscar?';
+    const params = [];
 
-        let url = '/buscar?';
-        const params = [];
+    if (colonia) params.push(`colonia=${encodeURIComponent(colonia)}`);
+    if (recamarasMin) params.push(`recamaras_min=${encodeURIComponent(recamarasMin)}`);
+    if (banosMin) params.push(`banos_min=${encodeURIComponent(banosMin)}`);
+    if (tipoPropiedad) params.push(`tipo_propiedad=${encodeURIComponent(tipoPropiedad)}`);
 
-        if (colonia) params.push(`colonia=${encodeURIComponent(colonia)}`);
-        if (recamaras) params.push(`recamaras=${encodeURIComponent(recamaras)}`);
-        if (banos) params.push(`banos=${encodeURIComponent(banos)}`);
-        if (tipoPropiedad) params.push(`tipo_propiedad=${encodeURIComponent(tipoPropiedad)}`);
-
-        const finalUrl = url + params.join('&');
-        console.log('URL final:', finalUrl);
-
-        window.location.href = finalUrl;
-    }
+    const finalUrl = url + params.join('&');
+    window.location.href = finalUrl;
+}
 
 function verDetalle(id) {
     // Redirigir a la página de detalles
