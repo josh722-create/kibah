@@ -27,6 +27,15 @@
  </div>
 
     <!-- Filtro -->
+    <button class="btn-toggle-filtros" id="btnToggleFiltros">
+    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="4" y1="6" x2="20" y2="6"/>
+        <line x1="8" y1="12" x2="16" y2="12"/>
+        <line x1="10" y1="18" x2="14" y2="18"/>
+    </svg>
+    Filtros
+    <span class="flecha-filtros">▾</span>
+</button>
     <form class="filtro-propiedades" method="GET" action="{{ route('buscar') }}" id="formFiltros">
         <select name="estado" id="selectEstado">
             <option value="" selected disabled>Tipo de propiedad</option>
@@ -121,7 +130,15 @@
 
 </header>
 
+<script>
+    const btnToggleFiltros = document.getElementById('btnToggleFiltros');
+const filtroForm = document.querySelector('.filtro-propiedades');
 
+btnToggleFiltros.addEventListener('click', function () {
+    filtroForm.classList.toggle('abierto');
+    btnToggleFiltros.classList.toggle('filtros-abiertos');
+});
+</script>
 <script>
 const btnMenu   = document.getElementById("menuMovilPropiedades");
 const nav       = document.getElementById("navPropiedades");

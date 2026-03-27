@@ -121,9 +121,14 @@
    RESPONSIVE
 ============================================ */
 
+/* Botón toggle filtros - oculto en desktop */
+.btn-toggle-filtros {
+    display: none;
+}
+
 @media (max-width: 900px) {
 
-    /* Mostrar botón menú */
+    /* Mostrar botón menú hamburguesa */
     .btn-menu-prop {
         display: flex;
     }
@@ -147,27 +152,74 @@
         transition: left .3s ease;
         z-index: 9999;
     }
-.nav-prop a{
-    font-size: 24px;
-}
-    /* NAV ABIERTO */
+
+    .nav-prop a {
+        font-size: 24px;
+    }
+
     .nav-prop.activo {
         left: 0;
     }
 
-    /* Botón cerrar dentro del menú */
     .btn-cerrar-menu {
         display: block;
     }
 
-    /* Bloquear scroll cuando el menú está abierto */
     .no-scroll {
         overflow: hidden;
     }
 
-    /* Filtro en columna */
+    /* ── Botón toggle filtros ── */
+    .btn-toggle-filtros {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin: 16px auto 0;
+        width: 90%;
+        padding: 12px 18px;
+        background: rgba(255,255,255,0.12);
+        border: 1px solid rgba(255,255,255,0.3);
+        border-radius: 8px;
+        color: white;
+        font-size: 15px;
+        font-family: 'ArialCustom';
+        font-weight: 600;
+        cursor: pointer;
+        transition: background .2s ease;
+        justify-content: center;
+    }
+
+    .btn-toggle-filtros:hover {
+        background: rgba(255,255,255,0.2);
+    }
+
+    .flecha-filtros {
+        transition: transform .3s ease;
+        display: inline-block;
+        font-size: 18px;
+    }
+
+    .filtros-abiertos .flecha-filtros {
+        transform: rotate(180deg);
+    }
+
+    /* ── Filtro colapsado por defecto en móvil ── */
     .filtro-propiedades {
         grid-template-columns: 1fr;
+
+        /* Animación de apertura */
+        max-height: 0;
+        overflow: hidden;
+        opacity: 0;
+        margin-top: 0;
+        transition: max-height .4s ease, opacity .3s ease, margin-top .3s ease;
+    }
+
+    /* Filtro abierto */
+    .filtro-propiedades.abierto {
+        max-height: 800px;
+        opacity: 1;
+        margin-top: 16px;
     }
 
     .btn-buscar-prop {
