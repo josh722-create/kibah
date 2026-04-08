@@ -28,7 +28,35 @@
 @endphp
 
 <section class="prop-hero">
-    @if ($propiedad->{'Link Imagen'})
+    @php
+        $tieneImagen = fn($val) => strlen(trim($val ?? '')) >= 5;
+        $extrasImagenes = [];
+        if ($tieneImagen($propiedad->{'Imagen 1'})) $extrasImagenes[] = $propiedad->{'Imagen 1'};
+        if ($tieneImagen($propiedad->{'Imagen 2'})) $extrasImagenes[] = $propiedad->{'Imagen 2'};
+        if ($tieneImagen($propiedad->{'Imagen 3'})) $extrasImagenes[] = $propiedad->{'Imagen 3'};
+        $usarSlider = count($extrasImagenes) > 0;
+        $sliderImagenes = $usarSlider
+            ? array_merge([$propiedad->{'Link Imagen'}], $extrasImagenes)
+            : [];
+    @endphp
+
+    @if ($usarSlider)
+        <div class="prop-hero-slider">
+            @foreach ($sliderImagenes as $index => $img)
+                <div class="prop-slide {{ $index === 0 ? 'active' : '' }}">
+                    <img src="{{ $img }}" alt="{{ $propiedad->{'Nombre de la Propiedad'} }} - Imagen {{ $index + 1 }}" class="prop-hero-img">
+                </div>
+            @endforeach
+
+            <button class="prop-slide-btn prev" onclick="propSlider(-1)" aria-label="Anterior">&#8249;</button>
+            <button class="prop-slide-btn next" onclick="propSlider(1)" aria-label="Siguiente">&#8250;</button>
+            <div class="prop-slide-dots">
+                @foreach ($sliderImagenes as $index => $img)
+                    <span class="prop-dot {{ $index === 0 ? 'active' : '' }}" onclick="propSliderGo({{ $index }})"></span>
+                @endforeach
+            </div>
+        </div>
+    @elseif ($tieneImagen($propiedad->{'Link Imagen'}))
         <img src="{{ $propiedad->{'Link Imagen'} }}" alt="{{ $propiedad->{'Nombre de la Propiedad'} }}"
             class="prop-hero-img">
     @endif
@@ -440,7 +468,24 @@
 
 <script>
 function verDetalle(id) {
-    // Redirigir a la página de detalles
     window.location.href = `/propiedad/${id}/`;
 }
+
+(function() {
+    var currentSlide = 0;
+    var slides = document.querySelectorAll('.prop-slide');
+    var dots = document.querySelectorAll('.prop-dot');
+
+    function showSlide(n) {
+        if (!slides.length) return;
+        slides[currentSlide].classList.remove('active');
+        if (dots[currentSlide]) dots[currentSlide].classList.remove('active');
+        currentSlide = (n + slides.length) % slides.length;
+        slides[currentSlide].classList.add('active');
+        if (dots[currentSlide]) dots[currentSlide].classList.add('active');
+    }
+
+    window.propSlider = function(dir) { showSlide(currentSlide + dir); };
+    window.propSliderGo = function(n) { showSlide(n); };
+})();
 </script>
