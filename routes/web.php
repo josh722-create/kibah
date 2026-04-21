@@ -10,6 +10,9 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/buscar', [SearchController::class, 'buscar'])->name('buscar');
 Route::get('/propiedad/{id}', [SearchController::class, 'showProperty'])->name('propiedad.show');
 Route::get('/propiedades', [SearchController::class, 'allProperties'])->name('propiedades.all');
+// routes/web.php
+
+Route::view('/privacidad', 'privacidad')->name('privacidad');
 // Route::get('/propiedades', function () {
 //     return view('propiedades');
 // });

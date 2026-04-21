@@ -10,8 +10,8 @@
         <!-- Columna 2: Enlaces rápidos -->
         <div class="footer-col">
             <h4>ENLACES RÁPIDOS</h4>
-            <a href="/propiedades">Propiedades</a>{{--
-            <a href="#">Aviso de privacidad</a> --}}
+            <a href="/propiedades">Propiedades</a>
+            <a href="/privacidad">Aviso de privacidad</a>
         </div>
 
         <!-- Columna 3: Contacto -->
