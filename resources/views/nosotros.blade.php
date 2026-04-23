@@ -21,20 +21,20 @@
                 incorporando lo último en arquitectura contemporánea a
                 se adapta a tus gustos y presupuesto.</p>
         </div>
-        <div class="banner-filtro">
+        {{-- <div class="banner-filtro">
             <div class="filtro-box">
 
                 <div class="filtro-tabs">
-                    {{-- @foreach ($tiposEntrega as $tipo)
+                    @foreach ($tiposEntrega as $tipo)
                         <button class="tab">{{ $tipo }}</button>
-                    @endforeach --}}
-                    {{-- <button class="tab active">Desarrollo</button> --}}
-                    {{-- <button class="tab">Entrega Inmediata</button> --}}
-                    {{-- <button class="tab">PreVenta</button> --}}
-                    {{-- <button class="tab">Ticket de inversión</button> --}}
-                </div>
+                    @endforeach
+                    <button class="tab active">Desarrollo</button>
+                    <button class="tab">Entrega Inmediata</button>
+                    <button class="tab">PreVenta</button>
+                    <button class="tab">Ticket de inversión</button>
+                </div> --}}
 
-<div class="filtro-body">
+{{-- <div class="filtro-body">
     <label>Ubicación principal</label>
     <select name="colonia">
         <option value="" {{ !request('colonia') ? 'selected' : '' }}>Todas las colonias</option>
@@ -79,7 +79,7 @@
     <button class="btn-search" type="button" onclick="realizarBusqueda()">
         Buscar
     </button>
-</div>
+</div> --}}
 
             </div>
 

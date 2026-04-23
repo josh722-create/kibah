@@ -14,7 +14,7 @@
     @include('header')
     {{-- padre propiedades --}}
     <section class="propiedadesvista">
-        <h1>Propiedades</h1>
+        <h1 style="margin-top: 100px">Propiedades</h1>
         @if(count($coloniasSeleccionadas) > 0)
     <div class="filtros-activos">
         <p>Mostrando propiedades en:

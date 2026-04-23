@@ -3,7 +3,11 @@
 ============================================ */
 
 .header-propiedades {
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
+    z-index: 1000;
     background: var(--color-primary);
     padding: 25px 0;
 }
