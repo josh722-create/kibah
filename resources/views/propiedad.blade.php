@@ -102,6 +102,17 @@
 
 </section>
 
+{{-- miniaturas del slider --}}
+@if ($usarSlider)
+<div class="prop-thumbnails">
+    @foreach ($sliderImagenes as $index => $img)
+        <div class="prop-thumb {{ $index === 0 ? 'active' : '' }}" onclick="propSliderGo({{ $index }})">
+            <img src="{{ $img }}" alt="{{ $propiedad->{'Nombre de la Propiedad'} }} - Imagen {{ $index + 1 }}">
+        </div>
+    @endforeach
+</div>
+@endif
+
 {{-- descripcion --}}
 <div class="propiedad-layout">
 
@@ -475,14 +486,17 @@ function verDetalle(id) {
     var currentSlide = 0;
     var slides = document.querySelectorAll('.prop-slide');
     var dots = document.querySelectorAll('.prop-dot');
+    var thumbs = document.querySelectorAll('.prop-thumb');
 
     function showSlide(n) {
         if (!slides.length) return;
         slides[currentSlide].classList.remove('active');
         if (dots[currentSlide]) dots[currentSlide].classList.remove('active');
+        if (thumbs[currentSlide]) thumbs[currentSlide].classList.remove('active');
         currentSlide = (n + slides.length) % slides.length;
         slides[currentSlide].classList.add('active');
         if (dots[currentSlide]) dots[currentSlide].classList.add('active');
+        if (thumbs[currentSlide]) thumbs[currentSlide].classList.add('active');
     }
 
     window.propSlider = function(dir) { showSlide(currentSlide + dir); };
