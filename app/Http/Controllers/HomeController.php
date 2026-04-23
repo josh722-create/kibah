@@ -7,10 +7,10 @@ use App\Models\Propiedad;
 
 class HomeController extends Controller
 {
-    //
     public function index()
     {
-        // Obtener colonias únicas, sin vacíos y ordenadas
+        $propiedades = Propiedad::take(12)->get();
+        $totalPropiedades = Propiedad::count();
         $colonias = Propiedad::select('Colonia')
             ->whereNotNull('Colonia')
             ->where('Colonia', '!=', '')
@@ -21,30 +21,13 @@ class HomeController extends Controller
                 return !empty(trim($value));
             });
 
-        // Obtener tipos de entrega únicos, sin vacíos
-        $tiposEntrega = Propiedad::select('Entrega Inmediata/Preventa')
-            ->whereNotNull('Entrega Inmediata/Preventa')
-            ->where('Entrega Inmediata/Preventa', '!=', '')
-            ->distinct()
-            ->orderBy('Entrega Inmediata/Preventa')
-            ->pluck('Entrega Inmediata/Preventa')
-            ->filter(function ($value) {
-                return !empty(trim($value));
-            });
+        return view('welcome', compact('propiedades', 'colonias', 'totalPropiedades'));
+    }
 
-        // Propiedades con Entrega Inmediata (máximo 5)
-        $entregaInmediata = Propiedad::where('Entrega Inmediata/Preventa', 'Entrega Inmediata')
-            ->inRandomOrder()
-            ->limit(5)
-            ->get();
-
-        // Propiedades en Preventa (máximo 5)
-        $preventa = Propiedad::where('Entrega Inmediata/Preventa', 'Preventa')
-            ->inRandomOrder()
-            ->limit(5)
-            ->get();
-
-        $propiedadesDestacadasHome = $entregaInmediata->merge($preventa)->shuffle();
-        return view('welcome', compact('colonias', 'tiposEntrega', 'propiedadesDestacadasHome'));
+    public function cargarMas(Request $request)
+    {
+        $offset = (int) $request->get('offset', 0);
+        $propiedades = Propiedad::skip($offset)->take(12)->get();
+        return response()->json($propiedades);
     }
 }

@@ -20,9 +20,11 @@
         <button class="btn-cerrar-menu" id="btnCerrarMenu">&times;</button>
 
         <a href="/">Inicio</a>
-        <a href="/#nosotros">Nosotros</a>
-        <a href="/propiedades">Propiedades</a>
-        <a href="/#contacto">Contáctanos</a>
+        <a href="/nosotros">Nosotros</a>
+        <a href="https://tupropiedad.kibah.com.mx/" target="_blank" rel="noopener noreferrer">Vende tu propiedad</a>
+
+        {{-- <a href="/propiedades">Propiedades</a> --}}
+        {{-- <a href="/#contacto">Contáctanos</a> --}}
     </nav>
  </div>
 
@@ -140,22 +142,21 @@ btnToggleFiltros.addEventListener('click', function () {
 });
 </script>
 <script>
-const btnMenu   = document.getElementById("menuMovilPropiedades");
-const nav       = document.getElementById("navPropiedades");
-const btnCerrar = document.getElementById("btnCerrarMenu");
+const btnMenuProp   = document.getElementById("menuMovilPropiedades");
+const navProp       = document.getElementById("navPropiedades");
+const btnCerrarProp = document.getElementById("btnCerrarMenu");
 
-function toggleMenu() {
-    nav.classList.toggle("activo");
+function toggleMenuProp() {
+    navProp.classList.toggle("activo");
     document.body.classList.toggle("no-scroll");
 }
 
-btnMenu.addEventListener("click", toggleMenu);
-btnCerrar.addEventListener("click", toggleMenu);
+btnMenuProp.addEventListener("click", toggleMenuProp);
+btnCerrarProp.addEventListener("click", toggleMenuProp);
 
-// opcional: cerrar al hacer clic en cualquier link del menú
-nav.querySelectorAll("a").forEach(link => {
+navProp.querySelectorAll("a").forEach(link => {
     link.addEventListener("click", () => {
-        nav.classList.remove("activo");
+        navProp.classList.remove("activo");
         document.body.classList.remove("no-scroll");
     });
 });

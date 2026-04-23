@@ -10,10 +10,11 @@
         <nav class="nav-kibah" id="menuNavegacion">
             <button class="cerrar-menu" id="cerrarMenu">✕</button>
 
-            <a href="/">INICIO</a>
-            <a href="/#nosotros">NOSOTROS</a>
-            <a href="{{ route('propiedades.all') }}">PROPIEDADES</a>
-            <a href="/#contacto">CONTACTANOS</a>
+            <a href="/">Inicio</a>
+            <a href="/nosotros">Nosotros</a>
+        <a href="https://tupropiedad.kibah.com.mx/" target="_blank" rel="noopener noreferrer">Vende tu propiedad</a>
+            {{-- <a href="{{ route('propiedades.all') }}">PROPIEDADES</a> --}}
+            {{-- <a href="/#contacto">CONTACTANOS</a> --}}
         </nav>
 
         <button class="menu-btn" id="btnMenu">

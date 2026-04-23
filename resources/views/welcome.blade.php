@@ -5,195 +5,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kibah</title>
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <meta name="description" content="Nos especializamos en descubrir y ofrecer acceso a precios de preventa exclusivos, garantizando que maximices tu inversión desde el inicio.">
     <meta name="google-site-verification" content="YMEajd8zI1kh4yPV0Rx2YiR726MNsrdGDO9FXQqPV2M" />
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/propie.css') }}">
+    <!-- Meta Pixel Code -->
+    <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '939355188912587');
+    fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=939355188912587&ev=PageView&noscript=1"
+    /></noscript>
+    <!-- End Meta Pixel Code -->
 </head>
 
 <body>
-    {{-- menu --}}
     @include('header-inicio')
-    {{-- banner --}}
-    <div class="banner">
-        <div class="banner-content">
-            <h1>Disfruta tu lugar para vivir</h1>
-            <p>Hemos hecho del desarrollo de la calidad una seña de identidad de
-                incorporando lo último en arquitectura contemporánea a
-                se adapta a tus gustos y presupuesto.</p>
-        </div>
-        <div class="banner-filtro">
-            <div class="filtro-box">
+    @include('header')
 
-                <div class="filtro-tabs">
-                    {{-- @foreach ($tiposEntrega as $tipo)
-                        <button class="tab">{{ $tipo }}</button>
-                    @endforeach --}}
-                    {{-- <button class="tab active">Desarrollo</button> --}}
-                    {{-- <button class="tab">Entrega Inmediata</button> --}}
-                    {{-- <button class="tab">PreVenta</button> --}}
-                    {{-- <button class="tab">Ticket de inversión</button> --}}
-                </div>
-
-<div class="filtro-body">
-    <label>Ubicación principal</label>
-    <select name="colonia">
-        <option value="" {{ !request('colonia') ? 'selected' : '' }}>Todas las colonias</option>
-        @foreach ($colonias as $colonia)
-            <option value="{{ $colonia }}" {{ request('colonia') == $colonia ? 'selected' : '' }}>
-                {{ $colonia }}
-            </option>
-        @endforeach
-    </select>
-
-    <label>Recámaras mínimas</label>
-    <select name="recamaras_min">
-        <option value="" {{ !request('recamaras_min') ? 'selected' : '' }}>Todas las recámaras</option>
-        <option value="1" {{ request('recamaras_min') == '1' ? 'selected' : '' }}>1+</option>
-        <option value="2" {{ request('recamaras_min') == '2' ? 'selected' : '' }}>2+</option>
-        <option value="3" {{ request('recamaras_min') == '3' ? 'selected' : '' }}>3+</option>
-        <option value="4" {{ request('recamaras_min') == '4' ? 'selected' : '' }}>4+</option>
-        <option value="5" {{ request('recamaras_min') == '5' ? 'selected' : '' }}>5+</option>
-    </select>
-
-    <label>Baños mínimos</label>
-    <select name="banos_min">
-        <option value="" {{ !request('banos_min') ? 'selected' : '' }}>Todos los baños</option>
-        <option value="1" {{ request('banos_min') == '1' ? 'selected' : '' }}>1+</option>
-        <option value="2" {{ request('banos_min') == '2' ? 'selected' : '' }}>2+</option>
-        <option value="3" {{ request('banos_min') == '3' ? 'selected' : '' }}>3+</option>
-        <option value="4" {{ request('banos_min') == '4' ? 'selected' : '' }}>4+</option>
-        <option value="5" {{ request('banos_min') == '5' ? 'selected' : '' }}>5+</option>
-    </select>
-
-    <label>Tipos de propiedad</label>
-    <select name="tipo_propiedad">
-        <option value="" {{ !request('tipo_propiedad') ? 'selected' : '' }}>Todos los tipos</option>
-        <option value="Entrega Inmediata" {{ request('tipo_propiedad') == 'Entrega Inmediata' ? 'selected' : '' }}>
-            Entrega Inmediata
-        </option>
-        <option value="Preventa" {{ request('tipo_propiedad') == 'Preventa' ? 'selected' : '' }}>
-            Preventa
-        </option>
-    </select>
-
-    <button class="btn-search" type="button" onclick="realizarBusqueda()">
-        Buscar
-    </button>
-</div>
-
-            </div>
-
-        </div>
-    </div>
-
-    {{-- lista --}}
-    <section class="seccion-expertos" id="nosotros">
-        <div class="contenedor-expertos">
-
-            <!-- Columna texto -->
-            <div class="texto-expertos">
-                <h2>EXPERTOS EN CONECTAR PROPIEDADES<br>CON EL CLIENTE IDEAL</h2>
-
-                <p class="subtitulo-expertos">
-                    Estás en el lugar correcto si buscas...
-                </p>
-
-                <ul class="lista-beneficios">
-                    <li class="beneficio">
-                        <div class="icono-beneficio">
-                            <img src="{{ asset('imagenes/Icono-paloma.webp') }}" alt="Icono validación" loading="lazy">
-                        </div>
-                        <div class="contenido-beneficio">
-                            <h3>Conectar tu Propiedad con el Cliente Ideal</h3>
-                            <p>No solo encontramos compradores, creamos conexiones perfectas entre propiedades y
-                                prospectos que buscan exactamente lo que ofreces.</p>
-                        </div>
-                    </li>
-
-                    <li class="beneficio">
-                        <div class="icono-beneficio">
-                            <img src="{{ asset('imagenes/Icono-paloma.webp') }}" alt="Icono validación" loading="lazy">
-                        </div>
-                        <div class="contenido-beneficio">
-                            <h3>Acompañamiento Completo</h3>
-                            <p>Desde el primer paso hasta recibir las llaves, nuestros asesores expertos están contigo,
-                                asegurando que cada aspecto de tu compra sea la mejor inversión de tu vida.</p>
-                        </div>
-                    </li>
-
-                    <li class="beneficio">
-                        <div class="icono-beneficio">
-                            <img src="{{ asset('imagenes/Icono-paloma.webp') }}" alt="Icono validación" loading="lazy">
-                        </div>
-                        <div class="contenido-beneficio">
-                            <h3>Quieres Valor Desde el Inicio</h3>
-                            <p>Nos especializamos en descubrir y ofrecer acceso a precios de preventa exclusivos,
-                                garantizando que maximices tu inversión desde el inicio.</p>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-
-            <!-- Columna imagen / mockup app -->
-            <div class="imagen-expertos">
-                <div class="contenedor-movil">
-                    <img src="{{ asset('imagenes/Celular-inicio.png') }}" alt="App KIBAH" class="imagen-movil"
-                        loading="lazy">
-                </div>
-            </div>
-
-        </div>
-    </section>
-    {{-- separador --}}
-    <section class="liston">
-        <p>Nos aseguramos de que cada aspecto de tu compra sea cuidadosamente gestionado hasta que tengas las llaves en
-            la mano.</p>
-    </section>
-    {{-- contador --}}
-    <section class="seccion-contadores">
-        <div class="contenedor-contadores">
-
-            <div class="contador">
-                <p class="contador-numero">+200</p>
-                <p class="contador-texto">DESARROLLOS</p>
-            </div>
-
-            <div class="contador">
-                <p class="contador-numero">+100</p>
-                <p class="contador-texto">CLIENTES SATISFECHOS</p>
-            </div>
-
-            <div class="contador">
-                <p class="contador-numero">+10</p>
-                <p class="contador-texto">CIUDADES PARA ELEGIR TU PROPIEDAD</p>
-            </div>
-
-        </div>
-    </section>
-    {{-- propiedades destacadas --}}
-    <section class="seccion-propiedades" id="propiedades">
-        <div class="contenedor-propiedades">
-
-            <div class="encabezado-propiedades">
-                <h2>PROPIEDADES DESTACADAS</h2>
-
-                <div class="filtros-propiedades">
-                    {{-- <button class="filtro-propiedad activo">Todo</button> --}}
-                    {{-- <button class="filtro-propiedad">Desarrollo</button> --}}
-                    {{-- <button class="filtro-propiedad">En Renta</button> --}}
-                    {{-- <button class="filtro-propiedad">En Venta</button> --}}
-                    {{-- <button class="filtro-propiedad inmediata">Entrega Inmediata</button> --}}
-                    {{-- <button class="filtro-propiedad preventa">PreVenta</button> --}}
-                    {{-- <button class="filtro-propiedad">Ticket de inversión</button> --}}
-                    {{-- <button class="filtro-propiedad">Último departamento</button> --}}
-                </div>
-            </div>
-            {{-- contenedor entrega inmediata --}}
-
-            <div class="grid-propiedades inmediata-seccion">
-                <!-- Tarjeta 1 -->
+    <section class="propiedadesvista">
+        <h1 style="margin-top: 100px">Propiedades</h1>
+        <div class="grid-propiedades" id="grid-propiedades">
 @php
-    // Función helper para mostrar rangos (Min - Max)
     $mostrarRango = function($min, $max, $sufijo = '') {
         if ($min && $max && $min != $max) {
             return $min . ' - ' . $max . $sufijo;
@@ -206,8 +48,7 @@
     };
 @endphp
 
-@foreach($propiedadesDestacadasHome as $propiedad)
-<!-- Tarjeta {{ $loop->iteration }} -->
+@foreach($propiedades as $propiedad)
 <article class="tarjeta-propiedad">
     <a style="text-decoration: none;" href="{{ route('propiedad.show', $propiedad->id) }}">
         <div class="imagen-propiedad">
@@ -216,34 +57,23 @@
                     <span class="tag">{{ $propiedad->{'Entrega Inmediata/Preventa'} }}</span>
                 @endif
             </div>
-
             @if($propiedad->{'Link Imagen'})
                 <img src="{{ $propiedad->{'Link Imagen'} }}" alt="{{ $propiedad->{'Nombre de la Propiedad'} }}" class="prop-hero-img">
             @endif
         </div>
-
         <div class="contenido-propiedad">
             <h3>{{ $propiedad->{'Nombre Kibah'} }}</h3>
-            <p class="direccion-propiedad">
-                {{ $propiedad->Colonia }}, {{ $propiedad->Alcaldía }}
-            </p>
-
+            <p class="direccion-propiedad">{{ $propiedad->Colonia }}, {{ $propiedad->Alcaldía }}</p>
             <div class="detalles-propiedad">
-                {{-- Recámaras --}}
                 <span class="item-detalle">
                     <img src="{{ asset('imagenes/cama.png') }}" alt="">
                     {{ $mostrarRango($propiedad->{'Recámaras Min'}, $propiedad->{'Recámaras Max'}) }}
                 </span>
-
                 <span class="separador-detalle">|</span>
-
-                {{-- Baños --}}
                 <span class="item-detalle">
                     <img src="{{ asset('imagenes/ducha.png') }}" alt="">
                     {{ $mostrarRango($propiedad->{'Baños Min'}, $propiedad->{'Baños Max'}) }}
                 </span>
-
-                {{-- Estacionamientos (solo si existe) --}}
                 @if($propiedad->{'Estacionamientos Min'} || $propiedad->{'Estacionamientos Max'})
                     <span class="separador-detalle">|</span>
                     <span class="item-detalle">
@@ -251,24 +81,13 @@
                         {{ $mostrarRango($propiedad->{'Estacionamientos Min'}, $propiedad->{'Estacionamientos Max'}) }}
                     </span>
                 @endif
-
-                {{-- M2 Totales --}}
-                {{-- @if($propiedad->{'M2 Totales Min'} || $propiedad->{'M2 Totales Max'})
-                    <span class="separador-detalle">|</span>
-                    <span class="item-detalle">
-                        <img src="{{ asset('imagenes/seleccione.png') }}" alt="">
-                        {{ $mostrarRango($propiedad->{'M2 Totales Min'}, $propiedad->{'M2 Totales Max'}, ' m²') }}
-                    </span>
-                @endif --}}
             </div>
-
             <div class="precio-boton">
                 <p class="precio-propiedad">
                     @php
                         $precioMin = $propiedad->{'Precio Min'} ? preg_replace('/[^0-9.]/', '', $propiedad->{'Precio Min'}) : null;
                         $precioMax = $propiedad->{'Precio Max'} ? preg_replace('/[^0-9.]/', '', $propiedad->{'Precio Max'}) : null;
                     @endphp
-
                     @if($precioMin && $precioMax)
                         ${{ number_format($precioMin, 0, '.', ',') }} - ${{ number_format($precioMax, 0, '.', ',') }}
                     @elseif($precioMax)
@@ -285,164 +104,118 @@
     </a>
 </article>
 @endforeach
-            </div>
+        </div>
+
+        <div style="text-align:center; margin: 2rem 0;" id="contenedor-btn-mas">
+            @if($totalPropiedades > 12)
+            <button id="btn-cargar-mas" class="btn-search" onclick="cargarMas()">Cargar más propiedades</button>
+            @endif
         </div>
     </section>
-    {{-- tarjetas --}}
-    <section class="seccion-servicios">
-        <h2 class="titulo-servicios">LO QUE ESTAMOS PROPORCIONANDO</h2>
 
-        <div class="grid-servicios">
-
-            <!-- TARJETA 1 -->
-            <div class="tarjeta-servicio">
-                <div class="icono-servicio">
-                    <img src="{{ asset('imagenes/iconos/icono (6).webp') }}" alt="Créditos" loading="lazy" />
-                </div>
-                <h3>CRÉDITOS HIPOTECARIOS</h3>
-                <p>Te ayudamos a conseguir tu préstamo con facilidad y claridad, asegurando que obtengas las mejores
-                    condiciones posibles.</p>
-                <a href="https://wa.me/5215527150540?text=quiero%20informaci%C3%B3n%20sobre%20un%20cr%C3%A9dito%20hipotecario" target="_blank"  class="btn-servicio">COMENZAR MI TRÁMITE</a>
-            </div>
-
-            <!-- TARJETA 2 -->
-            <div class="tarjeta-servicio">
-                <div class="icono-servicio">
-                    <img src="{{ asset('imagenes/iconos/icono (2).webp') }}" alt="Casa" loading="lazy" />
-                </div>
-                <h3>VENTA INTEGRAL PARA DESARROLLADORES</h3>
-                <p>Servicio completo de marketing, desde la estrategia hasta la conversión. IA para respuestas y
-                    seguimiento precisos.</p>
-                <a href="https://tupropiedad.kibah.com.mx/venta?_gl=1*wsgmxp*_ga*MTExMzU3NzE0Ny4xNzM4MjY0ODAy*_ga_2E9TCB8Y9J*czE3NzIxMjU0MTQkbzQ5JGcxJHQxNzcyMTI1Njg1JGo2MCRsMCRoMA.." target="_blank" class="btn-servicio">COMENZAR AHORA</a>
-            </div>
-
-            <!-- TARJETA 3 -->
-            <div class="tarjeta-servicio">
-                <div class="icono-servicio">
-                    <img src="{{ asset('imagenes/iconos/icono (4).webp') }}" alt="Vender propiedad"
-                        loading="lazy" />
-                </div>
-                <h3>VENDE TU PROPIEDAD</h3>
-                <p>Hacemos que vender tu casa sea fácil y rentable. Nos ocupamos de todo, desde analizar el precio hasta
-                    encontrar al comprador perfecto.</p>
-                <a href="https://tupropiedad.kibah.com.mx/" target="_blank" class="btn-servicio">COMENZAR AHORA</a>
-            </div>
-
-            <!-- TARJETA 4 -->
-            <div class="tarjeta-servicio">
-                <div class="icono-servicio">
-                    <img src="{{ asset('imagenes/iconos/icono (3).webp') }}" alt="Renta" loading="lazy" />
-                </div>
-                <h3>RENTA TU PROPIEDAD</h3>
-                <p>¿Quieres rentar tu casa? Nos encargamos de todo, desde promocionarla en línea hasta manejar los
-                    trámites.</p>
-                <a href="https://tupropiedad.kibah.com.mx/renta" target="_blank" class="btn-servicio">COMENZAR AHORA</a>
-            </div>
-
-            <!-- TARJETA 5 -->
-            <div class="tarjeta-servicio">
-                <div class="icono-servicio">
-                    <img src="{{ asset('imagenes/iconos/icono (5).webp') }}" alt="Inversionista" loading="lazy" />
-                </div>
-                <h3>ARMA TU PORTAFOLIO INVERSIONISTA</h3>
-                <p>Te guiamos para elegir las mejores propiedades para invertir, asegurando que tu dinero trabaje por
-                    ti.</p>
-                <a href="https://wa.me/5215527150540?text=hola%20quiero%20gu%C3%ADa%20para%20armar%20mi%20portafolio%20inversionista" target="_blank" class="btn-servicio">COMENZAR AHORA</a>
-            </div>
-
-            <!-- TARJETA 6 -->
-            <div class="tarjeta-servicio">
-                <div class="icono-servicio">
-                    <img src="{{ asset('imagenes/iconos/icono (1).webp') }}" alt="Equipo" loading="lazy" />
-                </div>
-                <h3>FORMA PARTE DEL EQUIPO</h3>
-                <p>¿Te apasiona el mundo inmobiliario? Envíanos tu CV y descubre cómo crecer con nosotros.</p>
-                <a href="https://wa.me/5215527150540?text=hola%2C%20quiero%20ser%20parte%20del%20equipo" target="_blank" class="btn-servicio">COMENZAR AHORA</a>
-            </div>
-
-        </div>
-    </section>
-    {{-- formulario de contarcto --}}
-    <section id="contacto" class="seccion-contacto">
-        <div class="contenedor-contacto">
-
-            <!-- Columna izquierda: imagen -->
-            <div class="columna-imagen">
-                <img src="{{ asset('imagenes/edi.webp') }}" alt="Edificio Kibah">
-            </div>
-
-            <!-- Columna derecha: texto + iframe -->
-            <div class="columna-formulario">
-
-                <h2>¿ESTÁS BUSCANDO LA CASA DE TUS SUEÑOS?</h2>
-                <p class="subtexto-form">
-                    Podemos ayudarle a hacer realidad su sueño de un nuevo hogar.
-                </p>
-
-                <!-- Aquí va tu iframe de GHL -->
-                <div class="contenedor-iframe">
-                    <iframe src="https://api.leadconnectorhq.com/widget/form/JX0UXsO8XNsQLwyHASpj"
-                        style="width:100%;height:100%;border:none;border-radius:3px" id="inline-JX0UXsO8XNsQLwyHASpj"
-                        data-layout="{'id':'INLINE'}" data-trigger-type="alwaysShow" data-trigger-value=""
-                        data-activation-type="alwaysActivated" data-activation-value=""
-                        data-deactivation-type="neverDeactivate" data-deactivation-value=""
-                        data-form-name="Página kibah principal" data-height="575"
-                        data-layout-iframe-id="inline-JX0UXsO8XNsQLwyHASpj" data-form-id="JX0UXsO8XNsQLwyHASpj"
-                        title="Página kibah principal">
-                    </iframe>
-                    <script src="https://link.msgsndr.com/js/form_embed.js"></script>
-                </div>
-
-            </div>
-
-        </div>
-    </section>
-    {{-- footer --}}
     @include('whatsapp')
     @include('footer')
+
+<script>
+    const propiedadBaseUrl = "{{ url('/propiedad') }}";
+    const imagenCama     = "{{ asset('imagenes/cama.png') }}";
+    const imagenDucha    = "{{ asset('imagenes/ducha.png') }}";
+    const imagenCochera  = "{{ asset('imagenes/cochera.png') }}";
+    let offset = 12;
+    const total = {{ $totalPropiedades }};
+
+    function rango(min, max, sufijo) {
+        sufijo = sufijo || '';
+        if (min && max && min != max) return min + ' - ' + max + sufijo;
+        if (max) return max + sufijo;
+        if (min) return min + sufijo;
+        return 'N/A';
+    }
+
+    function formatPrecio(valor) {
+        if (!valor) return null;
+        const num = parseFloat(String(valor).replace(/[^0-9.]/g, ''));
+        if (isNaN(num)) return null;
+        return '$' + num.toLocaleString('en-US', { maximumFractionDigits: 0 });
+    }
+
+    function construirTarjeta(p) {
+        const tag = p['Entrega Inmediata/Preventa']
+            ? `<span class="tag">${p['Entrega Inmediata/Preventa']}</span>` : '';
+        const img = p['Link Imagen']
+            ? `<img src="${p['Link Imagen']}" alt="${p['Nombre de la Propiedad'] || ''}" class="prop-hero-img">` : '';
+
+        const recamaras = rango(p['Recámaras Min'], p['Recámaras Max']);
+        const banos     = rango(p['Baños Min'], p['Baños Max']);
+
+        let estacionamiento = '';
+        if (p['Estacionamientos Min'] || p['Estacionamientos Max']) {
+            estacionamiento = `
+                <span class="separador-detalle">|</span>
+                <span class="item-detalle">
+                    <img src="${imagenCochera}" alt="">
+                    ${rango(p['Estacionamientos Min'], p['Estacionamientos Max'])}
+                </span>`;
+        }
+
+        const precioMin = formatPrecio(p['Precio Min']);
+        const precioMax = formatPrecio(p['Precio Max']);
+        let precioTexto = 'Precio no disponible';
+        if (precioMin && precioMax) precioTexto = precioMin + ' - ' + precioMax;
+        else if (precioMax) precioTexto = precioMax;
+        else if (precioMin) precioTexto = precioMin;
+
+        return `
+        <article class="tarjeta-propiedad">
+            <a style="text-decoration:none;" href="${propiedadBaseUrl}/${p.id}">
+                <div class="imagen-propiedad">
+                    <div class="tags-propiedad">${tag}</div>
+                    ${img}
+                </div>
+                <div class="contenido-propiedad">
+                    <h3>${p['Nombre Kibah'] || ''}</h3>
+                    <p class="direccion-propiedad">${p['Colonia'] || ''}, ${p['Alcaldía'] || ''}</p>
+                    <div class="detalles-propiedad">
+                        <span class="item-detalle">
+                            <img src="${imagenCama}" alt="">${recamaras}
+                        </span>
+                        <span class="separador-detalle">|</span>
+                        <span class="item-detalle">
+                            <img src="${imagenDucha}" alt="">${banos}
+                        </span>
+                        ${estacionamiento}
+                    </div>
+                    <div class="precio-boton">
+                        <p class="precio-propiedad">${precioTexto}</p>
+                        <a class="btn-detalles" href="${propiedadBaseUrl}/${p.id}">Ver detalles</a>
+                    </div>
+                </div>
+            </a>
+        </article>`;
+    }
+
+    function cargarMas() {
+        const btn = document.getElementById('btn-cargar-mas');
+        btn.disabled = true;
+        btn.textContent = 'Cargando...';
+
+        fetch(`/cargar-mas?offset=${offset}`)
+            .then(r => r.json())
+            .then(propiedades => {
+                const grid = document.getElementById('grid-propiedades');
+                propiedades.forEach(p => {
+                    grid.insertAdjacentHTML('beforeend', construirTarjeta(p));
+                });
+                offset += propiedades.length;
+                if (offset >= total) {
+                    document.getElementById('contenedor-btn-mas').style.display = 'none';
+                } else {
+                    btn.disabled = false;
+                    btn.textContent = 'Cargar más propiedades';
+                }
+            });
+    }
+</script>
 </body>
 
 </html>
-
-
-<script>
-    let preventaBtn = document.querySelector('.preventa');
-    let inmediataBtn = document.querySelector('.inmediata')
-    let preventaSeccion = document.querySelector('.preventa-seccion')
-    let inmediataSeccion = document.querySelector('.inmediata-seccion')
-    preventaSeccion.style.display = 'none'
-
-    preventaBtn.addEventListener('click', ()=>{
-        preventaSeccion.style.display = 'flex'
-        inmediataSeccion.style.display = 'none'
-    })
-
-    inmediataBtn.addEventListener('click', ()=>{
-        inmediataSeccion.style.display = 'flex'
-        preventaSeccion.style.display = 'none'
-    })
-
-
-function realizarBusqueda() {
-    const colonia = document.querySelector('[name="colonia"]').value;
-    const recamarasMin = document.querySelector('[name="recamaras_min"]').value;
-    const banosMin = document.querySelector('[name="banos_min"]').value;
-    const tipoPropiedad = document.querySelector('[name="tipo_propiedad"]').value;
-
-    let url = '/buscar?';
-    const params = [];
-
-    if (colonia) params.push(`colonia=${encodeURIComponent(colonia)}`);
-    if (recamarasMin) params.push(`recamaras_min=${encodeURIComponent(recamarasMin)}`);
-    if (banosMin) params.push(`banos_min=${encodeURIComponent(banosMin)}`);
-    if (tipoPropiedad) params.push(`tipo_propiedad=${encodeURIComponent(tipoPropiedad)}`);
-
-    const finalUrl = url + params.join('&');
-    window.location.href = finalUrl;
-}
-
-function verDetalle(id) {
-    // Redirigir a la página de detalles
-    window.location.href = `/propiedad/${id}/`;
-}
-</script>
