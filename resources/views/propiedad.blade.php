@@ -2,6 +2,23 @@
 <html lang="en">
 
 <head>
+            <!-- Meta Pixel Code -->
+    <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '939355188912587');
+    fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=939355188912587&ev=PageView&noscript=1"
+    /></noscript>
+    <!-- End Meta Pixel Code -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ asset('css/propiedad.css') }}">
@@ -201,22 +218,77 @@
 
                 <br>
                 <h2>Agenda tu cita</h2>
-                <iframe src="https://api.leadconnectorhq.com/widget/form/vIaBlUNA9zYY0pBcyUqF"
-                    style="width:100%;height:100%;border:none;border-radius:3px" id="inline-vIaBlUNA9zYY0pBcyUqF"
-                    data-layout="{'id':'INLINE'}" data-trigger-type="alwaysShow" data-trigger-value=""
-                    data-activation-type="alwaysActivated" data-activation-value=""
-                    data-deactivation-type="neverDeactivate" data-deactivation-value="" data-form-name="Agendar cita"
-                    data-height="561" data-layout-iframe-id="inline-vIaBlUNA9zYY0pBcyUqF"
-                    data-form-id="vIaBlUNA9zYY0pBcyUqF" title="Agendar cita">
-                </iframe>
-                <script src="https://link.msgsndr.com/js/form_embed.js"></script>
+
+                @if ($errors->any())
+                    <div style="background:#fef2f2;border:1px solid #fca5a5;border-radius:6px;padding:12px 16px;margin-bottom:16px;font-size:14px;color:#b91c1c;">
+                        <ul style="margin:0;padding-left:18px;">
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+
+                <form action="{{ route('contacto.enviar') }}" method="POST" class="form-agenda">
+                    @csrf
+
+                    <div class="form-group">
+                        <label for="desarrollo">Propiedad de interés</label>
+                        <input type="text" id="desarrollo" name="desarrollo" value="{{ old('desarrollo', $propiedad->{'Nombre Kibah'} ?: $propiedad->{'Nombre de la Propiedad'}) }}" placeholder="Nombre de la propiedad" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="nombre">Nombre completo</label>
+                        <input type="text" id="nombre" name="nombre" value="{{ old('nombre') }}" placeholder="Tu nombre" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="telefono">Teléfono</label>
+                        <input type="tel" id="telefono" name="telefono" value="{{ old('telefono') }}" placeholder="10 dígitos" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Correo electrónico</label>
+                        <input type="email" id="email" name="email" value="{{ old('email') }}" placeholder="correo@ejemplo.com" required>
+                    </div>
+
+                    <div class="form-row-2col">
+                        <div class="form-group">
+                            <label for="fecha">Fecha</label>
+                            <input type="date" id="fecha" name="fecha" value="{{ old('fecha') }}" min="{{ date('Y-m-d') }}" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="hora">Hora</label>
+                            <input type="time" id="hora" name="hora" value="{{ old('hora') }}" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="presupuesto">Presupuesto aproximado</label>
+                        <select id="presupuesto" name="presupuesto" required>
+                            <option value="" disabled {{ old('presupuesto') ? '' : 'selected' }}>Selecciona un rango</option>
+                            <option value="Menos de $1M"    {{ old('presupuesto') == 'Menos de $1M'    ? 'selected' : '' }}>Menos de $1,000,000</option>
+                            <option value="$1M - $2M"       {{ old('presupuesto') == '$1M - $2M'       ? 'selected' : '' }}>$1,000,000 – $2,000,000</option>
+                            <option value="$2M - $4M"       {{ old('presupuesto') == '$2M - $4M'       ? 'selected' : '' }}>$2,000,000 – $4,000,000</option>
+                            <option value="$4M - $7M"       {{ old('presupuesto') == '$4M - $7M'       ? 'selected' : '' }}>$4,000,000 – $7,000,000</option>
+                            <option value="Más de $7M"      {{ old('presupuesto') == 'Más de $7M'      ? 'selected' : '' }}>Más de $7,000,000</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="mensaje">Mensaje <span style="font-weight:400;color:#888;">(opcional)</span></label>
+                        <textarea id="mensaje" name="mensaje" rows="3" placeholder="¿Algo más que quieras comentarnos?">{{ old('mensaje') }}</textarea>
+                    </div>
+
+                    <button type="submit" class="btn-agenda-submit">Enviar solicitud</button>
+                </form>
             </section>
 
 
         </div>
 
         <aside class="propiedad-sidebar">
-            <h2>Contáctanos</h2>
+            {{-- <h2>Contáctanos</h2>
             <iframe src="https://api.leadconnectorhq.com/widget/form/mkE8bcNslcQhE8QNX5KJ"
                 style="width:100%;height:100%;border:none;border-radius:3px" id="inline-mkE8bcNslcQhE8QNX5KJ"
                 data-layout="{'id':'INLINE'}" data-trigger-type="alwaysShow" data-trigger-value=""
@@ -225,7 +297,7 @@
                 data-layout-iframe-id="inline-mkE8bcNslcQhE8QNX5KJ" data-form-id="mkE8bcNslcQhE8QNX5KJ"
                 title="Contacto propiedad ">
             </iframe>
-            <script src="https://link.msgsndr.com/js/form_embed.js"></script>
+            <script src="https://link.msgsndr.com/js/form_embed.js"></script> --}}
 
             <br>
                 <h3 class="titulo-seccion">Propiedad destacada</h3>

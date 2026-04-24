@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SearchController;
+use App\Http\Controllers\ContactoController;
 use App\Models\Propiedad;
 
 
@@ -53,6 +54,21 @@ Route::get('nosotros', function () {
 })->name('nosotros');
 
 Route::view('/privacidad', 'privacidad')->name('privacidad');
+Route::post('/contacto/enviar', [ContactoController::class, 'enviar'])->name('contacto.enviar');
+Route::post('/contacto/enviar-nosotros', [ContactoController::class, 'enviarNosotros'])->name('contacto.enviarNosotros');
+Route::get('/contacto/gracias', function () {
+    $colonias = \App\Models\Propiedad::select('Colonia')
+        ->whereNotNull('Colonia')->where('Colonia', '!=', '')
+        ->distinct()->orderBy('Colonia')->pluck('Colonia')
+        ->filter(fn($v) => !empty(trim($v)));
+
+    $tiposEntrega = \App\Models\Propiedad::select('Entrega Inmediata/Preventa')
+        ->whereNotNull('Entrega Inmediata/Preventa')->where('Entrega Inmediata/Preventa', '!=', '')
+        ->distinct()->orderBy('Entrega Inmediata/Preventa')->pluck('Entrega Inmediata/Preventa')
+        ->filter(fn($v) => !empty(trim($v)));
+
+    return view('gracias', compact('colonias', 'tiposEntrega'));
+})->name('contacto.gracias');
 // Route::get('/propiedades', function () {
 //     return view('propiedades');
 // });

@@ -6,6 +6,87 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kibah</title>
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <style>
+        /* ── Formulario nosotros ── */
+        .form-nosotros {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            width: 100%;
+        }
+
+        .form-nosotros .fn-row2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+
+        .form-nosotros .fn-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .form-nosotros label {
+            font-size: 13px;
+            font-weight: 600;
+            color: #1a1a2e;
+            text-transform: uppercase;
+            letter-spacing: .4px;
+        }
+
+        .form-nosotros input,
+        .form-nosotros select,
+        .form-nosotros textarea {
+            width: 100%;
+            padding: 11px 14px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 14px;
+            color: #374151;
+            background: #fff;
+            box-sizing: border-box;
+            transition: border-color .2s, box-shadow .2s;
+        }
+
+        .form-nosotros input:focus,
+        .form-nosotros select:focus,
+        .form-nosotros textarea:focus {
+            outline: none;
+            border-color: #c9a84c;
+            box-shadow: 0 0 0 3px rgba(201,168,76,.15);
+        }
+
+        .form-nosotros textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .btn-nosotros-submit {
+            width: 100%;
+            padding: 14px;
+            background: #c9a84c;
+            color: #fff;
+            font-size: 15px;
+            font-weight: 700;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            letter-spacing: .5px;
+            transition: background .2s;
+            margin-top: 4px;
+        }
+
+        .btn-nosotros-submit:hover {
+            background: #a8873a;
+        }
+
+        @media (max-width: 560px) {
+            .form-nosotros .fn-row2 {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
     <meta name="description" content="Nos especializamos en descubrir y ofrecer acceso a precios de preventa exclusivos, garantizando que maximices tu inversión desde el inicio.">
     <meta name="google-site-verification" content="YMEajd8zI1kh4yPV0Rx2YiR726MNsrdGDO9FXQqPV2M" />
 </head>
@@ -379,19 +460,71 @@
                     Podemos ayudarle a hacer realidad su sueño de un nuevo hogar.
                 </p>
 
-                <!-- Aquí va tu iframe de GHL -->
-                <div class="contenedor-iframe">
-                    <iframe src="https://api.leadconnectorhq.com/widget/form/JX0UXsO8XNsQLwyHASpj"
-                        style="width:100%;height:100%;border:none;border-radius:3px" id="inline-JX0UXsO8XNsQLwyHASpj"
-                        data-layout="{'id':'INLINE'}" data-trigger-type="alwaysShow" data-trigger-value=""
-                        data-activation-type="alwaysActivated" data-activation-value=""
-                        data-deactivation-type="neverDeactivate" data-deactivation-value=""
-                        data-form-name="Página kibah principal" data-height="575"
-                        data-layout-iframe-id="inline-JX0UXsO8XNsQLwyHASpj" data-form-id="JX0UXsO8XNsQLwyHASpj"
-                        title="Página kibah principal">
-                    </iframe>
-                    <script src="https://link.msgsndr.com/js/form_embed.js"></script>
-                </div>
+                @if ($errors->any())
+                    <div style="background:#fef2f2;border:1px solid #fca5a5;border-radius:6px;padding:12px 16px;margin-bottom:16px;font-size:14px;color:#b91c1c;">
+                        <ul style="margin:0;padding-left:18px;">
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+
+                <form action="{{ route('contacto.enviarNosotros') }}" method="POST" class="form-nosotros">
+                    @csrf
+
+                    <div class="fn-row2">
+                        <div class="fn-group">
+                            <label for="nombre">Nombre</label>
+                            <input type="text" id="nombre" name="nombre" value="{{ old('nombre') }}" placeholder="Tu nombre" required>
+                        </div>
+                        <div class="fn-group">
+                            <label for="apellido">Apellido</label>
+                            <input type="text" id="apellido" name="apellido" value="{{ old('apellido') }}" placeholder="Tu apellido" required>
+                        </div>
+                    </div>
+
+                    <div class="fn-row2">
+                        <div class="fn-group">
+                            <label for="telefono">Teléfono</label>
+                            <input type="tel" id="telefono" name="telefono" value="{{ old('telefono') }}" placeholder="10 dígitos" required>
+                        </div>
+                        <div class="fn-group">
+                            <label for="email">Correo electrónico</label>
+                            <input type="email" id="email" name="email" value="{{ old('email') }}" placeholder="correo@ejemplo.com" required>
+                        </div>
+                    </div>
+
+                    <div class="fn-group">
+                        <label for="desarrollo">Desarrollo de interés</label>
+                        <input type="text" id="desarrollo" name="desarrollo" value="{{ old('desarrollo') }}" placeholder="¿Qué desarrollo te interesa?">
+                    </div>
+
+                    <div class="fn-row2">
+                        <div class="fn-group">
+                            <label for="presupuesto">Rango de presupuesto</label>
+                            <select id="presupuesto" name="presupuesto" required>
+                                <option value="" disabled {{ old('presupuesto') ? '' : 'selected' }}>Selecciona un rango</option>
+                                <option value="Menos de $1M"  {{ old('presupuesto') == 'Menos de $1M'  ? 'selected' : '' }}>Menos de $1,000,000</option>
+                                <option value="$1M - $2M"     {{ old('presupuesto') == '$1M - $2M'     ? 'selected' : '' }}>$1M – $2M</option>
+                                <option value="$2M - $4M"     {{ old('presupuesto') == '$2M - $4M'     ? 'selected' : '' }}>$2M – $4M</option>
+                                <option value="$4M - $7M"     {{ old('presupuesto') == '$4M - $7M'     ? 'selected' : '' }}>$4M – $7M</option>
+                                <option value="Más de $7M"    {{ old('presupuesto') == 'Más de $7M'    ? 'selected' : '' }}>Más de $7M</option>
+                            </select>
+                        </div>
+                        <div class="fn-group">
+                            <label for="metros">Metros cuadrados deseados</label>
+                            <input type="text" id="metros" name="metros" value="{{ old('metros') }}" placeholder="Ej. 80 m²">
+                        </div>
+                    </div>
+
+                    <div class="fn-group">
+                        <label for="comentarios">Comentarios</label>
+                        <textarea id="comentarios" name="comentarios" rows="3" placeholder="¿Algo más que quieras comentarnos?">{{ old('comentarios') }}</textarea>
+                    </div>
+
+                    <button type="submit" class="btn-nosotros-submit">Enviar solicitud</button>
+                </form>
 
             </div>
 
