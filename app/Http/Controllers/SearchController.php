@@ -157,7 +157,8 @@ class SearchController extends Controller
             ->limit(8)
             ->get();
 
-        $propiedadIndividual = Propiedad::whereIn('Entrega Inmediata/Preventa', ['Entrega Inmediata', 'Preventa'])
+        $propiedadIndividual = Propiedad::whereIn('id', [1964, 1963, 1904, 1909])
+            ->where('id', '!=', $id)
             ->inRandomOrder()
             ->limit(1)
             ->get();
