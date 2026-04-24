@@ -152,8 +152,9 @@ class SearchController extends Controller
 
         // Propiedades destacadas
         $propiedadesDestacadas = Propiedad::whereIn('Entrega Inmediata/Preventa', ['Entrega Inmediata', 'Preventa'])
+            ->where('id', '!=', $id)
             ->inRandomOrder()
-            ->limit(4)
+            ->limit(8)
             ->get();
 
         $propiedadIndividual = Propiedad::whereIn('Entrega Inmediata/Preventa', ['Entrega Inmediata', 'Preventa'])

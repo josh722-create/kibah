@@ -36,19 +36,16 @@ Route::get('nosotros', function () {
             return !empty(trim($value));
         });
 
-    // Propiedades con Entrega Inmediata (máximo 5)
-    $entregaInmediata = Propiedad::where('Entrega Inmediata/Preventa', 'Entrega Inmediata')
+    $idsDestacados = [1964, 1963, 1904, 1909];
+
+    $propiedadesDestacadas = Propiedad::whereIn('id', $idsDestacados)->get();
+
+    $propiedadesRandom = Propiedad::whereNotIn('id', $idsDestacados)
         ->inRandomOrder()
-        ->limit(5)
+        ->limit(6)
         ->get();
 
-    // Propiedades en Preventa (máximo 5)
-    $preventa = Propiedad::where('Entrega Inmediata/Preventa', 'Preventa')
-        ->inRandomOrder()
-        ->limit(5)
-        ->get();
-
-    $propiedadesDestacadasHome = $entregaInmediata->merge($preventa)->shuffle();
+    $propiedadesDestacadasHome = $propiedadesDestacadas->merge($propiedadesRandom);
 
     return view('nosotros', compact('colonias', 'tiposEntrega', 'propiedadesDestacadasHome'));
 })->name('nosotros');
