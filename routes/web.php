@@ -41,7 +41,7 @@ Route::get('nosotros', function () {
     $propiedadesDestacadas = Propiedad::whereIn('id', $idsDestacados)->get();
 
     $propiedadesRandom = Propiedad::whereNotIn('id', $idsDestacados)
-        ->inRandomOrder()
+        ->latest()
         ->limit(6)
         ->get();
 

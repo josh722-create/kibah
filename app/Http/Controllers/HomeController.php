@@ -9,7 +9,7 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $propiedades = Propiedad::take(12)->get();
+        $propiedades = Propiedad::latest()->take(12)->get();
         $totalPropiedades = Propiedad::count();
         $colonias = Propiedad::select('Colonia')
             ->whereNotNull('Colonia')
@@ -27,7 +27,7 @@ class HomeController extends Controller
     public function cargarMas(Request $request)
     {
         $offset = (int) $request->get('offset', 0);
-        $propiedades = Propiedad::skip($offset)->take(12)->get();
+        $propiedades = Propiedad::latest()->skip($offset)->take(12)->get();
         return response()->json($propiedades);
     }
 }
